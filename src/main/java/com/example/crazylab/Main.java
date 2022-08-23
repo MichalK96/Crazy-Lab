@@ -21,3 +21,5 @@ public class Main extends Application {
         launch();
     }
 }
+
+//test czy działa
