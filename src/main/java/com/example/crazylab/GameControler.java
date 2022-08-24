@@ -2,21 +2,19 @@ package com.example.crazylab;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 
 public class GameControler {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
-    private Stage stage;
-    Parent root ;
-    Scene scene ;
+
+
     @FXML
     Circle player;
 
@@ -44,25 +42,30 @@ public class GameControler {
     }
 
 
-
-    @FXML
-    public  void move()throws IOException{
+    public  void move(Scene scene, Stage stage)throws IOException{
         System.out.println("aisndiansdinasdopkinasopdni");
-        root = loader.load();
-        scene = new Scene(root);
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent keyEvent) {
             System.out.println(keyEvent.getCode());
             switch (keyEvent.getCode()) {
-                case UP:
 
+                case UP:
                     moveUp();
+
+                    System.out.println("up");
                     break;
                 case RIGHT:
+                    System.out.println("prawo");
+                    System.out.println(player);
+                    System.out.println(x);
+                    System.out.println(y);
                     moveRight();
                     break;
                 case LEFT:
+                    System.out.println("up");
+
                     moveLeft();
                     break;
                 case DOWN:
@@ -73,27 +76,31 @@ public class GameControler {
                     break;
 
             }
+            stage.setScene(scene);
+            stage.show();
         }
+
         });
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
-    } {
-
-
-
-
-
 
 
 
     }
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

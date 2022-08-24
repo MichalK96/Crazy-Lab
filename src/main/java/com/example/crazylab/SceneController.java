@@ -25,13 +25,19 @@ public class SceneController {
 
     @FXML
     void startNewGame(ActionEvent event) throws IOException {
-        System.out.println(".....................................................");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
+        Parent root = loader.load();
+        GameControler controller = loader.getController();
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("gameScreen.fxml"));   //TODO problem ze ścieżką
+
         scene = new Scene(root);
+        controller.move(scene, stage);
         stage.setScene(scene);
+        System.out.println("po naszym kontyrolerze");
         stage.show();
-        GameControler.move();
+
 
     }
 
