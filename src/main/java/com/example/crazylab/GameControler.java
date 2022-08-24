@@ -45,7 +45,7 @@ public class GameControler {
     @FXML
     GridPane grid;
 
-   private boolean checkIfEnemy(Integer row, Integer column) {
+   private boolean checkIfEnemy( Integer column,Integer row) {
        System.out.println(row+"  "+column);
         for (Node node : grid.getChildren()) {
             if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column){
@@ -56,7 +56,7 @@ public class GameControler {
                     return (node instanceof Rectangle);
                 } else if (node instanceof Polygon ) {
                     System.out.println("item!!");
-                    return true;
+
 //                    podnoszenie itemu
                 }
 
@@ -91,7 +91,7 @@ public class GameControler {
     }
 
     public void moveLeft() {
-        if (x > 0&& ( !checkIfEnemy(x-1, y))) {
+        if (x > 0 && ( !checkIfEnemy(x-1, y))) {
             grid.getChildren().remove(player);
             grid.add(player, x -= 1, y);
         }
