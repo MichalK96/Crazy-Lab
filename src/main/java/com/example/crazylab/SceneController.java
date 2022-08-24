@@ -35,31 +35,7 @@ public class SceneController {
         System.out.println("ras");
 
         Scene scene = new Scene(root);
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-
-                switch (keyEvent.getCode()) {
-
-                    case UP:
-                        controller.moveUp();
-                        break;
-                    case RIGHT:
-                        controller.moveRight();
-                        break;
-                    case LEFT:
-                        controller.moveLeft();
-                        break;
-                    case DOWN:
-                        controller.moveDown();
-                        break;
-                    default:
-                        System.out.println(keyEvent.getCode());
-                        break;
-                }
-
-            }
-        });
+        controller.move(scene);
 
         stage.setScene(scene);
         stage.show();

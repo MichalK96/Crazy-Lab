@@ -52,7 +52,7 @@ public class GameControler {
     }
 
 
-    public  void move(Scene scene, Stage stage)throws IOException{
+    public  void move(Scene scene)throws IOException{
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
         @Override
