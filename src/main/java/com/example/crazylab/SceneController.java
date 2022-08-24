@@ -30,16 +30,17 @@ public class SceneController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
+        controller.hihi();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        System.out.println("ras");
+
 
         Scene scene = new Scene(root);
         controller.move(scene);
 
         stage.setScene(scene);
         stage.show();
-        System.out.println("dwea");
+
 
 
 
