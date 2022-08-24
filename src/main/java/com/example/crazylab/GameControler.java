@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
@@ -20,11 +21,8 @@ import java.lang.reflect.Array;
 
 public class GameControler {
 
-
     @FXML
-    Circle player;
-
-
+    ImageView player;
     @FXML
     Rectangle s1;
     @FXML
@@ -32,7 +30,7 @@ public class GameControler {
     @FXML
     Rectangle s3;
     @FXML
-    Rectangle s4;
+    ImageView s4;
     @FXML
     Polygon item;
 
@@ -98,15 +96,6 @@ public class GameControler {
 
     }
 
-    public void hihi() {
-        Image im = new Image("F:\\CP.png");
-        player.setFill(new ImagePattern(im));
-        Image ss = new Image("F:\\SQ.png");
-
-        s4.setFill(new ImagePattern(ss));
-
-
-    }
 
     public void move(Scene scene) throws IOException {
 
