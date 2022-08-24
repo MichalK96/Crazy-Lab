@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.GameControler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.SceneController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/welcomeScreen.png" />
          </image>
       </ImageView>
-      <Button layoutX="111.0" layoutY="325.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="178.0" text="Start Game">
+      <Button fx:id="startButton" layoutX="111.0" layoutY="325.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="46.0" prefWidth="178.0" text="Start Game">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

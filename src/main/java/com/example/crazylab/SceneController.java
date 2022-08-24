@@ -1,4 +1,4 @@
-package com.example.crazylab.controler;
+package com.example.crazylab;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
