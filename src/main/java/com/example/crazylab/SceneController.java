@@ -30,11 +30,7 @@ public class SceneController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
-
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-
-
         Scene scene = new Scene(root);
         controller.move(scene);
 
