@@ -9,6 +9,15 @@ import java.util.Objects;
 public class Player extends Character {
 
     private final List<Item> items = new ArrayList<>();
+    private String name;
+
+    public Player(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public void displayItems() {
         for (Item item : items) {
@@ -34,5 +43,14 @@ public class Player extends Character {
         }
 
     }
+
+    public void fightWithEnemy(String id) {
+        switch (id) {
+            case "boss" -> System.out.println("Fight with boss");
+            case "coworker" -> System.out.println("Fight with coworker");
+            case "infected" -> System.out.println("Fight with infected");
+        }
+    }
+
 
 }

@@ -19,7 +19,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <TextField layoutX="108.0" layoutY="267.0" prefHeight="46.0" prefWidth="185.0" promptText="Provide your name">
+      <TextField fx:id="tfName" layoutX="108.0" layoutY="267.0" prefHeight="46.0" prefWidth="185.0" promptText="Provide your name">
          <font>
             <Font size="16.0" />
          </font>

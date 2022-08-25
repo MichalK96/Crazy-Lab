@@ -22,11 +22,17 @@ public class SceneController {
 
 
     @FXML
-    private TextField userName;
+    private TextField tfName;
+
+    public static String userName;
+
+    public SceneController() {
+    }
 
     @FXML
     void startNewGame(ActionEvent event) throws IOException {
-
+        userName = tfName.getText();
+        System.out.println(userName);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
