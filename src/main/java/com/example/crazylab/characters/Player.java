@@ -35,4 +35,16 @@ public class Player extends Character {
 
     }
 
+
+    public void fightWithBoss() {
+        System.out.println("Fighting with boss");
+    }
+
+    public void fightWithCoworker() {
+        System.out.println("Fighting with coworker");
+    }
+
+    public void fightWithInfected() {
+        System.out.println("Fighting with infected");
+    }
 }

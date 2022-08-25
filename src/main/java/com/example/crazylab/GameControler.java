@@ -1,5 +1,8 @@
 package com.example.crazylab;
 
+import com.example.crazylab.characters.Boss;
+import com.example.crazylab.characters.Coworker;
+import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.Armour;
 import com.example.crazylab.items.Tool;
@@ -25,13 +28,19 @@ import java.lang.reflect.Array;
 public class GameControler {
 
     @FXML
-    private ImageView C_boss;
+    private ImageView CB_boss;
 
     @FXML
-    private ImageView C_coworker;
+    private ImageView CC_coworker;
 
     @FXML
-    private ImageView C_infected;
+    private ImageView CC_coworker1;
+
+    @FXML
+    private ImageView CI_infected;
+
+    @FXML
+    private ImageView CI_infected1;
 
     @FXML
     private ImageView I_enzymeKit;
@@ -58,26 +67,37 @@ public class GameControler {
     // warunki na x =>0 && mniejsze niz rozmiar naszej planszy
     int x;
     int y;
-    final int GRIDSIZE = 10;
+    final int GRIDSIZE = 15;
 
     Player user = new Player();
+    Boss theBoss = new Boss();
+    Coworker coworker1 = new Coworker();
+    Coworker coworker2 = new Coworker();
+    Infected infected1 = new Infected();
+    Infected infected2 = new Infected();
 
 
    private boolean checkIfEnemy( Integer column,Integer row) {
        //System.out.println(row+"  "+column);
        for (Node node : grid.getChildren()) {
            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-               System.out.println(GridPane.getRowIndex(node) + "  " + GridPane.getColumnIndex(node));
                if (node instanceof ImageView) {
+                   System.out.println("imageview");
                    String id = node.getId();
                    if (id.charAt(0)=='I'){
-                       System.out.println(id);
+                       System.out.println(id + " added to equipment");
                        user.addItem(id);
                        grid.getChildren().remove(node);
                        user.displayItems();
                        return false;
                    } else if (id.charAt(0)=='C'){
-                        System.out.println("walka!!!");
+                       System.out.println(id);
+                       switch (id.charAt(1)){
+                           case 'B' -> user.fightWithBoss();
+                           case 'C' -> user.fightWithCoworker();
+                           case 'I' -> user.fightWithInfected();
+                           default -> System.out.println("Unknown enemy");
+                       }
                         return true;
                    }
                    }
