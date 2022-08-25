@@ -25,17 +25,34 @@ import java.lang.reflect.Array;
 public class GameControler {
 
     @FXML
-    ImageView player;
+    private ImageView C_boss;
+
     @FXML
-    Rectangle s1;
+    private ImageView C_coworker;
+
     @FXML
-    Rectangle s2;
+    private ImageView C_infected;
+
     @FXML
-    Rectangle s3;
+    private ImageView I_enzymeKit;
+
     @FXML
-    ImageView s4;
+    private ImageView I_mask;
+
     @FXML
-    Polygon item;
+    private ImageView I_spray;
+
+    @FXML
+    private ImageView I_syringe;
+
+    @FXML
+    private ImageView I_virusSample;
+
+    @FXML
+    private GridPane grid;
+
+    @FXML
+    private ImageView player;
 
 
     // warunki na x =>0 && mniejsze niz rozmiar naszej planszy
@@ -45,32 +62,29 @@ public class GameControler {
 
     Player user = new Player();
 
-    @FXML
-    GridPane grid;
 
    private boolean checkIfEnemy( Integer column,Integer row) {
-       System.out.println(row+"  "+column);
-        for (Node node : grid.getChildren()) {
-            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column){
-                System.out.println(GridPane.getRowIndex(node)+"  " +GridPane.getColumnIndex(node));
-//                tu wywołanie waliki
-                if (node instanceof Rectangle){// tu sprawdzam czy przeciwnik
-                    System.out.println("walka!!!");
-                    return true;
-                } else if (node instanceof Polygon ) {
-                    System.out.println("item!!");
-                    String id = node.getId();
-                    System.out.println(id);
-                        user.addItem(id);
-                    //grid.getChildren().remove(node);
-                    user.displayItems();
-                }
-
-            }
-        }
-        return false;
-    }
-
+       //System.out.println(row+"  "+column);
+       for (Node node : grid.getChildren()) {
+           if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+               System.out.println(GridPane.getRowIndex(node) + "  " + GridPane.getColumnIndex(node));
+               if (node instanceof ImageView) {
+                   String id = node.getId();
+                   if (id.charAt(0)=='I'){
+                       System.out.println(id);
+                       user.addItem(id);
+                       grid.getChildren().remove(node);
+                       user.displayItems();
+                       return false;
+                   } else if (id.charAt(0)=='C'){
+                        System.out.println("walka!!!");
+                        return true;
+                   }
+                   }
+               }
+           }
+       return false;
+   }
 
 
     public void moveUp() {
@@ -110,7 +124,7 @@ public class GameControler {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                System.out.println(keyEvent.getCode());
+                //System.out.println(keyEvent.getCode());
                 switch (keyEvent.getCode()) {
                     case UP -> moveUp();
                     case RIGHT -> moveRight();
