@@ -37,7 +37,7 @@
   </rowConstraints>
    <children>
       <Polygon fx:id="spray" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" smooth="false" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Polygon fx:id="spray" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Polygon fx:id="sandwich" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
       <Polygon fx:id="mask" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Polygon fx:id="diyMask" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <Rectangle fx:id="s3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" stroke="BLACK" strokeType="INSIDE" width="48.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
@@ -53,5 +53,9 @@
             <Image url="@pictures/SQ.png" />
          </image>
       </ImageView>
+      <Polygon fx:id="microscopeImage" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <Polygon fx:id="virusSample" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+      <Polygon fx:id="syringe" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="9" GridPane.rowIndex="5" />
+      <Polygon fx:id="dupa" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="8" GridPane.rowIndex="8" />
    </children>
 </GridPane>

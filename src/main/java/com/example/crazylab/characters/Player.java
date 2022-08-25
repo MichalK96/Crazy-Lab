@@ -1,8 +1,6 @@
 package com.example.crazylab.characters;
 
-import com.example.crazylab.items.Armour;
-import com.example.crazylab.items.ArmourType;
-import com.example.crazylab.items.Item;
+import com.example.crazylab.items.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,17 @@ public class Player extends Character {
         switch (item) {
             case "mask" -> items.add(new Armour(ArmourType.MASK));
             case "diyMask" -> items.add(new Armour(ArmourType.DIY_MASK));
-            case "spray" -> items.add(new Armour(ArmourType.SPRAY));
+            case "syringe" -> items.add(new Tool(ToolType.SYRINGE));
+            case "staningKit" -> items.add(new Tool(ToolType.STANING_KIT));
+            case "enzymeKit" -> items.add(new Tool(ToolType.ENZYME_KIT));
+            case "usbKey" -> items.add(new Tool(ToolType.USB_KEY));
+            case "dnaSample" -> items.add(new Tool(ToolType.DNA_SAMPLE));
+            case "virusSample" -> items.add(new Tool(ToolType.VIRUS_SAMPLE));
+            case "report" -> items.add(new Tool(ToolType.REPORT));
+            case "microscopeImage" -> items.add(new Tool(ToolType.MICROSCOPE_IMAGE));
+            case "sandwich" -> items.add(new Weapon(WeaponType.SANDWICH));
+            case "spray" -> items.add(new Weapon(WeaponType.SPRAY));
+            default -> System.out.println("Wrong item type");
         }
 
     }
