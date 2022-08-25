@@ -1,5 +1,8 @@
 package com.example.crazylab;
 
+import com.example.crazylab.characters.Boss;
+import com.example.crazylab.characters.Coworker;
+import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.Armour;
 import com.example.crazylab.items.Tool;
@@ -62,8 +65,8 @@ public class GameControler {
 
 
     // warunki na x =>0 && mniejsze niz rozmiar naszej planszy
-    int x;
-    int y;
+    int x = 5;
+    int y = 1;
     final int GRIDSIZE = 15;
 
     Player user = new Player(SceneController.userName);
@@ -73,8 +76,8 @@ public class GameControler {
     Infected infected1 = new Infected();
     Infected infected2 = new Infected();
 
-    @FXML
-    GridPane grid;
+//    @FXML
+//    GridPane grid;
     @FXML
     private Label labelUserName;
 
