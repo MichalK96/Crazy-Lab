@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,29 +39,68 @@
             <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
          </rowConstraints>
-         <children>
-            <Polygon fx:id="spray" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" smooth="false" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Polygon fx:id="sandwich" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Polygon fx:id="mask" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Polygon fx:id="diyMask" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Rectangle fx:id="s3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" stroke="BLACK" strokeType="INSIDE" width="48.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-            <Rectangle fx:id="boss" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" stroke="BLACK" strokeType="INSIDE" width="48.0" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-            <Rectangle fx:id="s2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" stroke="BLACK" strokeType="INSIDE" width="48.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-            <ImageView fx:id="player" fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pictures/CP.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="s4" fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@pictures/SQ.png" />
-               </image>
-            </ImageView>
-            <Polygon fx:id="microscopeImage" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Polygon fx:id="virusSample" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="9" GridPane.rowIndex="1" />
-            <Polygon fx:id="syringe" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="9" GridPane.rowIndex="5" />
-            <Polygon fx:id="dupa" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="8" GridPane.rowIndex="8" />
-         </children>
+          <children>
+              <ImageView fx:id="CI_infected1" fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                  <image>
+                      <Image url="@pictures/SQ.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="player" fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                  <image>
+                      <Image url="@pictures/CP.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="CC_coworker" fitHeight="55.0" fitWidth="46.0" layoutX="262.0" layoutY="379.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                  <image>
+                      <Image url="@pictures/SQ.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="CB_boss" fitHeight="55.0" fitWidth="46.0" layoutX="60.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="12" GridPane.rowIndex="10">
+                  <image>
+                      <Image url="@pictures/SQ.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="CI_infected" fitHeight="55.0" fitWidth="46.0" layoutX="464.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="10" GridPane.rowIndex="5">
+                  <image>
+                      <Image url="@pictures/SQ.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="I_syringe" fitHeight="43.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <image>
+                      <Image url="@pictures/syringe.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="I_mask" fitHeight="41.0" fitWidth="39.0" layoutX="60.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <image>
+                      <Image url="@pictures/syringe.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="I_spray" fitHeight="44.0" fitWidth="38.0" layoutX="161.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="12" GridPane.rowIndex="1">
+                  <image>
+                      <Image url="@pictures/syringe.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="I_enzymeKit" fitHeight="46.0" fitWidth="38.0" layoutX="464.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                  <image>
+                      <Image url="@pictures/syringe.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="I_virusSample" fitHeight="53.0" fitWidth="37.0" layoutX="111.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="10">
+                  <image>
+                      <Image url="@pictures/syringe.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="I_syringe" fitHeight="42.0" fitWidth="38.0" layoutX="161.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="11" GridPane.rowIndex="8">
+                  <image>
+                      <Image url="@pictures/syringe.png" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="CC_coworker1" fitHeight="55.0" fitWidth="46.0" layoutX="264.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <image>
+                      <Image url="@pictures/SQ.png" />
+                  </image>
+              </ImageView>
+          </children>
       </GridPane>
       <Label fx:id="labelUserName" alignment="CENTER" layoutX="600.0" layoutY="34.0" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <font>
