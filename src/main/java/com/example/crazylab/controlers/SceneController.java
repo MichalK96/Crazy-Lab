@@ -25,6 +25,7 @@ public class SceneController {
 
     @FXML
     void startNewGame(ActionEvent event) throws IOException {
+        System.out.println("........................................");
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("gameScreen.fxml"));   //TODO problem ze ścieżką
         scene = new Scene(root);
