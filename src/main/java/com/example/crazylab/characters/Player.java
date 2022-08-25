@@ -1,5 +1,7 @@
 package com.example.crazylab.characters;
 
+import com.example.crazylab.items.Armour;
+import com.example.crazylab.items.ArmourType;
 import com.example.crazylab.items.Item;
 
 import java.util.ArrayList;
@@ -16,7 +18,13 @@ public class Player extends Character {
         }
     }
 
-    public void addItem(Item item) {
-        items.add(item);
+    public void addItem(String item) {
+        switch (item) {
+            case "mask" -> items.add(new Armour(ArmourType.MASK));
+            case "diyMask" -> items.add(new Armour(ArmourType.DIY_MASK));
+            case "spray" -> items.add(new Armour(ArmourType.SPRAY));
+        }
+
     }
+
 }

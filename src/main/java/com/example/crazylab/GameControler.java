@@ -61,11 +61,7 @@ public class GameControler {
                     System.out.println("item!!");
                     String id = node.getId();
                     System.out.println(id);
-                    try {
-                        user.addItem(new Armour());  // Class.forName(id)
-                    } catch (Exception e) {
-                        System.out.println("Add item- exception");
-                    }
+                        user.addItem(id);
                     //grid.getChildren().remove(node);
                     user.displayItems();
                 }

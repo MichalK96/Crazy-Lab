@@ -36,10 +36,10 @@
     <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Polygon fx:id="Mask" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" smooth="false" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Polygon fx:id="Tool" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <Polygon fx:id="Mask" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Polygon fx:id="Armour" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Polygon fx:id="spray" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" smooth="false" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Polygon fx:id="spray" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Polygon fx:id="mask" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Polygon fx:id="diyMask" fill="DODGERBLUE" points="-50.0, 40.0, 1.5, 40.0, 1.5, -6.5" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <Rectangle fx:id="s3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" stroke="BLACK" strokeType="INSIDE" width="48.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
       <Rectangle fx:id="s1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" stroke="BLACK" strokeType="INSIDE" width="48.0" GridPane.columnIndex="7" GridPane.rowIndex="6" />
       <Rectangle fx:id="s2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" stroke="BLACK" strokeType="INSIDE" width="48.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
