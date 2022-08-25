@@ -62,8 +62,9 @@ public class GameControler {
                     String id = node.getId();
                     System.out.println(id);
                         user.addItem(id);
-                    //grid.getChildren().remove(node);
+                    grid.getChildren().remove(node);
                     user.displayItems();
+                    return false;
                 }
 
             }
