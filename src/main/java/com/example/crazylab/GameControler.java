@@ -1,5 +1,8 @@
 package com.example.crazylab;
 
+import com.example.crazylab.characters.Player;
+import com.example.crazylab.items.Armour;
+import com.example.crazylab.items.Tool;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
@@ -40,6 +43,8 @@ public class GameControler {
     int y;
     final int GRIDSIZE = 10;
 
+    Player user = new Player();
+
     @FXML
     GridPane grid;
 
@@ -51,11 +56,18 @@ public class GameControler {
 //                tu wywołanie waliki
                 if (node instanceof Rectangle){// tu sprawdzam czy przeciwnik
                     System.out.println("walka!!!");
-                    return (node instanceof Rectangle);
+                    return true;
                 } else if (node instanceof Polygon ) {
                     System.out.println("item!!");
-
-//                    podnoszenie itemu
+                    String id = node.getId();
+                    System.out.println(id);
+                    try {
+                        user.addItem(new Armour());  // Class.forName(id)
+                    } catch (Exception e) {
+                        System.out.println("Add item- exception");
+                    }
+                    //grid.getChildren().remove(node);
+                    user.displayItems();
                 }
 
             }
@@ -104,21 +116,11 @@ public class GameControler {
             public void handle(KeyEvent keyEvent) {
                 System.out.println(keyEvent.getCode());
                 switch (keyEvent.getCode()) {
-                    case UP:
-                        moveUp();
-                        break;
-                    case RIGHT:
-                        moveRight();
-                        break;
-                    case LEFT:
-                        moveLeft();
-                        break;
-                    case DOWN:
-                        moveDown();
-                        break;
-                    default:
-                        System.out.println(keyEvent.getCode());
-                        break;
+                    case UP -> moveUp();
+                    case RIGHT -> moveRight();
+                    case LEFT -> moveLeft();
+                    case DOWN -> moveDown();
+                    default -> System.out.println(keyEvent.getCode());
                 }
 
             }
