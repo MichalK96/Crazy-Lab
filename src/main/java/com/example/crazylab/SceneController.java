@@ -27,12 +27,13 @@ public class SceneController {
     @FXML
     void startNewGame(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen2.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         controller.move(scene);
+
 
         stage.setScene(scene);
         stage.show();
