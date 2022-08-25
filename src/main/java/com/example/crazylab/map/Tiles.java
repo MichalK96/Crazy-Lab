@@ -39,6 +39,10 @@ public class Tiles {
         }
 
     }
+//return tile as png
+    //zczytac mape z txt
+    //wrzucucic na grida
+
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
         Tile tile = tileMap.get(d.getTileName());
