@@ -16,10 +16,9 @@ public class Tiles {
     public static int TILE_WIDTH = 32;
 
 
-
     public static BufferedImage getImage(String tileName) throws IOException {
 //        do poprawy ścieżki
-        BufferedImage bufferedImage = ImageIO.read(new File(("F:\\CC\\Java\\Projekt2\\CrazyLab\\src\\main\\resources\\com\\example\\crazylab\\designElements\\hospitalDesign.png")));
+        BufferedImage bufferedImage = ImageIO.read(new File(("src/main/resources/com/example/crazylab/designElements/hospitalDesign.png")));
 //                ImageIO.read(Objects.requireNonNull(Tiles.class.getResource("F:\\CC\\Java\\Projekt2\\CrazyLab\\src\\main\\resources\\com\\example\\crazylab\\designElements\\hospitalDesign.png")));
         switch (tileName) {
             case "0":
@@ -2471,6 +2470,7 @@ public class Tiles {
         sc.close();
         return tab;
     }
+
     private static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;
         if (image != null) {
@@ -2489,22 +2489,19 @@ public class Tiles {
     public static void drawMap(GridPane grid, String path) throws IOException {
 
         Image img = null;
-        BufferedImage image=null;
+        BufferedImage image = null;
         Image cos = null;
         ImageView qqqq = null;
         ArrayList<ArrayList<Integer>> mapTiles = csvAsArray(path);
 
         for (int i = 0; i < mapTiles.size(); i++) {
-            for(int j = 0; j<mapTiles.get(i).size();j++) {
-
-
+            for (int j = 0; j < mapTiles.get(i).size(); j++) {
                 image = getImage(String.valueOf(mapTiles.get(i).get(j)));
                 cos = convertToFxImage(image);
-
                 qqqq = new ImageView(cos);
-                System.out.println(i +"   " +j);
+                System.out.println(i + "   " + j);
 //                tu po kolei nanoszenioe na mape wszystkich warst
-                grid.add(qqqq,j,i);
+                grid.add(qqqq, j, i);
             }
 
         }
