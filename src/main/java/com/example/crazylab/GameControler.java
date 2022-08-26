@@ -6,6 +6,7 @@ import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.Armour;
 import com.example.crazylab.items.Tool;
+import com.example.crazylab.tiles.Tiles;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
@@ -89,6 +90,9 @@ public class GameControler {
     @FXML
     private Label labelUserName;
 
+    @FXML
+    GridPane floor;
+
 
 
    private boolean checkIfEnemy( Integer column,Integer row) {
@@ -151,6 +155,11 @@ public class GameControler {
             grid.add(player, x -= 1, y);
         }
 
+    }
+    public void painMap() throws IOException {
+        Tiles.drawMap(floor,"com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
+        Tiles.drawMap(floor,"com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
+        Tiles.drawMap(floor,"com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
     }
 
 

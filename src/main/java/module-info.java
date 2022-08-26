@@ -7,4 +7,6 @@ module com.example.crazylab {
 
     opens com.example.crazylab to javafx.fxml;
     exports com.example.crazylab;
+    exports com.example.crazylab.map;
+    opens com.example.crazylab.map to javafx.fxml;
 }
