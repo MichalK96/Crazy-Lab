@@ -2,9 +2,11 @@ package com.example.crazylab.tiles;
 
 
 import javafx.scene.image.*;
+import javafx.scene.layout.GridPane;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -15,8 +17,10 @@ public class Tiles {
 
 
 
-    public BufferedImage getImage(String tileName) throws IOException {
-        BufferedImage bufferedImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/hospitalDesign.png")));
+    public static BufferedImage getImage(String tileName) throws IOException {
+//        do poprawy ścieżki
+        BufferedImage bufferedImage = ImageIO.read(new File(("F:\\CC\\Java\\Projekt2\\CrazyLab\\src\\main\\resources\\com\\example\\crazylab\\designElements\\hospitalDesign.png")));
+//                ImageIO.read(Objects.requireNonNull(Tiles.class.getResource("F:\\CC\\Java\\Projekt2\\CrazyLab\\src\\main\\resources\\com\\example\\crazylab\\designElements\\hospitalDesign.png")));
         switch (tileName) {
             case "0":
                 return bufferedImage.getSubimage(0, 0, TILE_WIDTH, TILE_WIDTH);
@@ -2453,23 +2457,57 @@ public class Tiles {
 
     }
 
-    private ImageView convertToFxImage(BufferedImage image, int fieldSize) {
+    public static ArrayList<ArrayList<Integer>> csvAsArray(String path) throws IOException {
+        ArrayList<ArrayList<Integer>> tab = new ArrayList<>();
+        Scanner sc = new Scanner(new File(path));
+        while (sc.hasNextLine()) {
+            ArrayList<Integer> nextLine = new ArrayList<>();
+            String[] line = sc.nextLine().split(",");
+            for (int i = 0; i < line.length; i++) {
+                nextLine.add(Integer.parseInt(line[i]));
+            }
+            tab.add(nextLine);
+        }
+        sc.close();
+        return tab;
+    }
+    private static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;
         if (image != null) {
             wr = new WritableImage(image.getWidth(), image.getHeight());
             PixelWriter pw = wr.getPixelWriter();
             for (int x = 0; x < image.getWidth(); x++) {
                 for (int y = 0; y < image.getHeight(); y++) {
-                    pw.setArgb(x, y, image.getRGB(x, y));
+                    ((PixelWriter) pw).setArgb(x, y, image.getRGB(x, y));
                 }
             }
         }
-        ImageView imageView = new ImageView(wr);
-        imageView.setFitHeight(fieldSize);
-        imageView.setFitWidth(fieldSize);
 
-        return imageView;
+        return new ImageView(wr).getImage();
+    }
 
+    public static void drawMap(GridPane grid, String path) throws IOException {
+
+        Image img = null;
+        BufferedImage image=null;
+        Image cos = null;
+        ImageView qqqq = null;
+        ArrayList<ArrayList<Integer>> mapTiles = csvAsArray(path);
+
+        for (int i = 0; i < mapTiles.size(); i++) {
+            for(int j = 0; j<mapTiles.get(i).size();j++) {
+
+
+                image = getImage(String.valueOf(mapTiles.get(i).get(j)));
+                cos = convertToFxImage(image);
+
+                qqqq = new ImageView(cos);
+                System.out.println(i +"   " +j);
+//                tu po kolei nanoszenioe na mape wszystkich warst
+                grid.add(qqqq,j,i);
+            }
+
+        }
     }
 
 }
