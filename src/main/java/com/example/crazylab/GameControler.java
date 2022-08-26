@@ -73,7 +73,7 @@ public class GameControler {
 //    }
 
 
-    // warunki na x =>0 && mniejsze niz rozmiar naszej planszy
+
     @FXML
     Rectangle player;
     int x = 5;
@@ -98,19 +98,19 @@ public class GameControler {
 
 
    private boolean checkIfEnemy( Integer column,Integer row) {
-       //System.out.println(row+"  "+column);
+
        for (Node node : floor.getChildren()) {
            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
                if (node instanceof ImageView) {
                    System.out.println("imageview");
                    String id = node.getId();
                    if (id.charAt(0)=='I'){
-                       System.out.println(id + " added to equipment");
+//                       System.out.println(id + " added to equipment");
 //                       addItemToTable(id.substring(2));
 //                       user.addItem(id);
 //                       floor.getChildren().remove(node);
 //                       user.displayItems();
-//                       return false;
+                       return false;
                    } else if (id.charAt(0)=='C'){
                        System.out.println(id);
                        switch (id.charAt(1)){
@@ -166,13 +166,11 @@ public class GameControler {
 //        }
 
     }
+
     public void painMap() throws IOException {
-
-
         Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
         Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
         Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
-
     }
 
 

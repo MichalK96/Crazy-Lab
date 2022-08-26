@@ -11,8 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-
-
+import javafx.stage.StageStyle;
 
 
 import java.io.IOException;
@@ -20,11 +19,10 @@ import java.io.IOException;
 public class SceneController {
 
 
-
     @FXML
     private TextField tfName;
 
-    public static String userName="123";
+    public static String userName = "123";
 
     public SceneController() {
     }
@@ -36,19 +34,14 @@ public class SceneController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-
         controller.painMap();
         controller.move(scene);
         stage.setScene(scene);
+//        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
 
-
-
-
-
-
-}
+    }
 }

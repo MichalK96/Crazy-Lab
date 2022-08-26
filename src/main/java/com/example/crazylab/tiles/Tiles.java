@@ -19,7 +19,7 @@ public class Tiles {
 
     public static BufferedImage getImage(String tileName) throws IOException {
 //        do poprawy ścieżki
-        BufferedImage bufferedImage = ImageIO.read(new File(("F:\\CC\\Java\\Projekt2\\CrazyLab\\src\\main\\resources\\com\\example\\crazylab\\designElements\\hospitalDesign.png")));
+        BufferedImage bufferedImage = ImageIO.read(new File(("src/main/resources/com/example/crazylab/designElements/hospitalDesign.png")));
 //                ImageIO.read(Objects.requireNonNull(Tiles.class.getResource("F:\\CC\\Java\\Projekt2\\CrazyLab\\src\\main\\resources\\com\\example\\crazylab\\designElements\\hospitalDesign.png")));
         switch (tileName) {
             case "0":
@@ -2496,15 +2496,13 @@ public class Tiles {
 
         for (int i = 0; i < mapTiles.size(); i++) {
             for(int j = 0; j<mapTiles.get(i).size();j++) {
-
-
                 image = getImage(String.valueOf(mapTiles.get(i).get(j)));
                 cos = convertToFxImage(image);
-
                 qqqq = new ImageView(cos);
-                System.out.println(i +"   " +j);
+
 //                tu po kolei nanoszenioe na mape wszystkich warst
                 grid.add(qqqq,j,i);
+
             }
 
         }

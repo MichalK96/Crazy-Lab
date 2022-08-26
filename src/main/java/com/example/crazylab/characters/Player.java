@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Player extends Character {
 
+
     private final List<Item> items = new ArrayList<>();
     private String name;
 
