@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -63,6 +64,13 @@ public class GameControler {
     @FXML
     private ImageView player;
 
+    @FXML
+    public ListView<String> inventoryBox;
+
+    private void addItemToTable(String item) {
+        inventoryBox.getItems().add(item);
+    }
+
 
     // warunki na x =>0 && mniejsze niz rozmiar naszej planszy
     int x = 5;
@@ -81,6 +89,8 @@ public class GameControler {
     @FXML
     private Label labelUserName;
 
+
+
    private boolean checkIfEnemy( Integer column,Integer row) {
        //System.out.println(row+"  "+column);
        for (Node node : grid.getChildren()) {
@@ -90,6 +100,7 @@ public class GameControler {
                    String id = node.getId();
                    if (id.charAt(0)=='I'){
                        System.out.println(id + " added to equipment");
+                       addItemToTable(id.substring(2));
                        user.addItem(id);
                        grid.getChildren().remove(node);
                        user.displayItems();
@@ -121,14 +132,14 @@ public class GameControler {
     }
 
     public void moveDown() {
-        if (y < GRIDSIZE&&( !checkIfEnemy(x, y + 1))) {
+        if (y < GRIDSIZE && (!checkIfEnemy(x, y + 1))) {
             grid.getChildren().remove(player);
             grid.add(player, x, y += 1);
         }
     }
 
     public void moveRight() {
-        if (x < GRIDSIZE&&( !checkIfEnemy(x+1, y ))) {
+        if (x < GRIDSIZE && (!checkIfEnemy(x+1, y ))) {
             grid.getChildren().remove(player);
             grid.add(player, x += 1, y);
         }

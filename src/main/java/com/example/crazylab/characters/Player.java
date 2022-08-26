@@ -1,10 +1,11 @@
 package com.example.crazylab.characters;
 
 import com.example.crazylab.items.*;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Player extends Character {
 
@@ -27,7 +28,7 @@ public class Player extends Character {
 
     public void addItem(String item) {
         switch (item) {
-            case "I_mask" -> items.add(new Armour(ArmourType.MASK));
+            case "I_mask" -> items.add(new Armour(ArmourType.ATEST_MASK));
             case "I_diyMask" -> items.add(new Armour(ArmourType.DIY_MASK));
             case "I_syringe" -> items.add(new Tool(ToolType.SYRINGE));
             case "I_staningKit" -> items.add(new Tool(ToolType.STANING_KIT));
@@ -41,7 +42,6 @@ public class Player extends Character {
             case "I_spray" -> items.add(new Weapon(WeaponType.SPRAY));
             default -> System.out.println("Wrong item type");
         }
-
     }
 
 

@@ -30,7 +30,7 @@ public class SceneController {
     }
 
     @FXML
-    void startNewGame(ActionEvent event) throws IOException {
+    private void startNewGame(ActionEvent event) throws IOException {
         userName = tfName.getText();
         System.out.println(userName);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
@@ -42,6 +42,7 @@ public class SceneController {
 
         stage.setScene(scene);
         stage.show();
+
 
 
 
