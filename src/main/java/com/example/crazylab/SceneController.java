@@ -24,22 +24,23 @@ public class SceneController {
     @FXML
     private TextField tfName;
 
-    public static String userName;
+    public static String userName="123";
 
     public SceneController() {
     }
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
-        userName = tfName.getText();
-        System.out.println(userName);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        controller.move(scene);
 
+        controller.painMap();
+        controller.move(scene);
         stage.setScene(scene);
         stage.show();
 
