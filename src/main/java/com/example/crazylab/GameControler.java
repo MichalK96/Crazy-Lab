@@ -4,8 +4,6 @@ import com.example.crazylab.characters.Boss;
 import com.example.crazylab.characters.Coworker;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
-import com.example.crazylab.items.Armour;
-import com.example.crazylab.items.Tool;
 import com.example.crazylab.tiles.Tiles;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,19 +11,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 public class GameControler {
 
@@ -73,12 +65,12 @@ public class GameControler {
 //    }
 
 
-    // warunki na x =>0 && mniejsze niz rozmiar naszej planszy
     @FXML
     Rectangle player;
     int x = 5;
     int y = 1;
     final int GRIDSIZE = 15;
+
 
     Player user = new Player(SceneController.userName);
     Boss theBoss = new Boss();
@@ -166,13 +158,10 @@ public class GameControler {
 //        }
 
     }
-    public void painMap() throws IOException {
-
-
-        Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
-        Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
-        Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
-
+    public void paintMap() throws IOException {
+        Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
+        Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
+        Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
     }
 
 
