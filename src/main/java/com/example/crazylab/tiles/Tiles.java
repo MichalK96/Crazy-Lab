@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class Tiles {
     public static int TILE_WIDTH = 32;
     public static String PATH_TO_HOSPITAL_TILES = "src/main/resources/com/example/crazylab/designElements/hospitalDesign.png";
-    //   PROSZĘ PAMIETAC O UPDATOWANIU TEJ WARTOŚCI ZALEZNIE ILE BEDZIEMY MIEX KAFELKÓW
+
     public static int MAX_ID = 313;
     public static HashMap<String, BufferedImage> PARTICULAR_IMAGES;
 
