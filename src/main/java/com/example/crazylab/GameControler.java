@@ -73,12 +73,12 @@ public class GameControler {
 //    }
 
 
-
     @FXML
     Rectangle player;
     int x = 5;
     int y = 1;
     final int GRIDSIZE = 15;
+
 
     Player user = new Player(SceneController.userName);
     Boss theBoss = new Boss();
@@ -110,7 +110,7 @@ public class GameControler {
 //                       user.addItem(id);
 //                       floor.getChildren().remove(node);
 //                       user.displayItems();
-                       return false;
+//                       return false;
                    } else if (id.charAt(0)=='C'){
                        System.out.println(id);
                        switch (id.charAt(1)){
@@ -166,11 +166,10 @@ public class GameControler {
 //        }
 
     }
-
-    public void painMap() throws IOException {
-        Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
-        Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
-        Tiles.drawMap(floor,"src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
+    public void paintMap() throws IOException {
+        Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
+        Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
+        Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
     }
 
 
