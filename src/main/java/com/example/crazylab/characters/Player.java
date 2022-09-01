@@ -1,14 +1,66 @@
 package com.example.crazylab.characters;
 
 import com.example.crazylab.items.*;
+import com.example.crazylab.tiles.Tiles;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Character {
+    private int posX1 = 6;
+    private int posY1 = 6;
+    private int posX2 = 6;
+    private int posY2 = 5;
 
+    public void setPosX2(int posX2) {
+        this.posX2 = posX2;
+    }
+
+    public void setPosY2(int posY2) {
+        this.posY2 = posY2;
+    }
+
+    public int getPosTopX() {
+        return posX2;
+    }
+
+    public int getPosTopY() {
+        return posY2;
+    }
+
+
+    private ImageView image1 = new ImageView(Tiles.getParticularImage(333));
+    private ImageView image2 = new ImageView(Tiles.getParticularImage(318));
+
+    public ImageView getImage2() {
+        return image2;
+    }
+
+    public ImageView getImage1() {
+        return image1;
+    }
+
+    public int getPosX() {
+        return posX1;
+    }
+
+    public void setPosX(int posX) {
+        this.posX1 = posX;
+        this.posX2 = posX;
+    }
+
+    public int getPosY() {
+        return posY1;
+    }
+
+    public void setPosY(int posY) {
+        this.posY1 = posY;
+        this.posY2 = posY - 1;
+    }
 
     private final List<Item> items = new ArrayList<>();
     private String name;

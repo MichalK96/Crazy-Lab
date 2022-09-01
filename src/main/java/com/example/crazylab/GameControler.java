@@ -26,8 +26,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class GameControler {
+    Player player = new Player("name");
+    private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
+            "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
+
 
 //    @FXML
 //    private ImageView CB_boss;
@@ -73,10 +78,6 @@ public class GameControler {
 //    }
 
 
-    @FXML
-    Rectangle player;
-    int x = 5;
-    int y = 1;
     final int GRIDSIZE = 15;
 
 
@@ -87,7 +88,7 @@ public class GameControler {
     Infected infected1 = new Infected();
     Infected infected2 = new Infected();
 
-//    @FXML
+    //    @FXML
 //    GridPane grid;
     @FXML
     private Label labelUserName;
@@ -95,77 +96,84 @@ public class GameControler {
     @FXML
     GridPane floor;
 
+    public GameControler() throws IOException { }
+
+    private boolean checkIfWall(int x, int y) {
+          return    disallowedFields.get(y).get(x) != 77 &&
+                    disallowedFields.get(y).get(x) != 28 &&
+                    disallowedFields.get(y).get(x) != 76 &&
+                    disallowedFields.get(y).get(x) != 84 &&
+                    disallowedFields.get(y).get(x) != 75 &&
+                    disallowedFields.get(y).get(x) != 78 &&
+                    disallowedFields.get(y).get(x) != 63 &&
+                    disallowedFields.get(y).get(x) != 14 &&
+                    disallowedFields.get(y).get(x) != 69 &&
+                    disallowedFields.get(y).get(x) != 83 &&
+                    disallowedFields.get(y).get(x) != 64 &&
+                    disallowedFields.get(y).get(x) != 67 &&
+                    disallowedFields.get(y).get(x) != 82;
+
+    }
 
 
-   private boolean checkIfEnemy( Integer column,Integer row) {
+    private boolean checkIfEnemy(Integer column, Integer row) {
 
-       for (Node node : floor.getChildren()) {
-           if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-               if (node instanceof ImageView) {
-                   System.out.println("imageview");
-                   String id = node.getId();
-                   if (id.charAt(0)=='I'){
+        for (Node node : floor.getChildren()) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                if (node instanceof ImageView) {
+                                       String id = node.getId();
+                    if (id.charAt(0) == 'I') {
 //                       System.out.println(id + " added to equipment");
 //                       addItemToTable(id.substring(2));
 //                       user.addItem(id);
 //                       floor.getChildren().remove(node);
 //                       user.displayItems();
 //                       return false;
-                   } else if (id.charAt(0)=='C'){
-                       System.out.println(id);
-                       switch (id.charAt(1)){
-                           case 'B' -> user.fightWithBoss();
-                           case 'C' -> user.fightWithCoworker();
-                           case 'I' -> user.fightWithInfected();
-                           default -> System.out.println("Unknown enemy");
-                       }
+                    } else if (id.charAt(0) == 'C') {
+                        System.out.println(id);
+                        switch (id.charAt(1)) {
+                            case 'B' -> user.fightWithBoss();
+                            case 'C' -> user.fightWithCoworker();
+                            case 'I' -> user.fightWithInfected();
+                            default -> System.out.println("Unknown enemy");
+                        }
                         return true;
-                   }
-                   }
-               }
-           }
-       return false;
-   }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
 
     public void moveUp() {
-        floor.getChildren().remove(player);
-
-        floor.add(player, x, y -= 1);
-//        if (y > 0 && (!checkIfEnemy(x, y - 1))) {
-//            floor.getChildren().remove(player);
-//
-//            floor.add(player, x, y -= 1);
-//        }
+        if (checkIfWall(player.getPosX(), player.getPosY() - 1)) {
+            moveVertically(-1);
+        }
     }
+
 
     public void moveDown() {
-        floor.getChildren().remove(player);
-        floor.add(player, x, y += 1);
-//        if (y < GRIDSIZE && (!checkIfEnemy(x, y + 1))) {
-//            floor.getChildren().remove(player);
-//            floor.add(player, x, y += 1);
-//        }
+        if (checkIfWall(player.getPosX(), player.getPosY() + 1)) {
+            moveVertically(1);
+        }
     }
+
 
     public void moveRight() {
-        floor.getChildren().remove(player);
-        floor.add(player, x += 1, y);
-//        if (x < GRIDSIZE && (!checkIfEnemy(x+1, y ))) {
-//            floor.getChildren().remove(player);
-//            floor.add(player, x += 1, y);
-//        }
+        if (checkIfWall(player.getPosX() + 1, player.getPosY())) {
+            moveHorizontally(1);
+        }
     }
+
 
     public void moveLeft() {
-        floor.getChildren().remove(player);
-        floor.add(player, x -= 1, y);
-//        if (x > 0 && ( !checkIfEnemy(x-1, y))) {
-//            floor.getChildren().remove(player);
-//            floor.add(player, x -= 1, y);
-//        }
-
+        if (checkIfWall(player.getPosX() - 1, player.getPosY())) {
+            moveHorizontally(-1);
+        }
     }
+
+
     public void paintMap() throws IOException {
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
@@ -173,16 +181,17 @@ public class GameControler {
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_items.csv");
 
-   }
+        floor.add(player.getImage1(), player.getPosX(), player.getPosY());
+        floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
+    }
 
 
     public void move(Scene scene) throws IOException {
 //       labelUserName.setText(user.getName());
-
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                System.out.println(keyEvent.getCode());
+
                 switch (keyEvent.getCode()) {
                     case UP -> moveUp();
                     case RIGHT -> moveRight();
@@ -190,13 +199,31 @@ public class GameControler {
                     case DOWN -> moveDown();
                     default -> System.out.println(keyEvent.getCode());
                 }
-
             }
-
         });
+    }
 
+
+    public void moveHorizontally(int moveBy){
+        floor.getChildren().remove(player.getImage1());
+        floor.getChildren().remove(player.getImage2());
+        floor.add(player.getImage2(), player.getPosX() + moveBy, player.getPosTopY());
+        floor.add(player.getImage1(), player.getPosX() + moveBy, player.getPosY());
+        player.setPosX(player.getPosX() + moveBy);
 
     }
+
+
+    public void moveVertically(int moveBy){
+        floor.getChildren().remove(player.getImage1());
+        floor.getChildren().remove(player.getImage2());
+        floor.add(player.getImage2(), player.getPosX(), player.getPosTopY() + moveBy);
+        floor.add(player.getImage1(), player.getPosX(), player.getPosY() + moveBy);
+        player.setPosY(player.getPosY() + moveBy);
+
+    }
+
+
 }
 
 

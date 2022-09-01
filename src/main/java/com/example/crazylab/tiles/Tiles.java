@@ -17,9 +17,10 @@ import java.util.Scanner;
 
 public class Tiles {
     public static int TILE_WIDTH = 32;
-    public static String PATH_TO_HOSPITAL_TILES = "src/main/resources/com/example/crazylab/designElements/hospitalDesign.png";
+    public static String PATH_TO_HOSPITAL_TILES
+            = "src/main/resources/com/example/crazylab/designElements/hospitalDesign.png";
 
-    public static int MAX_ID = 313;
+    public static int MAX_ID = 1214;
     public static HashMap<String, BufferedImage> PARTICULAR_IMAGES;
 
     static {
@@ -44,8 +45,6 @@ public class Tiles {
 
         return images;
     }
-
-
 
 
     public static ArrayList<ArrayList<Integer>> csvAsArray(String path) throws IOException {
@@ -91,5 +90,10 @@ public class Tiles {
                 addToGrid(grid, i, j, mapTiles);
             }
         }
+    }
+
+    public static Image getParticularImage(int ID) {
+        BufferedImage image = PARTICULAR_IMAGES.get(String.valueOf(ID));
+        return convertToFxImage(image);
     }
 }

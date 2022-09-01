@@ -51,8 +51,9 @@
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="33.0" minHeight="32.0"  vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="31.0" minHeight="31.0"  vgrow="SOMETIMES" />
+        <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="33.0" minHeight="32.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="31.0" minHeight="31.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
@@ -101,12 +102,12 @@
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
 
 
     </rowConstraints>
    <children>
-      <Rectangle fx:id="player" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="31.0" stroke="BLACK" strokeType="INSIDE" width="31.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Rectangle fx:id="sqare" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="31.0" stroke="BLACK" strokeType="INSIDE" width="31.0" GridPane.columnIndex="5" GridPane.rowIndex="5" />
    </children>
 
 

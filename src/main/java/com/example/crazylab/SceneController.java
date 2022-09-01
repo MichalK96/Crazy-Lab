@@ -38,7 +38,6 @@ public class SceneController {
         controller.paintMap();
         controller.move(scene);
         stage.setScene(scene);
-//        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
 
