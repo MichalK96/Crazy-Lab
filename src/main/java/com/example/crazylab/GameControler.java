@@ -23,6 +23,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import com.example.crazylab.tiles.Doors;
+
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -33,6 +35,7 @@ public class GameControler {
     private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
 
+    private Doors doors;
 
 //    @FXML
 //    private ImageView CB_boss;
@@ -147,39 +150,45 @@ public class GameControler {
 
 
     public void moveUp() {
-        if (checkIfWall(player.getPosX(), player.getPosY() - 1)) {
+        if (checkIfWall(player.getPosX(), player.getPosY() - 1) &&
+                doors.canMove(player.getPosX(), player.getPosY() - 1)) {
             moveVertically(-1);
         }
     }
 
 
     public void moveDown() {
-        if (checkIfWall(player.getPosX(), player.getPosY() + 1)) {
+        if (checkIfWall(player.getPosX(), player.getPosY() + 1) &&
+                doors.canMove(player.getPosX(), player.getPosY() + 1)) {
             moveVertically(1);
         }
     }
 
 
     public void moveRight() {
-        if (checkIfWall(player.getPosX() + 1, player.getPosY())) {
+        if (checkIfWall(player.getPosX() + 1, player.getPosY()) &&
+                doors.canMove(player.getPosX() + 1, player.getPosY())) {
             moveHorizontally(1);
         }
     }
 
 
     public void moveLeft() {
-        if (checkIfWall(player.getPosX() - 1, player.getPosY())) {
+        if (checkIfWall(player.getPosX() - 1, player.getPosY()) &&
+                doors.canMove(player.getPosX() - 1, player.getPosY())) {
             moveHorizontally(-1);
         }
     }
 
 
     public void paintMap() throws IOException {
+
+
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
-        Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_items.csv");
+        doors = new Doors(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
 
         floor.add(player.getImage1(), player.getPosX(), player.getPosY());
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
@@ -240,6 +249,7 @@ public class GameControler {
 
         floor.setLayoutX(x*32);
         floor.setLayoutY(y*32);
+        doors.onMove(player.getPosX(), player.getPosY());
     }
 }
 
