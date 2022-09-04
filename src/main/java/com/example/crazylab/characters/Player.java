@@ -2,9 +2,6 @@ package com.example.crazylab.characters;
 
 import com.example.crazylab.items.*;
 import com.example.crazylab.tiles.Tiles;
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -62,7 +59,7 @@ public class Player extends Character {
         this.posY2 = posY - 1;
     }
 
-    private final List<Item> items = new ArrayList<>();
+    private final List<Item> inventory = new ArrayList<>();
     private String name;
 
     public Player(String name) {
@@ -74,28 +71,32 @@ public class Player extends Character {
     }
 
     public void displayItems() {
-        for (Item item : items) {
+        for (Item item : inventory) {
             System.out.println(item);
         }
     }
 
-    public void addItem(String item) {
-        switch (item) {
-            case "I_mask" -> items.add(new Armour(ArmourType.ATEST_MASK));
-            case "I_diyMask" -> items.add(new Armour(ArmourType.DIY_MASK));
-            case "I_syringe" -> items.add(new Tool(ToolType.SYRINGE));
-            case "I_staningKit" -> items.add(new Tool(ToolType.STANING_KIT));
-            case "I_enzymeKit" -> items.add(new Tool(ToolType.ENZYME_KIT));
-            case "I_usbKey" -> items.add(new Tool(ToolType.USB_KEY));
-            case "I_dnaSample" -> items.add(new Tool(ToolType.DNA_SAMPLE));
-            case "I_virusSample" -> items.add(new Tool(ToolType.VIRUS_SAMPLE));
-            case "I_report" -> items.add(new Tool(ToolType.REPORT));
-            case "I_microscopeImage" -> items.add(new Tool(ToolType.MICROSCOPE_IMAGE));
-            case "I_sandwich" -> items.add(new Weapon(WeaponType.SANDWICH));
-            case "I_spray" -> items.add(new Weapon(WeaponType.SPRAY));
-            default -> System.out.println("Wrong item type");
-        }
+    public void addItemToInventory(Item item) {
+        inventory.add(item);
     }
+
+//    public void addItem(String item) {
+//        switch (item) {
+//            case "I_mask" -> items.add(new Armour(ArmourType.ATEST_MASK));
+//            case "I_diyMask" -> items.add(new Armour(ArmourType.DIY_MASK));
+//            case "I_syringe" -> items.add(new Tool(ToolType.SYRINGE));
+//            case "I_staningKit" -> items.add(new Tool(ToolType.STANING_KIT));
+//            case "I_enzymeKit" -> items.add(new Tool(ToolType.ENZYME_KIT));
+//            case "I_usbKey" -> items.add(new Tool(ToolType.USB_KEY));
+//            case "I_dnaSample" -> items.add(new Tool(ToolType.DNA_SAMPLE));
+//            case "I_virusSample" -> items.add(new Tool(ToolType.VIRUS_SAMPLE));
+//            case "I_report" -> items.add(new Tool(ToolType.REPORT));
+//            case "I_microscopeImage" -> items.add(new Tool(ToolType.MICROSCOPE_IMAGE));
+//            case "I_sandwich" -> items.add(new Weapon(WeaponType.SANDWICH));
+//            case "I_spray" -> items.add(new Weapon(WeaponType.SPRAY));
+//            default -> System.out.println("Wrong item type");
+//        }
+//    }
 
 
     public void fightWithBoss() {

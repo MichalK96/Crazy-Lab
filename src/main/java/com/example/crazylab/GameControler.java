@@ -4,8 +4,7 @@ import com.example.crazylab.characters.Boss;
 import com.example.crazylab.characters.Coworker;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
-import com.example.crazylab.items.Armour;
-import com.example.crazylab.items.Tool;
+import com.example.crazylab.items.*;
 import com.example.crazylab.tiles.Tiles;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,25 +12,20 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameControler {
     Player player = new Player("name");
     private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
+
 
 
 //    @FXML
@@ -76,9 +70,13 @@ public class GameControler {
 //    private void addItemToTable(String item) {
 //        inventoryBox.getItems().add(item);
 //    }
-
+    Rectangle item1;
+    int posX;
+    int posY;
 
     final int GRIDSIZE = 15;
+
+    private ArrayList<Item> items = new ArrayList<>();
 
 
     Player user = new Player(SceneController.userName);
@@ -97,6 +95,21 @@ public class GameControler {
     GridPane floor;
 
     public GameControler() throws IOException { }
+
+    private void generateItemsList() {
+        items.add(new Weapon(WeaponType.SPRAY, 7, 8));
+        items.add(new Weapon(WeaponType.SANDWICH, 6, 8));
+    }
+
+    private void addItemIfExist() {
+        for (Item item : items) {
+            if (item.getPosX() == player.getPosX() &&  item.getPosY() == player.getPosY()) {
+                System.out.println("On item!!");
+                player.addItemToInventory(item);
+                items.remove(item);
+            }
+    }
+    }
 
     private boolean checkIfWall(int x, int y) {
           return    disallowedFields.get(y).get(x) != 77 &&
@@ -183,6 +196,7 @@ public class GameControler {
 
         floor.add(player.getImage1(), player.getPosX(), player.getPosY());
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
+        generateItemsList();
     }
 
 
@@ -199,6 +213,9 @@ public class GameControler {
                     case DOWN -> moveDown();
                     default -> System.out.println(keyEvent.getCode());
                 }
+                System.out.println("X: " + player.getPosX());
+                System.out.println("Y: " + player.getPosY());
+                addItemIfExist();
             }
         });
     }
