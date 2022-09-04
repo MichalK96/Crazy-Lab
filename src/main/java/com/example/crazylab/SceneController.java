@@ -29,21 +29,25 @@ public class SceneController {
     private Button btn_continue;
 
     @FXML
-    private Text text_welcome;
+    private Label text_welcome;
 
-    public static String userName = "123";
+    public static String userName;
 
 
 
     @FXML
     private void showIntro() throws IOException {
-        Stage stage = new Stage();
+        userName = tfName.getText();
         Parent root = FXMLLoader.load(getClass().getResource("intro.fxml"));
         Scene intro = new Scene(root);
-        //text_welcome.setText("Welcome, dr " + tfName);
+        Stage stage = new Stage();
+        text_welcome.setText("ffff");
+        System.out.println("ssssssssssssssssss" + userName);
+
         stage.setScene(intro);
         stage.setTitle("Intro");
         stage.showAndWait();
+
     }
     @FXML
     private void close_intro(ActionEvent event) {
@@ -53,7 +57,6 @@ public class SceneController {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
