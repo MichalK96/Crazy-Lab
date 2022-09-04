@@ -35,11 +35,17 @@ public class SceneController {
         GameControler controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+
         controller.paintMap();
         controller.move(scene);
         stage.setScene(scene);
         stage.show();
 
-
-}
+        stage.setWidth(32*20);
+        stage.setHeight(32*20);
+        stage.setMaxWidth(32*20);
+        stage.setMaxHeight(32*20);
+        stage.setMinWidth(32*20);
+        stage.setMinHeight(32*20);
+    }
 }

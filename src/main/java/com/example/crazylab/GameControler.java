@@ -211,6 +211,7 @@ public class GameControler {
         floor.add(player.getImage1(), player.getPosX() + moveBy, player.getPosY());
         player.setPosX(player.getPosX() + moveBy);
 
+        this.onPlayerMove();
     }
 
 
@@ -221,9 +222,25 @@ public class GameControler {
         floor.add(player.getImage1(), player.getPosX(), player.getPosY() + moveBy);
         player.setPosY(player.getPosY() + moveBy);
 
+        this.onPlayerMove();
     }
 
+    private void onPlayerMove()
+    {
+        var x = (double) player.getPosX();
+        var y = (double) player.getPosY();
 
+        x = -10 + ((20/2) - (x/2))*2;
+        y = -10 + ((20/2) - (y/2))*2;
+
+        x = Math.min(0, x);
+        y = Math.min(0, y);
+        x = Math.max(x, -(floor.getColumnCount()-20));
+        y = Math.max(y, -(floor.getRowCount()-20)); // row count is incorrect for current map
+
+        floor.setLayoutX(x*32);
+        floor.setLayoutY(y*32);
+    }
 }
 
 
