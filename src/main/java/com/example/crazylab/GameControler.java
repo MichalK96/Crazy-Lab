@@ -17,6 +17,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
+import com.example.crazylab.tiles.Doors;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class GameControler {
     private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
 
+    private Doors doors;
 
 
 //    @FXML
@@ -160,39 +163,45 @@ public class GameControler {
 
 
     public void moveUp() {
-        if (checkIfWall(player.getPosX(), player.getPosY() - 1)) {
+        if (checkIfWall(player.getPosX(), player.getPosY() - 1) &&
+                doors.canMove(player.getPosX(), player.getPosY() - 1)) {
             moveVertically(-1);
         }
     }
 
 
     public void moveDown() {
-        if (checkIfWall(player.getPosX(), player.getPosY() + 1)) {
+        if (checkIfWall(player.getPosX(), player.getPosY() + 1) &&
+                doors.canMove(player.getPosX(), player.getPosY() + 1)) {
             moveVertically(1);
         }
     }
 
 
     public void moveRight() {
-        if (checkIfWall(player.getPosX() + 1, player.getPosY())) {
+        if (checkIfWall(player.getPosX() + 1, player.getPosY()) &&
+                doors.canMove(player.getPosX() + 1, player.getPosY())) {
             moveHorizontally(1);
         }
     }
 
 
     public void moveLeft() {
-        if (checkIfWall(player.getPosX() - 1, player.getPosY())) {
+        if (checkIfWall(player.getPosX() - 1, player.getPosY()) &&
+                doors.canMove(player.getPosX() - 1, player.getPosY())) {
             moveHorizontally(-1);
         }
     }
 
 
     public void paintMap() throws IOException {
+
+
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
-        Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_items.csv");
+        doors = new Doors(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
 
         floor.add(player.getImage1(), player.getPosX(), player.getPosY());
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
@@ -228,6 +237,7 @@ public class GameControler {
         floor.add(player.getImage1(), player.getPosX() + moveBy, player.getPosY());
         player.setPosX(player.getPosX() + moveBy);
 
+        this.onPlayerMove();
     }
 
 
@@ -238,9 +248,26 @@ public class GameControler {
         floor.add(player.getImage1(), player.getPosX(), player.getPosY() + moveBy);
         player.setPosY(player.getPosY() + moveBy);
 
+        this.onPlayerMove();
     }
 
+    private void onPlayerMove()
+    {
+        var x = (double) player.getPosX();
+        var y = (double) player.getPosY();
 
+        x = -10 + ((20/2) - (x/2))*2;
+        y = -10 + ((20/2) - (y/2))*2;
+
+        x = Math.min(0, x);
+        y = Math.min(0, y);
+        x = Math.max(x, -(floor.getColumnCount()-20));
+        y = Math.max(y, -(floor.getRowCount()-20)); // row count is incorrect for current map
+
+        floor.setLayoutX(x*32);
+        floor.setLayoutY(y*32);
+        doors.onMove(player.getPosX(), player.getPosY());
+    }
 }
 
 
