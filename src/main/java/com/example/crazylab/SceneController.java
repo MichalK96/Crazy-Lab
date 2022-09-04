@@ -48,7 +48,6 @@ public class SceneController {
         introController.setName(userName);
     }
 
-    //test commit
 
 //    @FXML
 //    private void close_intro(ActionEvent event) {
