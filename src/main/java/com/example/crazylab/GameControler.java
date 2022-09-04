@@ -107,7 +107,7 @@ public class GameControler {
     private void addItemIfExist() {
         for (Item item : items) {
             if (item.getPosX() == player.getPosX() &&  item.getPosY() == player.getPosY()) {
-                System.out.println("On item!!");
+                System.out.println("Item added to inventory (ArrayList)");
                 player.addItemToInventory(item);
                 items.remove(item);
             }
