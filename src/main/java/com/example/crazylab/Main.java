@@ -14,7 +14,6 @@ public class Main extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("welcomeScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-
         stage.setTitle("Welcome to Crazy Lab");
         stage.setScene(scene);
         stage.show();
