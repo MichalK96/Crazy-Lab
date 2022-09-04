@@ -29,53 +29,53 @@ public class SceneController {
     private Button btn_continue;
 
     @FXML
-    private Label text_welcome;
+    private Label textWelcome;
 
     public static String userName;
 
 
 
     @FXML
-    private void showIntro() throws IOException {
+    private void showIntro(ActionEvent event) throws IOException {
         userName = tfName.getText();
-        Parent root = FXMLLoader.load(getClass().getResource("intro.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("intro.fxml"));
+        Parent root = loader.load();
+        IntroController introController = loader.getController();
         Scene intro = new Scene(root);
-        Stage stage = new Stage();
-        text_welcome.setText("ffff");
-        System.out.println("ssssssssssssssssss" + userName);
-
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(intro);
         stage.setTitle("Intro");
-        stage.showAndWait();
-
-    }
-    @FXML
-    private void close_intro(ActionEvent event) {
-        Stage stage = (Stage)btn_continue.getScene().getWindow();
-        stage.close();
+        introController.setName(userName);
     }
 
-    @FXML
-    private void startNewGame(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
-        Parent root = loader.load();
-        GameControler controller = loader.getController();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        controller.paintMap();
-        controller.move(scene);
-        stage.setScene(scene);
-
-
-        stage.setWidth(32*20);
-        stage.setHeight(32*20);
-        stage.setMaxWidth(32*20);
-        stage.setMaxHeight(32*20);
-        stage.setMinWidth(32*20);
-        stage.setMinHeight(32*20);
-
-        stage.show();
-        showIntro();
-    }
+//    @FXML
+//    private void close_intro(ActionEvent event) {
+//        Stage stage = (Stage)btn_continue.getScene().getWindow();
+//        stage.close();
+//    }
+//
+//    @FXML
+//    private void startNewGame(ActionEvent event) throws IOException {
+//
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
+//        Parent root = loader.load();
+//        GameControler controller = loader.getController();
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root);
+//        controller.paintMap();
+//        controller.move(scene);
+//        stage.setScene(scene);
+//
+//
+//        stage.setWidth(32*20);
+//        stage.setHeight(32*20);
+//        stage.setMaxWidth(32*20);
+//        stage.setMaxHeight(32*20);
+//        stage.setMinWidth(32*20);
+//        stage.setMinHeight(32*20);
+//
+//        stage.show();
+//        //showIntro();
+//    }
 }

@@ -14,7 +14,7 @@
             <Image url="@pictures/welcomeScreen.png" />
          </image>
       </ImageView>
-      <Button fx:id="startButton" layoutX="111.0" layoutY="325.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="46.0" prefWidth="178.0" text="Start Game">
+      <Button fx:id="startButton" layoutX="111.0" layoutY="325.0" mnemonicParsing="false" onAction="#showIntro" prefHeight="46.0" prefWidth="178.0" text="Start Game">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

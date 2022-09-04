@@ -2,45 +2,33 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.SceneController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.IntroController">
    <children>
-      <TextFlow prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <ImageView fitHeight="288.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" translateX="5.0" translateY="50.0">
-               <image>
-                  <Image url="@pictures/scientist_cartoon.gif" />
-               </image>
-            </ImageView>
-         </children>
-      </TextFlow>
-      <Text layoutX="173.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A new, highly contagious virus has emerged in the last few days, threatening humanity." textAlignment="CENTER" wrappingWidth="400.0">
+      <Text layoutX="173.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A new, highly contagious virus has emerged in the last few days, threatening humanity." textAlignment="CENTER" wrappingWidth="400.0" AnchorPane.leftAnchor="100.0">
          <font>
             <Font name="Lucida Sans Demibold Italic" size="18.0" />
          </font>
       </Text>
-      <Text layoutX="173.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="As a young scientist specialized in virus research, you are responsible for finding a way to stop the next global pandemic. You are ready to face the challenge! " textAlignment="CENTER" wrappingWidth="400.0">
+      <Text layoutX="173.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="As a young scientist specialized in virus research, you are responsible for finding a way to stop the next global pandemic. You are ready to face the challenge! " textAlignment="CENTER" wrappingWidth="400.0" AnchorPane.leftAnchor="100.0">
          <font>
             <Font name="Lucida Sans Demibold Italic" size="18.0" />
          </font>
       </Text>
-      <Text layoutX="173.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You must first talk to your boss, prof Bhalla, who will explain to you what steps need to be taken in order to develop the vaccine as quickly as possible." textAlignment="CENTER" wrappingWidth="400.0">
+      <Text layoutX="173.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You must first talk to your boss, prof Bhalla, who will explain to you what steps need to be taken in order to develop the vaccine as quickly as possible." textAlignment="CENTER" wrappingWidth="400.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
          <font>
             <Font name="Lucida Sans Demibold Italic" size="18.0" />
          </font>
       </Text>
-      <Button fx:id="btn_continue" layoutX="413.0" layoutY="358.0" mnemonicParsing="false" onAction="#close_intro" prefWidth="160.0" text="Save the world!">
+      <Button fx:id="btn_continue" layoutX="413.0" layoutY="358.0" mnemonicParsing="false" onAction="#startNewGame" prefWidth="160.0" text="Save the world!" AnchorPane.rightAnchor="100.0">
          <font>
             <Font name="Lucida Sans Demibold Italic" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="text_welcome" layoutX="178.0" layoutY="6.0" prefHeight="45.0" prefWidth="322.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="6.0">
+      <Label fx:id="textWelcome" alignment="CENTER" contentDisplay="CENTER" layoutX="178.0" layoutY="6.0" prefHeight="45.0" prefWidth="322.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
