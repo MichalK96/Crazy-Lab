@@ -2,11 +2,24 @@ package com.example.crazylab.items;
 
 public class Armour extends Item {
 
-    ArmourType type;
+    ItemType type;
 
-    public Armour(ArmourType type) {
+    private int posX;
+    private int posY;
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public Armour(ItemType type) {
         this.type = type;
     }
 
-
+    public ItemType getType() {
+        return type;
+    }
 }

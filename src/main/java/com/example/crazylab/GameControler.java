@@ -5,6 +5,7 @@ import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.*;
 import com.example.crazylab.tiles.Tiles;
+import javafx.event.ActionEvent;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 
 import com.example.crazylab.tiles.Doors;
 import javafx.stage.Modality;
@@ -29,6 +31,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static java.time.zone.ZoneRulesProvider.refresh;
+
+import java.util.List;
+import java.util.Random;
+import java.util.Objects;
 
 public class GameControler {
     Player player = new Player("name");
@@ -68,9 +74,53 @@ public class GameControler {
         textWelcome.setText("Welcome, dr " + name);
     }
 
+
+    private List<Integer> generateRandomCoordinates() {
+        Random random = new Random();
+        List<Integer> coordinates = new ArrayList<>();
+        while (true) {
+            int x = random.nextInt(3, 29);     // range: 3 - 29
+            int y = random.nextInt(4, 35);     // range: 4 - 35
+            if (!checkIfWall(x, y)) {
+                coordinates.add(x);
+                coordinates.add(y);
+                return coordinates;
+                // do zrobienia commita 2 :P
+            }
+        }
+    }
+
     private void generateItemsList() {
-        items.add(new Weapon(WeaponType.SPRAY, 7, 8));
-        items.add(new Weapon(WeaponType.SANDWICH, 6, 8));
+        List<Integer> randomCords = generateRandomCoordinates();
+        System.out.println(randomCords.get(0));
+        System.out.println(randomCords.get(1));
+//        addItemToInventory(new Weapon(ItemType.ENZYME_KIT, randomCords.get(0), randomCords.get(1)));
+//        addItemToInventory(new Tool(ItemType.KEY, randomCords.get(0), randomCords.get(1)));
+//        addItemToInventory(new Tool(ItemType.SYRINGE, randomCords.get(0), randomCords.get(1)));
+    }
+
+    private void addItemToInventory(Item item) {
+        items.add(item);
+        int imageId;
+        if (item instanceof Tool) {
+            imageId = ((Tool) item).getType().getImageId();
+        } else if (item instanceof Weapon) {
+            imageId = ((Weapon) item).getType().getImageId();
+        } else {
+            imageId = ((Armour) item).getType().getImageId();
+        }
+        if (imageId != 0) {
+            ImageView image = new ImageView(Tiles.getParticularImage(imageId));
+            floor.add(image, item.getPosX(), item.getPosY());
+            item.setImage(image);
+        }
+    }
+
+    private void removeItemFromMap(Item item) {
+        System.out.println("Remove item from map");
+        item.getImage().setVisible(false);
+        items.remove(item);
+
     }
 
     private void addItemIfExist() {
@@ -78,9 +128,25 @@ public class GameControler {
             if (item.getPosX() == player.getPosX() && item.getPosY() == player.getPosY()) {
                 System.out.println("Item added to inventory (ArrayList)");
                 player.addItemToInventory(item);
-                items.remove(item);
+                removeItemFromMap(item);
             }
         }
+    }
+
+    private boolean checkIfWall(int x, int y) {
+        return disallowedFields.get(y).get(x) != 77 &&
+                disallowedFields.get(y).get(x) != 28 &&
+                disallowedFields.get(y).get(x) != 76 &&
+                disallowedFields.get(y).get(x) != 84 &&
+                disallowedFields.get(y).get(x) != 75 &&
+                disallowedFields.get(y).get(x) != 78 &&
+                disallowedFields.get(y).get(x) != 63 &&
+                disallowedFields.get(y).get(x) != 14 &&
+                disallowedFields.get(y).get(x) != 69 &&
+                disallowedFields.get(y).get(x) != 83 &&
+                disallowedFields.get(y).get(x) != 64 &&
+                disallowedFields.get(y).get(x) != 67 &&
+                disallowedFields.get(y).get(x) != 82;
     }
 
 
@@ -121,6 +187,7 @@ public class GameControler {
         }
         return false;
     }
+
 
     private void showPopupWindow(String character) throws IOException {
         String fxmlFile = null;
@@ -227,7 +294,6 @@ public class GameControler {
                     }
                     Platform.runLater(() -> {
                         enemyMoves();
-
                         refresh();
                     });
                 }
@@ -242,6 +308,7 @@ public class GameControler {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
+
                 switch (keyEvent.getCode()) {
                     case UP -> moveUp();
                     case RIGHT -> moveRight();
@@ -249,7 +316,9 @@ public class GameControler {
                     case DOWN -> moveDown();
                     default -> System.out.println(keyEvent.getCode());
                 }
+
                 addItemIfExist();
+
             }
         });
     }
@@ -315,6 +384,7 @@ public class GameControler {
         stage.setMinHeight(32 * 20);
         stage.show();
     }
+
 
 }
 

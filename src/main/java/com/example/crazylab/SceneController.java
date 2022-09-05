@@ -40,15 +40,14 @@ public class SceneController {
         userName = tfName.getText();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("intro.fxml"));
         Parent root = loader.load();
-        IntroController introController = loader.getController();
+        GameControler gameControler = loader.getController();
         Scene intro = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(intro);
         stage.setTitle("Intro");
-        introController.setName(userName);
+        gameControler.setName(userName);
     }
 
-    //test commit
 
 //    @FXML
 //    private void close_intro(ActionEvent event) {
