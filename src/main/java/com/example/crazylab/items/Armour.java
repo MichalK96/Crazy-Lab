@@ -19,5 +19,7 @@ public class Armour extends Item {
         this.type = type;
     }
 
-
+    public ItemType getType() {
+        return type;
+    }
 }

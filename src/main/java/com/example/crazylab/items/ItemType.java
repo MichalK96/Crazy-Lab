@@ -2,19 +2,19 @@ package com.example.crazylab.items;
 
 public enum ItemType {
 
-    SYRINGE (0, 0, "TOOL"),
-    VIRUS_SAMPLE (0, 0, "TOOL"),
-    STANING_KIT (0, 0, "TOOL"),
-    ENZYME_KIT (137, 0, "TOOL"),
-    DNA_SAMPLE (0, 0, "TOOL"),
-    USB_KEY (0, 0, "TOOL"),
-    REPORT (0, 0, "TOOL"),
-    MICROSCOPE_IMAGE (0, 0, "TOOL"),
-    KEY (104, 0, "TOOL"),
-    DIY_MASK (0, 0, "ARMOR"),
-    ATEST_MASK(0, 0, "ARMOR"),
-    SPRAY(0, 0, "WEAPON"),
-    SANDWICH(0, 0, "WEAPON");
+    SYRINGE (142, 0, "TOOL"),      //random
+    VIRUS_SAMPLE (0, 0, "TOOL"), //do zdobycia
+    STANING_KIT (247, 0, "TOOL"),  // random
+    ENZYME_KIT (137, 0, "TOOL"),  //random
+//    DNA_SAMPLE (122, 0, "TOOL"),
+    USB_KEY (0, 0, "TOOL"),   //random
+    REPORT (0, 0, "TOOL"),    //do zdobycia
+    MICROSCOPE_IMAGE (0, 0, "TOOL"),  //do zdobycia
+    KEY (104, 0, "TOOL"),     //ustawić
+    DIY_MASK (0, 0, "ARMOR"), //random
+    ATEST_MASK(0, 0, "ARMOR"), //random
+    SPRAY(0, 0, "WEAPON"),     //random
+    SANDWICH(0, 0, "WEAPON");  //random
 
     private final int imageId;
     private final int property;

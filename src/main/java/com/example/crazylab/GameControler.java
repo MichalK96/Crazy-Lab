@@ -18,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 
 import com.example.crazylab.tiles.Doors;
 import javafx.stage.Stage;
@@ -26,6 +25,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class GameControler {
     Player player = new Player("name");
@@ -61,21 +62,51 @@ public class GameControler {
         textWelcome.setText("Welcome, dr " + name);
     }
 
-    private void generateItemsList() {
-        addItemToList(new Weapon(ItemType.SPRAY, 7, 8));
-        addItemToList(new Tool(ItemType.KEY, 6, 8));
-        //items.add(new Tool(ItemType.KEY, 6, 8));
+    private List<Integer> generateRandomCoordinates() {
+        Random random = new Random();
+        List<Integer> coordinates = new ArrayList<>();
+        while (true) {
+            int x = random.nextInt(3, 29);     // range: 3 - 29
+            int y = random.nextInt(4, 35);     // range: 4 - 35
+            if (!checkIfWall(x, y)) {
+                coordinates.add(x);
+                coordinates.add(y);
+                return coordinates;
+            }
+        }
     }
 
-    private void addItemToList(Item item) {
+    private void generateItemsList() {
+        List<Integer> randomCords = generateRandomCoordinates();
+        System.out.println(randomCords.get(0));
+        System.out.println(randomCords.get(1));
+//        addItemToInventory(new Weapon(ItemType.ENZYME_KIT, randomCords.get(0), randomCords.get(1)));
+//        addItemToInventory(new Tool(ItemType.KEY, randomCords.get(0), randomCords.get(1)));
+//        addItemToInventory(new Tool(ItemType.SYRINGE, randomCords.get(0), randomCords.get(1)));
+    }
+
+    private void addItemToInventory(Item item) {
         items.add(item);
+        int imageId;
         if (item instanceof Tool) {
-            System.out.println(((Tool) item).getType().getImageId());
+            imageId = ((Tool) item).getType().getImageId();
         } else if (item instanceof  Weapon) {
-            System.out.println(((Weapon) item).getType().getImageId());
+            imageId = ((Weapon) item).getType().getImageId();
         } else {
-            System.out.println("Armor to implement");
+            imageId = ((Armour) item).getType().getImageId();
         }
+        if (imageId != 0) {
+            ImageView image = new ImageView(Tiles.getParticularImage(imageId));
+            floor.add(image, item.getPosX(), item.getPosY());
+            item.setImage(image);
+        }
+    }
+
+    private void removeItemFromMap(Item item) {
+        System.out.println("Remove item from map");
+        item.getImage().setVisible(false);
+        items.remove(item);
+
     }
 
     private void addItemIfExist() {
@@ -83,9 +114,9 @@ public class GameControler {
             if (item.getPosX() == player.getPosX() &&  item.getPosY() == player.getPosY()) {
                 System.out.println("Item added to inventory (ArrayList)");
                 player.addItemToInventory(item);
-                items.remove(item);
+                removeItemFromMap(item);
             }
-    }
+        }
     }
 
     private boolean checkIfWall(int x, int y) {
@@ -221,7 +252,6 @@ public class GameControler {
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY() + moveBy);
         floor.add(player.getImage1(), player.getPosX(), player.getPosY() + moveBy);
         player.setPosY(player.getPosY() + moveBy);
-
         this.onPlayerMove();
     }
 

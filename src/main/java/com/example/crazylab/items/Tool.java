@@ -13,6 +13,7 @@ public class Tool extends Item {
 
     private int posX;
     private int posY;
+    private ImageView image;
 
     public Tool(ItemType type, int posX, int posY) {
         this.type = type;
@@ -28,6 +29,11 @@ public class Tool extends Item {
         return posY;
     }
 
+    public ImageView getImage() {
+        return image;
+    }
 
-
+    public void setImage(ImageView image) {
+        this.image = image;
+    }
 }
