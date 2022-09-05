@@ -261,9 +261,9 @@ public class GameControler {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
-        showPopupWindow("BOSS");
-        showPopupWindow("COWORKER");
-        showPopupWindow("INFECTED");
+        //showPopupWindow("BOSS");
+        //showPopupWindow("COWORKER");
+        //showPopupWindow("INFECTED");
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
