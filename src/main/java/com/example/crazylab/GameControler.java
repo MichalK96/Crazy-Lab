@@ -1,34 +1,25 @@
 package com.example.crazylab;
 
-import com.example.crazylab.characters.Boss;
-import com.example.crazylab.characters.Coworker;
+
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
-import com.example.crazylab.items.Armour;
-import com.example.crazylab.items.Tool;
 import com.example.crazylab.tiles.Tiles;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-
 import com.example.crazylab.tiles.Doors;
 
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import static java.time.zone.ZoneRulesProvider.refresh;
 
 public class GameControler {
     Player player = new Player("name");
@@ -37,59 +28,24 @@ public class GameControler {
 
     private Doors doors;
 
-//    @FXML
-//    private ImageView CB_boss;
-//
-//    @FXML
-//    private ImageView CC_coworker;
-//
-//    @FXML
-//    private ImageView CC_coworker1;
-//
-//    @FXML
-//    private ImageView CI_infected;
-//
-//    @FXML
-//    private ImageView CI_infected1;
-//
-//    @FXML
-//    private ImageView I_enzymeKit;
-//
-//    @FXML
-//    private ImageView I_mask;
-//
-//    @FXML
-//    private ImageView I_spray;
-//
-//    @FXML
-//    private ImageView I_syringe;
-//
-//    @FXML
-//    private ImageView I_virusSample;
-//
-//    @FXML
-//    private GridPane grid;
-//
-//    @FXML
-//    private ImageView player;
-//
-//    @FXML
-//    public ListView<String> inventoryBox;
-
-//    private void addItemToTable(String item) {
-//        inventoryBox.getItems().add(item);
-//    }
-
-
-    final int GRIDSIZE = 15;
-
 
     Player user = new Player(SceneController.userName);
-    Boss theBoss = new Boss();
-    Coworker coworker1 = new Coworker();
-    Coworker coworker2 = new Coworker();
-    Infected infected1 = new Infected();
-    Infected infected2 = new Infected();
+    Infected infected1 = new Infected(7, 6);
+    Infected infected2 = new Infected(7, 14);
+    Infected infected3 = new Infected(23, 24);
+    Infected infected4 = new Infected(15, 24);
+    Infected infected5 = new Infected(4, 25);
+    ArrayList<Infected> characters = new ArrayList<>() {
+    };
+
+    public void addCharactersToList() {
+        characters.add(infected1);
+        characters.add(infected2);
+        characters.add(infected3);
+        characters.add(infected4);
+        characters.add(infected5);
+    }
+
 
     //    @FXML
 //    GridPane grid;
@@ -101,30 +57,13 @@ public class GameControler {
 
     public GameControler() throws IOException { }
 
-    private boolean checkIfWall(int x, int y) {
-          return    disallowedFields.get(y).get(x) != 77 &&
-                    disallowedFields.get(y).get(x) != 28 &&
-                    disallowedFields.get(y).get(x) != 76 &&
-                    disallowedFields.get(y).get(x) != 84 &&
-                    disallowedFields.get(y).get(x) != 75 &&
-                    disallowedFields.get(y).get(x) != 78 &&
-                    disallowedFields.get(y).get(x) != 63 &&
-                    disallowedFields.get(y).get(x) != 14 &&
-                    disallowedFields.get(y).get(x) != 69 &&
-                    disallowedFields.get(y).get(x) != 83 &&
-                    disallowedFields.get(y).get(x) != 64 &&
-                    disallowedFields.get(y).get(x) != 67 &&
-                    disallowedFields.get(y).get(x) != 82;
-
-    }
-
 
     private boolean checkIfEnemy(Integer column, Integer row) {
 
         for (Node node : floor.getChildren()) {
             if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
                 if (node instanceof ImageView) {
-                                       String id = node.getId();
+                    String id = node.getId();
                     if (id.charAt(0) == 'I') {
 //                       System.out.println(id + " added to equipment");
 //                       addItemToTable(id.substring(2));
@@ -150,32 +89,40 @@ public class GameControler {
 
 
     public void moveUp() {
-        if (checkIfWall(player.getPosX(), player.getPosY() - 1) &&
-                doors.canMove(player.getPosX(), player.getPosY() - 1)) {
+        if (player.checkIfWall(player.getPosX(), player.getPosY() - 1) && doors.canMove(
+                player.getPosX(),
+                player.getPosY() - 1
+                                                                                       )) {
             moveVertically(-1);
         }
     }
 
 
     public void moveDown() {
-        if (checkIfWall(player.getPosX(), player.getPosY() + 1) &&
-                doors.canMove(player.getPosX(), player.getPosY() + 1)) {
+        if (player.checkIfWall(player.getPosX(), player.getPosY() + 1) && doors.canMove(
+                player.getPosX(),
+                player.getPosY() + 1
+                                                                                       )) {
             moveVertically(1);
         }
     }
 
 
     public void moveRight() {
-        if (checkIfWall(player.getPosX() + 1, player.getPosY()) &&
-                doors.canMove(player.getPosX() + 1, player.getPosY())) {
+        if (player.checkIfWall(player.getPosX() + 1, player.getPosY()) && doors.canMove(
+                player.getPosX() + 1,
+                player.getPosY()
+                                                                                       )) {
             moveHorizontally(1);
         }
     }
 
 
     public void moveLeft() {
-        if (checkIfWall(player.getPosX() - 1, player.getPosY()) &&
-                doors.canMove(player.getPosX() - 1, player.getPosY())) {
+        if (player.checkIfWall(player.getPosX() - 1, player.getPosY()) && doors.canMove(
+                player.getPosX() - 1,
+                player.getPosY()
+                                                                                       )) {
             moveHorizontally(-1);
         }
     }
@@ -192,6 +139,13 @@ public class GameControler {
 
         floor.add(player.getImage1(), player.getPosX(), player.getPosY());
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
+        floor.add(infected1.getImageBottom(), infected1.getPosX(), infected1.getPosY());
+        floor.add(infected1.getImageTop(), infected1.getPosX(), infected1.getPosY() - 1);
+        floor.add(infected2.getImageBottom(), infected2.getPosX(), infected2.getPosY());
+        floor.add(infected2.getImageTop(), infected2.getPosX(), infected2.getPosY() - 1);
+        floor.add(infected3.getImageBottom(), infected3.getPosX(), infected3.getPosY());
+        floor.add(infected3.getImageTop(), infected3.getPosX(), infected3.getPosY() - 1);
+
     }
 
 
@@ -200,20 +154,59 @@ public class GameControler {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-
                 switch (keyEvent.getCode()) {
-                    case UP -> moveUp();
-                    case RIGHT -> moveRight();
-                    case LEFT -> moveLeft();
-                    case DOWN -> moveDown();
-                    default -> System.out.println(keyEvent.getCode());
+                    case UP:
+                        moveUp();
+                    case RIGHT:
+                        moveRight();
+                    case LEFT:
+                        moveLeft();
+                    case DOWN:
+                        moveDown();
+                    default:
+                        System.out.println(keyEvent.getCode());
                 }
             }
         });
     }
 
+    public void enemyMoves() {
+        for (int i = 0; i < characters.size(); i++) {
+            floor.getChildren().remove(characters.get(i).getImageBottom());
+            floor.getChildren().remove(characters.get(i).getImageTop());
+            characters.get(i).move(characters);
+            floor.add(characters.get(i).getImageBottom(), characters.get(i).getPosX(), characters.get(i).getPosY());
+            floor.add(characters.get(i).getImageTop(), characters.get(i).getPosX2(), characters.get(i).getPosY2());
+        }
 
-    public void moveHorizontally(int moveBy){
+
+    }
+
+    public void initialize() {
+        Thread movement = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.currentThread().sleep(700);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    Platform.runLater(() -> {
+                        enemyMoves();
+                        refresh();
+                    });
+
+
+                }
+            }
+        });
+        movement.start();
+    }
+
+
+    public void moveHorizontally(int moveBy) {
         floor.getChildren().remove(player.getImage1());
         floor.getChildren().remove(player.getImage2());
         floor.add(player.getImage2(), player.getPosX() + moveBy, player.getPosTopY());
@@ -224,7 +217,7 @@ public class GameControler {
     }
 
 
-    public void moveVertically(int moveBy){
+    public void moveVertically(int moveBy) {
         floor.getChildren().remove(player.getImage1());
         floor.getChildren().remove(player.getImage2());
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY() + moveBy);
@@ -234,21 +227,20 @@ public class GameControler {
         this.onPlayerMove();
     }
 
-    private void onPlayerMove()
-    {
+    private void onPlayerMove() {
         var x = (double) player.getPosX();
         var y = (double) player.getPosY();
 
-        x = -10 + ((20/2) - (x/2))*2;
-        y = -10 + ((20/2) - (y/2))*2;
+        x = -10 + ((20 / 2) - (x / 2)) * 2;
+        y = -10 + ((20 / 2) - (y / 2)) * 2;
 
         x = Math.min(0, x);
         y = Math.min(0, y);
-        x = Math.max(x, -(floor.getColumnCount()-20));
-        y = Math.max(y, -(floor.getRowCount()-20)); // row count is incorrect for current map
+        x = Math.max(x, -(floor.getColumnCount() - 20));
+        y = Math.max(y, -(floor.getRowCount() - 20)); // row count is incorrect for current map
 
-        floor.setLayoutX(x*32);
-        floor.setLayoutY(y*32);
+        floor.setLayoutX(x * 32);
+        floor.setLayoutY(y * 32);
         doors.onMove(player.getPosX(), player.getPosY());
     }
 }

@@ -25,8 +25,10 @@ public class IntroController {
         GameControler controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+        controller.addCharactersToList();
         controller.paintMap();
         controller.move(scene);
+
         stage.setScene(scene);
 
 

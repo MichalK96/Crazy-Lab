@@ -7,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class Player extends Character {
     }
 
 
-    private ImageView image1 = new ImageView(Tiles.getParticularImage(333));
-    private ImageView image2 = new ImageView(Tiles.getParticularImage(318));
+    private final ImageView image1 = new ImageView(Tiles.getParticularImage(333));
+    private final ImageView image2 = new ImageView(Tiles.getParticularImage(318));
 
     public ImageView getImage2() {
         return image2;
@@ -65,7 +66,8 @@ public class Player extends Character {
     private final List<Item> items = new ArrayList<>();
     private String name;
 
-    public Player(String name) {
+    public Player(String name) throws IOException {
+        super();
         this.name = name;
     }
 
