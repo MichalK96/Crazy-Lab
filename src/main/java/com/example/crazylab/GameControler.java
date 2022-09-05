@@ -72,6 +72,7 @@ public class GameControler {
                 coordinates.add(x);
                 coordinates.add(y);
                 return coordinates;
+                // do zrobienia commita :P
             }
         }
     }
