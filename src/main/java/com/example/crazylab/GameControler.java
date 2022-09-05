@@ -62,8 +62,20 @@ public class GameControler {
     }
 
     private void generateItemsList() {
-        items.add(new Weapon(WeaponType.SPRAY, 7, 8));
-        items.add(new Weapon(WeaponType.SANDWICH, 6, 8));
+        addItemToList(new Weapon(ItemType.SPRAY, 7, 8));
+        addItemToList(new Tool(ItemType.KEY, 6, 8));
+        //items.add(new Tool(ItemType.KEY, 6, 8));
+    }
+
+    private void addItemToList(Item item) {
+        items.add(item);
+        if (item instanceof Tool) {
+            System.out.println(((Tool) item).getType().getImageId());
+        } else if (item instanceof  Weapon) {
+            System.out.println(((Weapon) item).getType().getImageId());
+        } else {
+            System.out.println("Armor to implement");
+        }
     }
 
     private void addItemIfExist() {

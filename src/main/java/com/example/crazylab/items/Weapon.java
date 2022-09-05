@@ -2,11 +2,11 @@ package com.example.crazylab.items;
 
 public class Weapon extends Item {
 
-    WeaponType type;
+    ItemType type;
     public int posX;
     private int posY;
 
-    public WeaponType getType() {
+    public ItemType getType() {
         return type;
     }
 
@@ -18,7 +18,7 @@ public class Weapon extends Item {
         return posY;
     }
 
-    public Weapon(WeaponType type, int posX, int posY) {
+    public Weapon(ItemType type, int posX, int posY) {
         this.type = type;
         this.posX = posX;
         this.posY = posY;
