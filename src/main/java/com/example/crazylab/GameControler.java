@@ -18,8 +18,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 
 import com.example.crazylab.tiles.Doors;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Objects;
 
 public class GameControler {
     Player player = new Player("name");
@@ -55,6 +58,8 @@ public class GameControler {
 
     @FXML
     private Label textWelcome;
+
+    private Stage gameBoard;
 
     public GameControler() throws IOException { }
 
@@ -138,7 +143,7 @@ public class GameControler {
     }
 
 
-    private boolean checkIfEnemy(Integer column, Integer row) {
+    private boolean checkIfEnemy(Integer column, Integer row) throws IOException {
 
         for (Node node : floor.getChildren()) {
             if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
@@ -154,9 +159,18 @@ public class GameControler {
                     } else if (id.charAt(0) == 'C') {
                         System.out.println(id);
                         switch (id.charAt(1)) {
-                            case 'B' -> user.fightWithBoss();
-                            case 'C' -> user.fightWithCoworker();
-                            case 'I' -> user.fightWithInfected();
+                            case 'B' -> {
+                                showPopupWindow("BOSS");
+                                user.fightWithBoss();
+                            }
+                            case 'C' -> {
+                                showPopupWindow("COWORKER");
+                                user.fightWithCoworker();
+                            }
+                            case 'I' -> {
+                                showPopupWindow("INFECTED");
+                                user.fightWithInfected();
+                            }
                             default -> System.out.println("Unknown enemy");
                         }
                         return true;
@@ -165,6 +179,21 @@ public class GameControler {
             }
         }
         return false;
+    }
+
+    private void showPopupWindow(String character) throws IOException {
+        String fxmlFile = null;
+        if(character.equals("BOSS")) {fxmlFile = "boss_popup.fxml";};
+        if(character.equals("COWORKER"))  {fxmlFile = "coworker_popup.fxml"; };
+        if(character.equals("INFECTED"))  {fxmlFile = "infected_popup.fxml"; };
+
+        Stage stage = new Stage();
+        assert fxmlFile != null;
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(gameBoard);
+        stage.showAndWait();
     }
 
 
@@ -253,6 +282,7 @@ public class GameControler {
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY() + moveBy);
         floor.add(player.getImage1(), player.getPosX(), player.getPosY() + moveBy);
         player.setPosY(player.getPosY() + moveBy);
+
         this.onPlayerMove();
     }
 
@@ -276,11 +306,15 @@ public class GameControler {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
+        //showPopupWindow("BOSS");
+        //showPopupWindow("COWORKER");
+        //showPopupWindow("INFECTED");
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        gameBoard = stage;
         Scene scene = new Scene(root);
         controller.paintMap();
         controller.move(scene);
