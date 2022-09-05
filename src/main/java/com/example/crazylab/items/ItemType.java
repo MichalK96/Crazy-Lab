@@ -7,14 +7,14 @@ public enum ItemType {
     STANING_KIT (247, 0, "TOOL"),  // random
     ENZYME_KIT (137, 0, "TOOL"),  //random
 //    DNA_SAMPLE (122, 0, "TOOL"),
-    USB_KEY (0, 0, "TOOL"),   //random
+    USB_KEY (99, 0, "TOOL"),   //random
     REPORT (0, 0, "TOOL"),    //do zdobycia
     MICROSCOPE_IMAGE (0, 0, "TOOL"),  //do zdobycia
     KEY (104, 0, "TOOL"),     //ustawić
-    DIY_MASK (0, 0, "ARMOR"), //random
-    ATEST_MASK(0, 0, "ARMOR"), //random
-    SPRAY(0, 0, "WEAPON"),     //random
-    SANDWICH(0, 0, "WEAPON");  //random
+    DIY_MASK (124, 0, "ARMOR"), //random
+    ATEST_MASK(114, 0, "ARMOR"), //random
+    SPRAY(134, 0, "WEAPON"),     //random
+    SANDWICH(186, 0, "WEAPON");  //random
 
     private final int imageId;
     private final int property;

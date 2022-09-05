@@ -81,22 +81,32 @@ public class GameControler {
         while (true) {
             int x = random.nextInt(3, 29);     // range: 3 - 29
             int y = random.nextInt(4, 35);     // range: 4 - 35
-            if (!checkIfWall(x, y)) {
+            if (checkIfWall(x, y)) {
                 coordinates.add(x);
                 coordinates.add(y);
                 return coordinates;
-                // do zrobienia commita 2 :P
             }
         }
     }
 
     private void generateItemsList() {
         List<Integer> randomCords = generateRandomCoordinates();
-        System.out.println(randomCords.get(0));
-        System.out.println(randomCords.get(1));
-//        addItemToInventory(new Weapon(ItemType.ENZYME_KIT, randomCords.get(0), randomCords.get(1)));
-//        addItemToInventory(new Tool(ItemType.KEY, randomCords.get(0), randomCords.get(1)));
-//        addItemToInventory(new Tool(ItemType.SYRINGE, randomCords.get(0), randomCords.get(1)));
+        addItemToInventory(new Weapon(ItemType.ENZYME_KIT, randomCords.get(0), randomCords.get(1)));
+        addItemToInventory(new Tool(ItemType.KEY, 11, 13));
+        randomCords = generateRandomCoordinates();
+        addItemToInventory(new Tool(ItemType.SYRINGE, randomCords.get(0), randomCords.get(1)));
+        randomCords = generateRandomCoordinates();
+        addItemToInventory(new Tool(ItemType.STANING_KIT, randomCords.get(0), randomCords.get(1)));
+        randomCords = generateRandomCoordinates();
+        addItemToInventory(new Tool(ItemType.USB_KEY, randomCords.get(0), randomCords.get(1)));
+        randomCords = generateRandomCoordinates();
+        addItemToInventory(new Armour(ItemType.DIY_MASK, randomCords.get(0), randomCords.get(1)));
+        randomCords = generateRandomCoordinates();
+        addItemToInventory(new Armour(ItemType.ATEST_MASK, randomCords.get(0), randomCords.get(1)));
+        randomCords = generateRandomCoordinates();
+        addItemToInventory(new Weapon(ItemType.SPRAY, randomCords.get(0), randomCords.get(1)));
+        randomCords = generateRandomCoordinates();
+        addItemToInventory(new Weapon(ItemType.SANDWICH, randomCords.get(0), randomCords.get(1)));
     }
 
     private void addItemToInventory(Item item) {
@@ -129,6 +139,7 @@ public class GameControler {
                 System.out.println("Item added to inventory (ArrayList)");
                 player.addItemToInventory(item);
                 removeItemFromMap(item);
+                player.displayItems();       // TODO to remove
             }
         }
     }

@@ -15,8 +15,10 @@ public class Armour extends Item {
         return posY;
     }
 
-    public Armour(ItemType type) {
+    public Armour(ItemType type, int posX, int posY) {
         this.type = type;
+        this.posX = posX;
+        this.posY = posY;
     }
 
     public ItemType getType() {
