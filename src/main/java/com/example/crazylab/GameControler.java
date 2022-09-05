@@ -6,10 +6,13 @@ import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.*;
 import com.example.crazylab.tiles.Tiles;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -18,6 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
 import com.example.crazylab.tiles.Doors;
+import javafx.stage.Stage;
 
 
 import java.io.IOException;
@@ -29,53 +33,6 @@ public class GameControler {
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
 
     private Doors doors;
-
-
-//    @FXML
-//    private ImageView CB_boss;
-//
-//    @FXML
-//    private ImageView CC_coworker;
-//
-//    @FXML
-//    private ImageView CC_coworker1;
-//
-//    @FXML
-//    private ImageView CI_infected;
-//
-//    @FXML
-//    private ImageView CI_infected1;
-//
-//    @FXML
-//    private ImageView I_enzymeKit;
-//
-//    @FXML
-//    private ImageView I_mask;
-//
-//    @FXML
-//    private ImageView I_spray;
-//
-//    @FXML
-//    private ImageView I_syringe;
-//
-//    @FXML
-//    private ImageView I_virusSample;
-//
-//    @FXML
-//    private GridPane grid;
-//
-//    @FXML
-//    private ImageView player;
-//
-//    @FXML
-//    public ListView<String> inventoryBox;
-
-//    private void addItemToTable(String item) {
-//        inventoryBox.getItems().add(item);
-//    }
-    Rectangle item1;
-    int posX;
-    int posY;
 
     final int GRIDSIZE = 15;
 
@@ -89,15 +46,20 @@ public class GameControler {
     Infected infected1 = new Infected();
     Infected infected2 = new Infected();
 
-    //    @FXML
-//    GridPane grid;
     @FXML
     private Label labelUserName;
 
     @FXML
     GridPane floor;
 
+    @FXML
+    private Label textWelcome;
+
     public GameControler() throws IOException { }
+
+    void setName(String name) {
+        textWelcome.setText("Welcome, dr " + name);
+    }
 
     private void generateItemsList() {
         items.add(new Weapon(WeaponType.SPRAY, 7, 8));
@@ -268,6 +230,30 @@ public class GameControler {
         floor.setLayoutY(y*32);
         doors.onMove(player.getPosX(), player.getPosY());
     }
+
+    @FXML
+    private void startNewGame(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
+        Parent root = loader.load();
+        GameControler controller = loader.getController();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        controller.paintMap();
+        controller.move(scene);
+        stage.setScene(scene);
+
+
+        stage.setWidth(32*20);
+        stage.setHeight(32*20);
+        stage.setMaxWidth(32*20);
+        stage.setMaxHeight(32*20);
+        stage.setMinWidth(32*20);
+        stage.setMinHeight(32*20);
+
+        stage.show();
+    }
+
 }
 
 
