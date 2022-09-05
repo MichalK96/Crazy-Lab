@@ -90,23 +90,13 @@ public class GameControler {
     }
 
     private void generateItemsList() {
-        List<Integer> randomCords = generateRandomCoordinates();
-        addItemToInventory(new Weapon(ItemType.ENZYME_KIT, randomCords.get(0), randomCords.get(1)));
-        addItemToInventory(new Tool(ItemType.KEY, 11, 13));
-        randomCords = generateRandomCoordinates();
-        addItemToInventory(new Tool(ItemType.SYRINGE, randomCords.get(0), randomCords.get(1)));
-        randomCords = generateRandomCoordinates();
-        addItemToInventory(new Tool(ItemType.STANING_KIT, randomCords.get(0), randomCords.get(1)));
-        randomCords = generateRandomCoordinates();
-        addItemToInventory(new Tool(ItemType.USB_KEY, randomCords.get(0), randomCords.get(1)));
-        randomCords = generateRandomCoordinates();
-        addItemToInventory(new Armour(ItemType.DIY_MASK, randomCords.get(0), randomCords.get(1)));
-        randomCords = generateRandomCoordinates();
-        addItemToInventory(new Armour(ItemType.ATEST_MASK, randomCords.get(0), randomCords.get(1)));
-        randomCords = generateRandomCoordinates();
-        addItemToInventory(new Weapon(ItemType.SPRAY, randomCords.get(0), randomCords.get(1)));
-        randomCords = generateRandomCoordinates();
-        addItemToInventory(new Weapon(ItemType.SANDWICH, randomCords.get(0), randomCords.get(1)));
+        List<Integer> randomCords;
+        for(ItemType item: ItemType.values()){
+            randomCords = generateRandomCoordinates();
+            if(item.getType().equals("TOOL")) {addItemToInventory(new Tool(item, randomCords.get(0), randomCords.get(1)));}
+            if(item.getType().equals("ARMOR")) {addItemToInventory(new Armour(item, randomCords.get(0), randomCords.get(1)));}
+            if(item.getType().equals("WEAPON")) {addItemToInventory(new Weapon(item, randomCords.get(0), randomCords.get(1)));}
+        }
     }
 
     private void addItemToInventory(Item item) {
