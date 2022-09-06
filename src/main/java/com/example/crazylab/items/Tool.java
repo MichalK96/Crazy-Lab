@@ -21,6 +21,10 @@ public class Tool extends Item {
         this.posY = posY;
     }
 
+    public Tool(ItemType type){
+        this.type = type;
+    }
+
     public int getPosX() {
         return posX;
     }

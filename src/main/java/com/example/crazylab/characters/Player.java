@@ -120,4 +120,8 @@ public class Player extends Character {
     public void fightWithInfected() {
         System.out.println("Fighting with infected");
     }
+
+    public boolean checkIfItemInInventory(ItemType itemType){
+        return inventory.stream().map(item -> item.getItemType()).anyMatch(type -> type.equals(itemType));
+    }
 }

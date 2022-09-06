@@ -134,6 +134,8 @@ public class GameControler {
     private void addItemIfExistToInventory() {
         for (Item item : items) {
             if (item.getPosX() == player.getPosX() && item.getPosY() == player.getPosY()) {
+                //System.out.println("Item added to inventory (ArrayList)");
+                //System.out.println(item.getItemType().name());
                 player.addItemToInventory(item);
                 try {
                     showPopupWindowItem(item.getItemType());
@@ -183,8 +185,39 @@ public class GameControler {
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(gameBoard);
+        stage.addEventHandler(KeyEvent.KEY_PRESSED,  (event) -> {
+            stage.close();
+        });
         stage.showAndWait();
         popup=true;
+    }
+
+    private void showPopupWindowFabularEvent(FabularEvent event) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(event.getFxmlFile())));
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(gameBoard);
+        stage.addEventHandler(KeyEvent.KEY_PRESSED,  (e) -> {
+            stage.close();
+        });
+        stage.showAndWait();
+        popup=true;
+    }
+
+    private void collectSample() throws IOException {
+        //chaeck if player is next to the sample donor
+        if ((player.getPosX()==28 || player.getPosX()==29) && player.getPosY()==22) {
+            if (!player.checkIfItemInInventory(ItemType.SYRINGE)){
+                System.out.println("You need a syringe to collect virus sample!");
+                showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
+            } else {
+                Tool virusSample = new Tool(ItemType.VIRUS_SAMPLE);
+                System.out.println("You collected a virus sample!");
+                showPopupWindowFabularEvent(FabularEvent.SAMPLE_COLLECTED);
+                player.addItemToInventory(virusSample);
+            }
+        }
     }
 
 
@@ -295,6 +328,13 @@ public class GameControler {
                     case X -> addItemIfExistToInventory();
                     default -> System.out.println(keyEvent.getCode());
                 }
+                try {
+                    addItemIfExistToInventory();
+                    collectSample();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         });
     }
