@@ -9,5 +9,7 @@ public abstract class Enemy extends Character {
     protected Enemy() throws IOException {
     }
 
-    public abstract void move(ArrayList<Infected> characters);
+
+
+    public abstract void move();
 }

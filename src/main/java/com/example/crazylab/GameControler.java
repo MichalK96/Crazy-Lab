@@ -56,6 +56,7 @@ public class GameControler {
     @FXML
     private Label textWelcome;
     private Stage gameBoard;
+    boolean popup = false;
 
     public GameControler() throws IOException {
     }
@@ -212,6 +213,7 @@ public class GameControler {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(gameBoard);
         stage.showAndWait();
+        popup=true;
     }
 
 
@@ -272,12 +274,12 @@ public class GameControler {
     }
 
     public void enemyMoves() {
-        for (int i = 0; i < characters.size(); i++) {
-            floor.getChildren().remove(characters.get(i).getImageBottom());
-            floor.getChildren().remove(characters.get(i).getImageTop());
-            characters.get(i).move(characters);
-            floor.add(characters.get(i).getImageBottom(), characters.get(i).getPosX(), characters.get(i).getPosY());
-            floor.add(characters.get(i).getImageTop(), characters.get(i).getPosX2(), characters.get(i).getPosY2());
+        for (Infected character : characters) {
+            floor.getChildren().remove(character.getImageBottom());
+            floor.getChildren().remove(character.getImageTop());
+            character.move();
+            floor.add(character.getImageBottom(), character.getPosX(), character.getPosY());
+            floor.add(character.getImageTop(), character.getPosX2(), character.getPosY2());
         }
 
 
@@ -292,10 +294,14 @@ public class GameControler {
                         Thread.currentThread().sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                        System.out.println("cos poszło nie tak ;/");
                     }
                     Platform.runLater(() -> {
-                        enemyMoves();
-                        refresh();
+                        if(!popup){
+                            enemyMoves();
+                            refresh();
+                        }
+
                     });
                 }
             }
@@ -363,7 +369,7 @@ public class GameControler {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
-        //showPopupWindow("BOSS");
+//        showPopupWindow("BOSS");
         //showPopupWindow("COWORKER");
         //showPopupWindow("INFECTED");
 

@@ -125,14 +125,12 @@ public class Infected extends Enemy {
     }
 
     @Override
-    public void move(ArrayList<Infected> characters) {
-        List<Integer> nextPosition = getNextPosition();
-        for (int i = 0; i < characters.size(); i++) {
-            do {
-                nextPosition = getNextPosition();
-            }
-            while (  !checkIfWall(nextPosition.get(1),nextPosition.get(0))) ;
+    public void move() {
+        List<Integer> nextPosition;
+        do {
+            nextPosition = getNextPosition();
         }
+        while (  !checkIfWall(nextPosition.get(1),nextPosition.get(0))) ;
         setPosX(nextPosition.get(1));
         setPosY(nextPosition.get(0));
 

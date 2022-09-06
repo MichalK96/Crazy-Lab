@@ -8,7 +8,7 @@ public class Boss extends Enemy {
     }
 
     @Override
-    public void move(ArrayList<Infected> characters) {
+    public void move() {
 
     }
 }

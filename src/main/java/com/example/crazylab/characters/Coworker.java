@@ -62,7 +62,7 @@ public class Coworker extends Enemy{
     }
 
     @Override
-    public void move(ArrayList<Infected> characters) {
+    public void move() {
 
     }
 }
