@@ -90,25 +90,6 @@ public class Player extends Character {
         inventory.add(item);
     }
 
-//    public void addItem(String item) {
-//        switch (item) {
-//            case "I_mask" -> items.add(new Armour(ArmourType.ATEST_MASK));
-//            case "I_diyMask" -> items.add(new Armour(ArmourType.DIY_MASK));
-//            case "I_syringe" -> items.add(new Tool(ToolType.SYRINGE));
-//            case "I_staningKit" -> items.add(new Tool(ToolType.STANING_KIT));
-//            case "I_enzymeKit" -> items.add(new Tool(ToolType.ENZYME_KIT));
-//            case "I_usbKey" -> items.add(new Tool(ToolType.USB_KEY));
-//            case "I_dnaSample" -> items.add(new Tool(ToolType.DNA_SAMPLE));
-//            case "I_virusSample" -> items.add(new Tool(ToolType.VIRUS_SAMPLE));
-//            case "I_report" -> items.add(new Tool(ToolType.REPORT));
-//            case "I_microscopeImage" -> items.add(new Tool(ToolType.MICROSCOPE_IMAGE));
-//            case "I_sandwich" -> items.add(new Weapon(WeaponType.SANDWICH));
-//            case "I_spray" -> items.add(new Weapon(WeaponType.SPRAY));
-//            default -> System.out.println("Wrong item type");
-//        }
-//    }
-
-
     public void fightWithBoss() {
         System.out.println("Fighting with boss");
     }
@@ -124,4 +105,13 @@ public class Player extends Character {
     public boolean checkIfItemInInventory(ItemType itemType){
         return inventory.stream().map(item -> item.getItemType()).anyMatch(type -> type.equals(itemType));
     }
+
+    public boolean isContactWithInfected(ArrayList<Infected> infecteds) {
+        for (Infected infected : infecteds) {
+            if (infected.posX == posX1 && infected.posY == posY1) return true;
+        }
+        return false;
+    }
+
+
 }

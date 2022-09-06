@@ -130,10 +130,9 @@ public class Infected extends Enemy {
         do {
             nextPosition = getNextPosition();
         }
-        while (  !checkIfWall(nextPosition.get(1),nextPosition.get(0))) ;
+        while (!checkIfWall(nextPosition.get(1),nextPosition.get(0))) ;
         setPosX(nextPosition.get(1));
         setPosY(nextPosition.get(0));
-
     }
 
     @Override
@@ -145,4 +144,7 @@ public class Infected extends Enemy {
     }
 
 
+    public boolean checkContactWithPlayer(int playerPosX, int playerPosY) {
+        return posX == playerPosX && posY == playerPosY;
+    }
 }

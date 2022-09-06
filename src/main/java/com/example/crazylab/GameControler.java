@@ -1,7 +1,6 @@
 package com.example.crazylab;
 
 
-import com.example.crazylab.characters.Enemy;
 import com.example.crazylab.characters.Boss;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
@@ -31,11 +30,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static java.time.zone.ZoneRulesProvider.refresh;
-
 import java.util.List;
 import java.util.Random;
-import java.util.Objects;
 
 public class GameControler {
     Player player = new Player("name");
@@ -68,7 +64,6 @@ public class GameControler {
 
     public GameControler() throws IOException {
     }
-
 
     public void addCharactersToList() throws IOException {
         characters.add(new Infected(7, 6));
@@ -138,8 +133,6 @@ public class GameControler {
     private void addItemIfExistToInventory() {
         for (Item item : items) {
             if (item.getPosX() == player.getPosX() && item.getPosY() == player.getPosY()) {
-                //System.out.println("Item added to inventory (ArrayList)");
-                //System.out.println(item.getItemType().name());
                 player.addItemToInventory(item);
                 try {
                     showPopupWindowItem(item.getItemType());
@@ -147,13 +140,13 @@ public class GameControler {
                     throw new RuntimeException(e);
                 }
                 removeItemFromMap(item);
-                displayInventory();
+                refreshInventoryDisplay();
                 break;
             }
         }
     }
 
-    private void displayInventory() {
+    private void refreshInventoryDisplay() {
         System.out.println("Set text in inventory label");
         equipment.setText(player.prepareItemsToDisplay());
     }
@@ -211,6 +204,7 @@ public class GameControler {
                 Tool virusSample = new Tool(ItemType.VIRUS_SAMPLE);
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_COLLECTED);
                 player.addItemToInventory(virusSample);
+                refreshInventoryDisplay();
             }
         }
     }
@@ -309,6 +303,7 @@ public class GameControler {
             floor.getChildren().remove(character.getImageBottom());
             floor.getChildren().remove(character.getImageTop());
             character.move();
+            if (character.checkContactWithPlayer(player.getPosX(), player.getPosY())) player.fightWithInfected();
             floor.add(character.getImageBottom(), character.getPosX(), character.getPosY());
             floor.add(character.getImageTop(), character.getPosX2(), character.getPosY2());
         }
@@ -360,7 +355,6 @@ public class GameControler {
 
 
     public void move(Scene scene) throws IOException {
-//       labelUserName.setText(user.getName());
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -377,6 +371,7 @@ public class GameControler {
                     addItemIfExistToInventory();
                     collectSample();
                     takeMicroscopePicture();
+                    if (player.isContactWithInfected(characters)) player.fightWithInfected();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
