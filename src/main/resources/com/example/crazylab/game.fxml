@@ -112,7 +112,7 @@
             <Rectangle fx:id="sqare" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="31.0" stroke="BLACK" strokeType="INSIDE" width="31.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <Label fx:id="equipment" alignment="TOP_LEFT" prefHeight="258.0" prefWidth="160.0" text="Equipment:" textFill="#d31717" wrapText="true">
+      <Label fx:id="equipment" alignment="TOP_LEFT" prefHeight="500.0" prefWidth="160.0" text="Inventory" textFill="#e81414" wrapText="true">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

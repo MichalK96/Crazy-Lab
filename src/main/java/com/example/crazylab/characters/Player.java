@@ -72,10 +72,18 @@ public class Player extends Character {
         return name;
     }
 
-    public void printItems() {
+    public String prepareItemsToDisplay() {
+        StringBuilder inventoryToDisplay = new StringBuilder();
         for (Item item : inventory) {
-            System.out.println(item);
+            if (item instanceof Tool) {
+                inventoryToDisplay.append("\n").append(((Tool) item).getType());
+            } else if (item instanceof Weapon) {
+                inventoryToDisplay.append("\n").append(((Weapon) item).getType());
+            } else {
+                inventoryToDisplay.append("\n").append(((Armour) item).getType());
+            }
         }
+        return "Inventory:" + inventoryToDisplay.toString().replace("_", " ").toLowerCase();
     }
 
     public void addItemToInventory(Item item) {

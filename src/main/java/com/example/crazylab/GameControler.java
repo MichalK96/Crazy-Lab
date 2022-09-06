@@ -134,22 +134,18 @@ public class GameControler {
     private void addItemIfExistToInventory() throws IOException {
         for (Item item : items) {
             if (item.getPosX() == player.getPosX() && item.getPosY() == player.getPosY()) {
-                //System.out.println("Item added to inventory (ArrayList)");
-                //System.out.println(item.getItemType().name());
                 player.addItemToInventory(item);
                 showPopupWindowItem(item.getItemType());
-
                 removeItemFromMap(item);
                 displayInventory();
-                player.printItems();       // TODO to remove
                 break;
             }
         }
     }
 
     private void displayInventory() {
-        System.out.println("Set text in label working");
-        equipment.setText("Inventory :D");
+        System.out.println("Set text in inventory label");
+        equipment.setText(player.prepareItemsToDisplay());
     }
 
     private boolean checkIfWall(int x, int y) {
