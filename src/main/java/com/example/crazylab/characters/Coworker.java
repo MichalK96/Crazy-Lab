@@ -67,6 +67,11 @@ public class Coworker extends Enemy{
     }
 
     @Override
+    public void move(Player player) {
+
+    }
+
+    @Override
     public String getFXMLfile() {
         return "coworker_popup.fxml";
     }

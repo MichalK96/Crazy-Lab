@@ -140,6 +140,9 @@ public class Infected extends Enemy {
     public String getFXMLfile() {
         return "infected_popup.fxml";
     }
+    @Override
+    public void move(Player player) {
+    }
 
 
 }

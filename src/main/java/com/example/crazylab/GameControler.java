@@ -2,6 +2,7 @@ package com.example.crazylab;
 
 
 import com.example.crazylab.characters.Enemy;
+import com.example.crazylab.characters.Boss;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.*;
@@ -34,18 +35,21 @@ import static java.time.zone.ZoneRulesProvider.refresh;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Objects;
 
 public class GameControler {
     Player player = new Player("name");
+    Boss boss = new Boss();
     private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
 
 
     private Doors doors;
     private final ArrayList<Item> items = new ArrayList<>();
-    private final ArrayList<Infected> characters = new ArrayList<>();
+    private final ArrayList<Infected> characters = new ArrayList<Infected>();
 
     Player user = new Player(SceneController.userName);
+    Infected example = new Infected(0,0);
 
     @FXML
     private Label labelUserName;
@@ -167,7 +171,10 @@ public class GameControler {
                 disallowedFields.get(y).get(x) != 83 &&
                 disallowedFields.get(y).get(x) != 64 &&
                 disallowedFields.get(y).get(x) != 67 &&
-                disallowedFields.get(y).get(x) != 82;
+                disallowedFields.get(y).get(x) != 82 &&
+                (x !=22 || y!=34) &&
+                (x !=23 || y!=34) &&
+                (x !=24 || y!=34) ;
     }
 
     private void showPopupWindowEnemy(Enemy enemy) throws IOException {
@@ -263,6 +270,20 @@ public class GameControler {
             floor.add(characters.get(i).getImageTop(), characters.get(i).getPosX(), characters.get(i).getPosY() - 1);
         }
     }
+    public void putBossOnMap(){
+        if(floor!=null){
+            floor.add(boss.getImageTop(), boss.getPosXBottom(), boss.getPosYBottom());
+            floor.add(boss.getImageBottom(), boss.getPosXTop(), boss.getPosYTop());
+
+        }
+
+    }
+    public void removeBossFromMap(){
+        if(floor!=null){floor.getChildren().remove(boss.getImageTop());
+            floor.getChildren().remove(boss.getImageBottom());}
+
+
+    }
 
     public void paintMap() throws IOException {
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
@@ -275,6 +296,12 @@ public class GameControler {
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
         generateItemsList();
         addInfectedToMap();
+        putBossOnMap();
+    }
+    public void bossMove(){
+        removeBossFromMap( );
+        boss.move(player);
+        putBossOnMap();
     }
 
     public void enemyMoves() {
@@ -287,6 +314,27 @@ public class GameControler {
         }
 
 
+
+    }
+    public void initialize1() {
+        Thread movement = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000 / boss.getSpeed());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+
+                    }
+                    Platform.runLater(() -> {
+                       bossMove();
+//                            refresh();
+                    });
+                }
+            }
+        });
+        movement.start();
     }
 
     public void initialize() {
@@ -295,17 +343,14 @@ public class GameControler {
             public void run() {
                 while (true) {
                     try {
-                        Thread.currentThread().sleep(500);
+                        Thread.sleep(1000 / example.getSpeed() );
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                        System.out.println("cos poszło nie tak ;/");
+
                     }
                     Platform.runLater(() -> {
-                        if(!popup){
                             enemyMoves();
-                            refresh();
-                        }
-
+//                            refresh();
                     });
                 }
             }
@@ -389,6 +434,7 @@ public class GameControler {
         gameBoard = stage;
         Scene scene = new Scene(root);
         controller.paintMap();
+        controller.initialize1();
 
         controller.move(scene);
         stage.setScene(scene);
