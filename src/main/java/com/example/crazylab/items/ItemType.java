@@ -1,5 +1,7 @@
 package com.example.crazylab.items;
 
+import java.util.function.Predicate;
+
 public enum ItemType {
 
     SYRINGE (142, 0, "TOOL", "found_syringe.fxml"),      //random
