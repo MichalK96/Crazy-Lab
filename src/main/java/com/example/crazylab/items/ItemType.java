@@ -10,11 +10,11 @@ public enum ItemType {
     USB_KEY (99, 0, "TOOL", "found_USBkey.fxml"),   //random
     REPORT (0, 0, "TOOL", "found_syringe.fxml"),    //do zdobycia
     MICROSCOPE_IMAGE (0, 0, "TOOL", "found_syringe.fxml"),  //do zdobycia
-    KEY (104, 0, "TOOL", "found_syringe.fxml"),     //ustawić
-    DIY_MASK (124, 0, "ARMOR", "found_syringe.fxml"), //random
-    ATEST_MASK(114, 0, "ARMOR", "found_syringe.fxml"), //random
+    KEY (104, 0, "TOOL", "found_key.fxml"),     //ustawić
+    DIY_MASK (124, 0, "ARMOR", "found_mask.fxml"), //random
+    ATEST_MASK(114, 0, "ARMOR", "found_mask.fxml"), //random
     SPRAY(134, 0, "WEAPON", "found_syringe.fxml"),     //random
-    SANDWICH(186, 0, "WEAPON", "found_syringe.fxml");  //random
+    SANDWICH(186, 0, "WEAPON", "found_sandwich.fxml");  //random
 
     private final int imageId;
     private final int property;
