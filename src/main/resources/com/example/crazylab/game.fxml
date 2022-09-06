@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1982.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.GameControler">
    <children>
-      <GridPane fx:id="floor" cacheShape="false" centerShape="false" gridLinesVisible="true" prefHeight="1920.0" prefWidth="960.0" scaleShape="false">
+      <GridPane fx:id="floor" alignment="TOP_CENTER" cacheShape="false" centerShape="false" gridLinesVisible="true" prefHeight="1920.0" prefWidth="960.0" scaleShape="false">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="32.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="32.0" />
@@ -112,7 +112,7 @@
             <Rectangle fx:id="sqare" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="31.0" stroke="BLACK" strokeType="INSIDE" width="31.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <Label fx:id="equipment" alignment="TOP_LEFT" prefHeight="500.0" prefWidth="160.0" text="Inventory" textFill="#e81414" wrapText="true">
+      <Label fx:id="equipment" alignment="TOP_LEFT" layoutX="31.0" prefHeight="500.0" prefWidth="129.0" text="Inventory" textAlignment="CENTER" textFill="#e81414" wrapText="true">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

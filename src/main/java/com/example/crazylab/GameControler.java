@@ -177,15 +177,6 @@ public class GameControler {
                 (x !=24 || y!=34) ;
     }
 
-    private void showPopupWindowEnemy(Enemy enemy) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(enemy.getFXMLfile())));
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(gameBoard);
-        stage.showAndWait();
-    }
-
     private void showPopupWindowItem(ItemType itemType) throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(itemType.getFxmlFile())));
@@ -213,16 +204,25 @@ public class GameControler {
     }
 
     private void collectSample() throws IOException {
-        //chaeck if player is next to the sample donor
         if ((player.getPosX()==28 || player.getPosX()==29) && player.getPosY()==22) {
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)){
-                System.out.println("You need a syringe to collect virus sample!");
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
             } else {
                 Tool virusSample = new Tool(ItemType.VIRUS_SAMPLE);
-                System.out.println("You collected a virus sample!");
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_COLLECTED);
                 player.addItemToInventory(virusSample);
+            }
+        }
+    }
+
+    private void takeMicroscopePicture() throws IOException {
+        if ((player.getPosX()==11 || player.getPosX()==12) && player.getPosY()==4) {
+            if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.STANING_KIT)){
+                Tool microscopeImage = new Tool(ItemType.MICROSCOPE_IMAGE);
+                showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_TAKEN);
+                player.addItemToInventory(microscopeImage);
+            } else {
+                showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_NOT_TAKEN);
             }
         }
     }
@@ -376,6 +376,7 @@ public class GameControler {
                 try {
                     addItemIfExistToInventory();
                     collectSample();
+                    takeMicroscopePicture();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
