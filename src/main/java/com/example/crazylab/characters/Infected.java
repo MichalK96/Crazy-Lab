@@ -136,6 +136,9 @@ public class Infected extends Enemy {
 
     }
 
+    @Override
+    public void move(Player player) {
+    }
 
 
 }

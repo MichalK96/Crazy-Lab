@@ -65,4 +65,9 @@ public class Coworker extends Enemy{
     public void move() {
 
     }
+
+    @Override
+    public void move(Player player) {
+
+    }
 }

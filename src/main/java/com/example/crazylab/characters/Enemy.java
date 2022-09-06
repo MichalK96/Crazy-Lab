@@ -12,4 +12,6 @@ public abstract class Enemy extends Character {
 
 
     public abstract void move();
+
+    public abstract void move(Player player);
 }

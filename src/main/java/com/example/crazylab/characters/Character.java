@@ -25,7 +25,10 @@ public abstract class Character {
                 disallowedFields.get(y).get(x) != 83 &&
                 disallowedFields.get(y).get(x) != 64 &&
                 disallowedFields.get(y).get(x) != 67 &&
-                disallowedFields.get(y).get(x) != 82;
+                disallowedFields.get(y).get(x) != 82 &&
+                (x !=22 || y!=34) &&
+                (x !=23 || y!=34) &&
+                (x !=24 || y!=34) ;
 
     }
 

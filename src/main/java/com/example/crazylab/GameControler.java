@@ -1,13 +1,13 @@
 package com.example.crazylab;
 
 
+import com.example.crazylab.characters.Boss;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.*;
 import com.example.crazylab.tiles.Tiles;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
@@ -19,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 
 import com.example.crazylab.tiles.Doors;
 import javafx.stage.Modality;
@@ -30,23 +29,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static java.time.zone.ZoneRulesProvider.refresh;
-
 import java.util.List;
 import java.util.Random;
-import java.util.Objects;
+
+import static java.time.zone.ZoneRulesProvider.refresh;
 
 public class GameControler {
     Player player = new Player("name");
+    Boss boss = new Boss();
     private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
 
 
     private Doors doors;
     private final ArrayList<Item> items = new ArrayList<>();
-    private final ArrayList<Infected> characters = new ArrayList<>();
+    private final ArrayList<Infected> characters = new ArrayList<Infected>();
 
     Player user = new Player(SceneController.userName);
+    Infected example = new Infected(0,0);
 
     @FXML
     private Label labelUserName;
@@ -92,11 +92,17 @@ public class GameControler {
 
     private void generateItemsList() {
         List<Integer> randomCords;
-        for(ItemType item: ItemType.values()){
+        for (ItemType item : ItemType.values()) {
             randomCords = generateRandomCoordinates();
-            if(item.getType().equals("TOOL")) {addItemToInventory(new Tool(item, randomCords.get(0), randomCords.get(1)));}
-            if(item.getType().equals("ARMOR")) {addItemToInventory(new Armour(item, randomCords.get(0), randomCords.get(1)));}
-            if(item.getType().equals("WEAPON")) {addItemToInventory(new Weapon(item, randomCords.get(0), randomCords.get(1)));}
+            if (item.getType().equals("TOOL")) {
+                addItemToInventory(new Tool(item, randomCords.get(0), randomCords.get(1)));
+            }
+            if (item.getType().equals("ARMOR")) {
+                addItemToInventory(new Armour(item, randomCords.get(0), randomCords.get(1)));
+            }
+            if (item.getType().equals("WEAPON")) {
+                addItemToInventory(new Weapon(item, randomCords.get(0), randomCords.get(1)));
+            }
         }
     }
 
@@ -131,6 +137,7 @@ public class GameControler {
                 player.addItemToInventory(item);
                 removeItemFromMap(item);
                 player.displayItems();       // TODO to remove
+                break;
             }
         }
     }
@@ -148,7 +155,8 @@ public class GameControler {
                 disallowedFields.get(y).get(x) != 83 &&
                 disallowedFields.get(y).get(x) != 64 &&
                 disallowedFields.get(y).get(x) != 67 &&
-                disallowedFields.get(y).get(x) != 82;
+                disallowedFields.get(y).get(x) != 82 &&
+                (x !=22 && y!=34);
     }
 
 
@@ -213,7 +221,7 @@ public class GameControler {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(gameBoard);
         stage.showAndWait();
-        popup=true;
+        popup = true;
     }
 
 
@@ -222,6 +230,7 @@ public class GameControler {
                 player.getPosY() - 1
         )) {
             moveVertically(-1);
+//            System.out.println(player.getPosX()+"   "+ player.getPosY());
         }
     }
 
@@ -231,6 +240,7 @@ public class GameControler {
                 player.getPosY() + 1
         )) {
             moveVertically(1);
+//            System.out.println(player.getPosX()+"   "+ player.getPosY());
         }
     }
 
@@ -240,6 +250,7 @@ public class GameControler {
                 player.getPosY()
         )) {
             moveHorizontally(1);
+//            System.out.println(player.getPosX()+"   "+ player.getPosY());
         }
     }
 
@@ -249,6 +260,7 @@ public class GameControler {
                 player.getPosY()
         )) {
             moveHorizontally(-1);
+//            System.out.println(player.getPosX()+"   "+ player.getPosY());
         }
     }
 
@@ -258,6 +270,20 @@ public class GameControler {
             floor.add(characters.get(i).getImageBottom(), characters.get(i).getPosX(), characters.get(i).getPosY());
             floor.add(characters.get(i).getImageTop(), characters.get(i).getPosX(), characters.get(i).getPosY() - 1);
         }
+    }
+    public void putBossOnMap(){
+        if(floor!=null){
+            floor.add(boss.getImageTop(), boss.getPosXBottom(), boss.getPosYBottom());
+            floor.add(boss.getImageBottom(), boss.getPosXTop(), boss.getPosYTop());
+
+        }
+
+    }
+    public void removeBossFromMap(){
+        if(floor!=null){floor.getChildren().remove(boss.getImageTop());
+            floor.getChildren().remove(boss.getImageBottom());}
+
+
     }
 
     public void paintMap() throws IOException {
@@ -271,9 +297,17 @@ public class GameControler {
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
         generateItemsList();
         addInfectedToMap();
+        putBossOnMap();
+    }
+    public void bossMove(){
+        removeBossFromMap( );
+        boss.move(player);
+        putBossOnMap();
     }
 
     public void enemyMoves() {
+
+
         for (Infected character : characters) {
             floor.getChildren().remove(character.getImageBottom());
             floor.getChildren().remove(character.getImageTop());
@@ -283,6 +317,27 @@ public class GameControler {
         }
 
 
+
+    }
+    public void initialize1() {
+        Thread movement = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000 / boss.getSpeed());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+
+                    }
+                    Platform.runLater(() -> {
+                       bossMove();
+//                            refresh();
+                    });
+                }
+            }
+        });
+        movement.start();
     }
 
     public void initialize() {
@@ -291,17 +346,14 @@ public class GameControler {
             public void run() {
                 while (true) {
                     try {
-                        Thread.currentThread().sleep(500);
+                        Thread.sleep(1000 / example.getSpeed() );
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                        System.out.println("cos poszło nie tak ;/");
+
                     }
                     Platform.runLater(() -> {
-                        if(!popup){
                             enemyMoves();
-                            refresh();
-                        }
-
+//                            refresh();
                     });
                 }
             }
@@ -369,7 +421,7 @@ public class GameControler {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
-//        showPopupWindow("BOSS");
+        //showPopupWindow("BOSS");
         //showPopupWindow("COWORKER");
         //showPopupWindow("INFECTED");
 
@@ -380,6 +432,7 @@ public class GameControler {
         gameBoard = stage;
         Scene scene = new Scene(root);
         controller.paintMap();
+        controller.initialize1();
 
         controller.move(scene);
         stage.setScene(scene);
