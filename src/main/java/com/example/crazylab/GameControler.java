@@ -1,7 +1,6 @@
 package com.example.crazylab;
 
 
-import com.example.crazylab.characters.Boss;
 import com.example.crazylab.characters.Enemy;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
@@ -9,7 +8,6 @@ import com.example.crazylab.items.*;
 import com.example.crazylab.tiles.Tiles;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
@@ -18,11 +16,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 
 import com.example.crazylab.tiles.Doors;
 import javafx.scene.text.Text;
@@ -30,9 +26,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -40,7 +34,6 @@ import static java.time.zone.ZoneRulesProvider.refresh;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Objects;
 
 public class GameControler {
     Player player = new Player("name");
@@ -56,7 +49,8 @@ public class GameControler {
 
     @FXML
     private Label labelUserName;
-
+    @FXML
+    private Label equipment;
     @FXML
     GridPane floor;
     @FXML
@@ -104,13 +98,16 @@ public class GameControler {
         List<Integer> randomCords;
         for(ItemType item: ItemType.values()){
             randomCords = generateRandomCoordinates();
-            if(item.getType().equals("TOOL")) {addItemToInventory(new Tool(item, randomCords.get(0), randomCords.get(1)));}
-            if(item.getType().equals("ARMOR")) {addItemToInventory(new Armour(item, randomCords.get(0), randomCords.get(1)));}
-            if(item.getType().equals("WEAPON")) {addItemToInventory(new Weapon(item, randomCords.get(0), randomCords.get(1)));}
+            if(item.getType().equals("TOOL")) {
+                addItemToMap(new Tool(item, randomCords.get(0), randomCords.get(1)));}
+            if(item.getType().equals("ARMOR")) {
+                addItemToMap(new Armour(item, randomCords.get(0), randomCords.get(1)));}
+            if(item.getType().equals("WEAPON")) {
+                addItemToMap(new Weapon(item, randomCords.get(0), randomCords.get(1)));}
         }
     }
 
-    private void addItemToInventory(Item item) {
+    private void addItemToMap(Item item) {
         items.add(item);
         int imageId;
         if (item instanceof Tool) {
@@ -134,15 +131,24 @@ public class GameControler {
 
     }
 
-    private void addItemIfExist() {
+    private void addItemIfExistToInventory() throws IOException {
         for (Item item : items) {
             if (item.getPosX() == player.getPosX() && item.getPosY() == player.getPosY()) {
                 System.out.println("Item added to inventory (ArrayList)");
                 player.addItemToInventory(item);
+                showPopupWindowItem(item.getItemtype());    //TODO wywala błąd
+
                 removeItemFromMap(item);
-                player.displayItems();       // TODO to remove
+                displayInventory();
+                player.printItems();       // TODO to remove
+                break;
             }
         }
+    }
+
+    private void displayInventory() {
+        System.out.println("Set text in label working");
+        equipment.setText("Inventory :D");
     }
 
     private boolean checkIfWall(int x, int y) {
@@ -170,7 +176,7 @@ public class GameControler {
         stage.showAndWait();
     }
 
-    private void showPopupWindoItem(ItemType item) throws IOException {
+    private void showPopupWindowItem(ItemType item) throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(item.getFxmlFile())));
         stage.setScene(new Scene(root));
@@ -287,8 +293,11 @@ public class GameControler {
                     case DOWN -> moveDown();
                     default -> System.out.println(keyEvent.getCode());
                 }
-
-                addItemIfExist();
+                try {
+                    addItemIfExistToInventory();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
             }
         });

@@ -72,7 +72,7 @@ public class Player extends Character {
         return name;
     }
 
-    public void displayItems() {
+    public void printItems() {
         for (Item item : inventory) {
             System.out.println(item);
         }

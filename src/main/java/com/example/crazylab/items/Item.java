@@ -25,4 +25,8 @@ public abstract class Item {
     public void setImage(ImageView image) {
         this.image = image;
     }
+
+    public ItemType getItemtype() {
+        return itemType;
+    }
 }
