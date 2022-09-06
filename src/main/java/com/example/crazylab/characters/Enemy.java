@@ -9,6 +9,7 @@ public abstract class Enemy extends Character {
     protected Enemy() throws IOException {
     }
 
+    public abstract String getFXMLfile();
 
 
     public abstract void move();

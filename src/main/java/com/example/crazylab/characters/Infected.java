@@ -136,6 +136,10 @@ public class Infected extends Enemy {
 
     }
 
+    @Override
+    public String getFXMLfile() {
+        return "infected_popup.fxml";
+    }
 
 
 }
