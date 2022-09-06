@@ -24,4 +24,9 @@ public class Armour extends Item {
     public ItemType getType() {
         return type;
     }
+
+    @Override
+    public ItemType getItemType() {
+        return this.type;
+    }
 }

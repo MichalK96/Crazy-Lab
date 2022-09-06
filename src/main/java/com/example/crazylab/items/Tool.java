@@ -36,4 +36,9 @@ public class Tool extends Item {
     public void setImage(ImageView image) {
         this.image = image;
     }
+
+    @Override
+    public ItemType getItemType() {
+        return this.type;
+    }
 }

@@ -26,7 +26,5 @@ public abstract class Item {
         this.image = image;
     }
 
-    public ItemType getItemtype() {
-        return itemType;
-    }
+    public abstract ItemType getItemType();
 }

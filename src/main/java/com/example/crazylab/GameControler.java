@@ -134,9 +134,10 @@ public class GameControler {
     private void addItemIfExistToInventory() throws IOException {
         for (Item item : items) {
             if (item.getPosX() == player.getPosX() && item.getPosY() == player.getPosY()) {
-                System.out.println("Item added to inventory (ArrayList)");
+                //System.out.println("Item added to inventory (ArrayList)");
+                //System.out.println(item.getItemType().name());
                 player.addItemToInventory(item);
-                showPopupWindowItem(item.getItemtype());    //TODO wywala błąd
+                showPopupWindowItem(item.getItemType());
 
                 removeItemFromMap(item);
                 displayInventory();
@@ -176,9 +177,9 @@ public class GameControler {
         stage.showAndWait();
     }
 
-    private void showPopupWindowItem(ItemType item) throws IOException {
+    private void showPopupWindowItem(ItemType itemType) throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(item.getFxmlFile())));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(itemType.getFxmlFile())));
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(gameBoard);

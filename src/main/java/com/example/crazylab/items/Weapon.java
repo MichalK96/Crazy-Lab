@@ -23,6 +23,11 @@ public class Weapon extends Item {
         this.posX = posX;
         this.posY = posY;
     }
+
+    @Override
+    public ItemType getItemType() {
+        return this.type;
+    }
 }
 
 
