@@ -131,11 +131,15 @@ public class GameControler {
 
     }
 
-    private void addItemIfExistToInventory() throws IOException {
+    private void addItemIfExistToInventory() {
         for (Item item : items) {
             if (item.getPosX() == player.getPosX() && item.getPosY() == player.getPosY()) {
                 player.addItemToInventory(item);
-                showPopupWindowItem(item.getItemType());
+                try {
+                    showPopupWindowItem(item.getItemType());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 removeItemFromMap(item);
                 displayInventory();
                 break;
@@ -288,14 +292,9 @@ public class GameControler {
                     case RIGHT -> moveRight();
                     case LEFT -> moveLeft();
                     case DOWN -> moveDown();
+                    case X -> addItemIfExistToInventory();
                     default -> System.out.println(keyEvent.getCode());
                 }
-                try {
-                    addItemIfExistToInventory();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
             }
         });
     }
