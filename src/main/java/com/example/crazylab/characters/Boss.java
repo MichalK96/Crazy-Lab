@@ -4,11 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Boss extends Enemy {
-    protected Boss() throws IOException {
+    public Boss() throws IOException {
     }
 
     @Override
     public void move(ArrayList<Infected> characters) {
 
+    }
+
+    @Override
+    public String getFXMLfile() {
+        return "boss_popup.fxml";
     }
 }

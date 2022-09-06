@@ -1,6 +1,8 @@
 package com.example.crazylab;
 
 
+import com.example.crazylab.characters.Boss;
+import com.example.crazylab.characters.Enemy;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.*;
@@ -16,17 +18,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
 import com.example.crazylab.tiles.Doors;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -55,6 +61,10 @@ public class GameControler {
     GridPane floor;
     @FXML
     private Label textWelcome;
+    @FXML
+    private ImageView img_foundItem;
+    @FXML
+    private Text text_foundItem;
     private Stage gameBoard;
 
     public GameControler() throws IOException {
@@ -150,64 +160,18 @@ public class GameControler {
                 disallowedFields.get(y).get(x) != 82;
     }
 
-
-    private boolean checkIfEnemy(Integer column, Integer row) throws IOException {
-
-        for (Node node : floor.getChildren()) {
-            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-                if (node instanceof ImageView) {
-                    String id = node.getId();
-                    if (id.charAt(0) == 'I') {
-//                       System.out.println(id + " added to equipment");
-//                       addItemToTable(id.substring(2));
-//                       user.addItem(id);
-//                       floor.getChildren().remove(node);
-//                       user.displayItems();
-//                       return false;
-                    } else if (id.charAt(0) == 'C') {
-                        System.out.println(id);
-                        switch (id.charAt(1)) {
-                            case 'B' -> {
-                                showPopupWindow("BOSS");
-                                user.fightWithBoss();
-                            }
-                            case 'C' -> {
-                                showPopupWindow("COWORKER");
-                                user.fightWithCoworker();
-                            }
-                            case 'I' -> {
-                                showPopupWindow("INFECTED");
-                                user.fightWithInfected();
-                            }
-                            default -> System.out.println("Unknown enemy");
-                        }
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+    private void showPopupWindowEnemy(Enemy enemy) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(enemy.getFXMLfile())));
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(gameBoard);
+        stage.showAndWait();
     }
 
-
-    private void showPopupWindow(String character) throws IOException {
-        String fxmlFile = null;
-        if (character.equals("BOSS")) {
-            fxmlFile = "boss_popup.fxml";
-        }
-        ;
-        if (character.equals("COWORKER")) {
-            fxmlFile = "coworker_popup.fxml";
-        }
-        ;
-        if (character.equals("INFECTED")) {
-            fxmlFile = "infected_popup.fxml";
-        }
-        ;
-
+    private void showPopupWindoItem(ItemType item) throws IOException {
         Stage stage = new Stage();
-        assert fxmlFile != null;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(item.getFxmlFile())));
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(gameBoard);
@@ -363,9 +327,9 @@ public class GameControler {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
-        //showPopupWindow("BOSS");
-        //showPopupWindow("COWORKER");
-        //showPopupWindow("INFECTED");
+        //showPopupWindoItem(ItemType.SANDWICH);
+        //Boss boss = new Boss();
+        //showPopupWindowEnemy(boss);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();

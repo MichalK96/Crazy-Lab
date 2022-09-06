@@ -10,4 +10,6 @@ public abstract class Enemy extends Character {
     }
 
     public abstract void move(ArrayList<Infected> characters);
+
+    public abstract String getFXMLfile();
 }

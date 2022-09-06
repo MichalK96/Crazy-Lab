@@ -65,4 +65,10 @@ public class Coworker extends Enemy{
     public void move(ArrayList<Infected> characters) {
 
     }
+
+    @Override
+    public String getFXMLfile() {
+        return "coworker_popup.fxml";
+    }
+
 }
