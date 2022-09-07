@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class GameController {
+public class GameControler {
     private final int playerInitialPosX = 6;
     private final int playerInitialPosY = 6;
     private final int initialBossPosX = 23;
@@ -60,7 +60,7 @@ public class GameController {
     private Stage gameBoard;
     boolean popup = false;
 
-    public GameController() throws IOException {
+    public GameControler() throws IOException {
     }
 
     public void addCharactersToList() throws IOException {
@@ -305,7 +305,7 @@ public class GameController {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
-        GameController controller = loader.getController();
+        GameControler controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         gameBoard = stage;
         Scene scene = new Scene(root);
@@ -314,7 +314,7 @@ public class GameController {
         sceneSettings(controller, stage, scene);
     }
 
-    static void sceneSettings(GameController controller, Stage stage, Scene scene) throws IOException {
+    static void sceneSettings(GameControler controller, Stage stage, Scene scene) throws IOException {
         controller.move(scene);
         stage.setScene(scene);
         stage.setWidth(32 * 20);
