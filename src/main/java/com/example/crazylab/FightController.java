@@ -97,7 +97,7 @@ public class FightController {
 
     private void attackPlayer() {
         int playerHealth = player.getHealth();
-        int randomAttack = (int) (Math.random() * (8 - 2));
+        int randomAttack = (int) (Math.random() * (8 - 2));  // TODO dobrać losowanie siły ataku
         playerHealth -= randomAttack;
         player.setHealth(playerHealth);
         updatePlayerStatsDisplay(randomAttack);
@@ -105,7 +105,7 @@ public class FightController {
 
     private void attackEnemy() {
         int infectedHealth = this.infected.getHealth();
-        int randomAttack = (int) (Math.random() * (10 - 4));
+        int randomAttack = (int) (Math.random() * (10 - 4));  // TODO dobrać losowanie siły ataku
         infectedHealth -= randomAttack;
         infected.setHealth(infectedHealth);
         updateEnemyStatsDisplay(randomAttack);
