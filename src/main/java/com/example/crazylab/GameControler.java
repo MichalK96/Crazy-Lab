@@ -171,7 +171,6 @@ public class GameControler {
     }
 
     private void refreshInventoryDisplay() {
-        System.out.println("Set text in inventory label");
         equipment.setText(player.prepareItemsToDisplay());
     }
 
@@ -200,7 +199,6 @@ public class GameControler {
             stage.close();
         });
         stage.showAndWait();
-
     }
 
     private void collectSample() throws IOException {
@@ -325,7 +323,11 @@ public class GameControler {
             floor.getChildren().remove(character.getImageBottom());
             floor.getChildren().remove(character.getImageTop());
             character.move();
-            if (character.checkContactWithPlayer(player.getPosX(), player.getPosY())) player.fightWithInfected();
+            if (character.checkContactWithPlayer(player.getPosX(), player.getPosY())) {
+                System.out.println(character);
+                player.fightWithInfected(player, character);
+                popup = true;
+            }
             floor.add(character.getImageBottom(), character.getPosX(), character.getPosY());
             floor.add(character.getImageTop(), character.getPosX2(), character.getPosY2());
         }
@@ -397,7 +399,12 @@ public class GameControler {
                 try {
                     collectSample();
                     takeMicroscopePicture();
-                    if (player.isContactWithInfected(infected)) player.fightWithInfected();
+                    Infected opponent = player.findInfected(infected);
+                    if (opponent != null) {
+                        player.fightWithInfected(player, opponent);
+                        System.out.println(opponent);
+                        popup = true;
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

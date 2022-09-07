@@ -11,6 +11,24 @@ import java.util.Random;
 public class Infected extends Enemy {
     int posX2;
     int posY2;
+    int posX;
+    int posY;
+    int speed = 2;
+    int health = 20;
+
+
+
+    ImageView imageTop = new ImageView(Tiles.getParticularImage(618));
+    ImageView imageBottom = new ImageView(Tiles.getParticularImage(633));
+    Boolean neutralized = false;
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
     public int getPosX2() {
         return posX2;
@@ -27,14 +45,6 @@ public class Infected extends Enemy {
     public void setPosY2() {
         this.posY2 = this.posY - 1;
     }
-
-    int posX;
-    int posY;
-
-    ImageView imageTop = new ImageView(Tiles.getParticularImage(618));
-    ImageView imageBottom = new ImageView(Tiles.getParticularImage(633));
-    Boolean neutralized = false;
-    int speed = 2;
 
     public Infected(int posX, int posY) throws IOException {
         super();

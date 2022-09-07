@@ -1,5 +1,6 @@
 package com.example.crazylab.characters;
 
+import com.example.crazylab.FightController;
 import com.example.crazylab.items.*;
 import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,15 @@ public class Player extends Character {
     private int posY1 = 6;
     private int posX2 = 6;
     private int posY2 = 5;
+    private int health = 32;
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
     public void setPosX2(int posX2) {
         this.posX2 = posX2;
@@ -98,20 +108,30 @@ public class Player extends Character {
         System.out.println("Fighting with coworker");
     }
 
-    public void fightWithInfected() {
+    public void fightWithInfected(Player player, Infected character) {
         System.out.println("Fighting with infected");
+        System.out.println(character);
+        try {
+            FightController fightController = new FightController();
+            //fightController.setPlayer(player);
+            //fightController.setInfected(character);
+            fightController.showPopupWindowFightWithInfected(player, character);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean checkIfItemInInventory(ItemType itemType){
         return inventory.stream().map(item -> item.getItemType()).anyMatch(type -> type.equals(itemType));
     }
 
-    public boolean isContactWithInfected(ArrayList<Infected> infecteds) {
+    public Infected findInfected(ArrayList<Infected> infecteds) {
         for (Infected infected : infecteds) {
-            if (infected.posX == posX1 && infected.posY == posY1) return true;
+            if (infected.posX == posX1 && infected.posY == posY1) return infected;
         }
-        return false;
+        return null;
     }
+
 
 
 }
