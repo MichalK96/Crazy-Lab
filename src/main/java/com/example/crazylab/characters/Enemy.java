@@ -10,10 +10,13 @@ public abstract class Enemy extends Character {
         super(posXBottom,posXBottom,poxYBottom,poxYBottom-1);
     }
 
+    public abstract void move(Player player);
+
     public abstract String getFXMLfile();
 
 
     public abstract void move();
 
-    public abstract void move(Player player);
+
+
 }

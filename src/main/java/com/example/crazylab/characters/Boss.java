@@ -2,6 +2,7 @@ package com.example.crazylab.characters;
 
 import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class Boss extends Enemy {
     }
 
 
+
     private int getRandom() {
         Random rand = new Random();
         return rand.nextInt(0, 4);
@@ -142,5 +144,28 @@ public class Boss extends Enemy {
     @Override
     public String getFXMLfile() {
         return "boss_popup.fxml";
+    }
+
+    public void addBossToMap(GridPane floor) {
+        if (floor != null) {
+            floor.add(getImageTop(), getPosXBottom(), getPosYBottom());
+            floor.add(getImageBottom(), getPosXTop(), getPosYTop());
+
+        }
+
+    }
+
+    public void removeBossFromMap(GridPane floor) {
+        if (floor != null) {
+            floor.getChildren().remove(getImageTop());
+            floor.getChildren().remove(getImageBottom());
+        }
+    }
+
+
+    public void bossMove(GridPane floor,Player player) {
+        removeBossFromMap(floor);
+        move(player);
+        addBossToMap(floor);
     }
 }
