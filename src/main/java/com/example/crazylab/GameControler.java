@@ -470,10 +470,10 @@ public class GameControler {
         Scene scene = new Scene(root);
         controller.paintMap();
         controller.initialize1();
-        duplicatte(controller, stage, scene);
+        sceneSettings(controller, stage, scene);
     }
 
-    static void duplicatte(GameControler controller, Stage stage, Scene scene) throws IOException {
+    static void sceneSettings(GameControler controller, Stage stage, Scene scene) throws IOException {
         controller.move(scene);
         stage.setScene(scene);
         stage.setWidth(32 * 20);

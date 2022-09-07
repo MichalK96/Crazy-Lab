@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -27,7 +26,7 @@ public class IntroController {
         Scene scene = new Scene(root);
         controller.addCharactersToList();
         controller.paintMap();
-        GameControler.duplicatte(controller, stage, scene);
+        GameControler.sceneSettings(controller, stage, scene);
     }
 
     // test commit
