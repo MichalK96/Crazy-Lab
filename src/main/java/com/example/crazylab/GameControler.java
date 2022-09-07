@@ -100,16 +100,27 @@ public class GameControler {
     }
 
     private void generateItemsList() {
-        List<Integer> randomCords;
-        for(ItemType item: ItemType.values()){
-            randomCords = generateRandomCoordinates();
-            if(item.getType().equals("TOOL")) {
-                addItemToMap(new Tool(item, randomCords.get(0), randomCords.get(1)));}
-            if(item.getType().equals("ARMOR")) {
-                addItemToMap(new Armour(item, randomCords.get(0), randomCords.get(1)));}
-            if(item.getType().equals("WEAPON")) {
-                addItemToMap(new Weapon(item, randomCords.get(0), randomCords.get(1)));}
-        }
+        //List<Integer> randomCords = generateRandomCoordinates();
+        addItemToMap(new Tool(ItemType.SYRINGE, 28, 25));
+        addItemToMap(new Tool(ItemType.STANING_KIT, 19, 9));
+        addItemToMap(new Tool(ItemType.ENZYME_KIT, 21, 19));
+        addItemToMap(new Tool(ItemType.USB_KEY, 10, 13));
+        addItemToMap(new Tool(ItemType.KEY, 27, 30));
+        addItemToMap(new Armour(ItemType.DIY_MASK, 18, 31));
+        addItemToMap(new Armour(ItemType.ATEST_MASK, 5, 16));
+        addItemToMap(new Weapon(ItemType.SPRAY, 29, 32));
+        addItemToMap(new Weapon(ItemType.SANDWICH, 5, 21));
+        addItemToMap(new Weapon(ItemType.SANDWICH, 22, 11));
+
+//        for(ItemType item: ItemType.values()){
+//            randomCords = generateRandomCoordinates();
+//            if(item.getType().equals("TOOL")) {
+//                addItemToMap(new Tool(item, randomCords.get(0), randomCords.get(1)));}
+//            if(item.getType().equals("ARMOR")) {
+//                addItemToMap(new Armour(item, randomCords.get(0), randomCords.get(1)));}
+//            if(item.getType().equals("WEAPON")) {
+//                addItemToMap(new Weapon(item, randomCords.get(0), randomCords.get(1)));}
+//        }
     }
 
     private void addItemToMap(Item item) {
@@ -136,9 +147,25 @@ public class GameControler {
 
     }
 
+    private boolean isItemNextToPlayer(Item item) {
+        int itemX = item.getPosX();
+        int itemY = item.getPosY();
+        int playerX = player.getPosX();
+        int playerY = player.getPosY();
+        return itemX == playerX && itemY == playerY ||
+               itemX + 1 == playerX && itemY == playerY ||
+               itemX - 1 == playerX && itemY == playerY ||
+               itemX == playerX && itemY + 1 == playerY ||
+               itemX == playerX && itemY - 1 == playerY ||
+               itemX + 1 == playerX && itemY + 1 == playerY ||
+               itemX - 1 == playerX && itemY - 1 == playerY ||
+               itemX + 1 == playerX && itemY - 1 == playerY ||
+               itemX - 1 == playerX && itemY + 1 == playerY;
+    }
+
     private void addItemIfExistToInventory() {
         for (Item item : items) {
-            if (item.getPosX() == player.getPosX() && item.getPosY() == player.getPosY()) {
+            if (isItemNextToPlayer(item)) {
                 player.addItemToInventory(item);
                 try {
                     showPopupWindowItem(item.getItemType());
@@ -391,7 +418,6 @@ public class GameControler {
                     default -> System.out.println(keyEvent.getCode());
                 }
                 try {
-                    addItemIfExistToInventory();
                     collectSample();
                     takeMicroscopePicture();
                     if (player.isContactWithInfected(infected)) player.fightWithInfected();
