@@ -145,7 +145,7 @@ public class Boss extends Enemy {
         return "boss_popup.fxml";
     }
 
-    public void putBossOnMap(GridPane floor) {
+    public void addBossToMap(GridPane floor) {
         if (floor != null) {
             floor.add(getImageTop(), getPosXBottom(), getPosYBottom());
             floor.add(getImageBottom(), getPosXTop(), getPosYTop());
@@ -165,6 +165,6 @@ public class Boss extends Enemy {
     public void bossMove(GridPane floor,Player player) {
         removeBossFromMap(floor);
         move(player);
-        putBossOnMap(floor);
+        addBossToMap(floor);
     }
 }

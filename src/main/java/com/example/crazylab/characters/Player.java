@@ -83,7 +83,10 @@ public class Player extends Character {
             throw new RuntimeException(e);
         }
     }
-
+    public void addPlayerToMap(GridPane floor) {
+        floor.add(getImageBottom(), getPosXBottom(), getPosYBottom());
+        floor.add(getImageTop(), getPosXTop(), getPosYTop());
+    }
     public boolean checkIfItemInInventory(ItemType itemType){
         return inventory.stream().map(item -> item.getItemType()).anyMatch(type -> type.equals(itemType));
     }

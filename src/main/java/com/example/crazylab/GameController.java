@@ -171,12 +171,11 @@ public class GameController {
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_items.csv");
         doors = new Doors(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
-        floor.add(player.getImageBottom(), player.getPosXBottom(), player.getPosYBottom());
-        floor.add(player.getImageTop(), player.getPosXTop(), player.getPosYTop());
+        player.addPlayerToMap(floor);
         generateItemsList();
         infected.forEach(e -> e.addInfectedToMap(floor));
         coworkers.forEach(coworker -> coworker.addCoworkersToMap(floor));
-        boss.putBossOnMap(floor);
+        boss.addBossToMap(floor);
     }
 
 
