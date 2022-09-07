@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Boss extends Enemy {
-    int howClose =6;
+public class Monkey extends Enemy {
 
+    int howClose =6;
     int posXTop = 23;
     int posYTop = 32;
     int posYBottom = posYTop - 1;
@@ -21,8 +21,8 @@ public class Boss extends Enemy {
         return speed;
     }
 
-    ImageView imageTop = new ImageView(Tiles.getParticularImage(783));
-    ImageView imageBottom = new ImageView(Tiles.getParticularImage(768));
+    ImageView imageTop = new ImageView(Tiles.getParticularImage(468));
+    ImageView imageBottom = new ImageView(Tiles.getParticularImage(483));
 
     public int getPosXTop() {
         return posXTop;
@@ -64,14 +64,18 @@ public class Boss extends Enemy {
     }
 
 
-    public Boss() throws IOException {
-        super();
+    protected Monkey() throws IOException {
+    }
+
+    @Override
+    public String getFXMLfile() {
+        return null;
     }
 
     @Override
     public void move() {
-    }
 
+    }
 
     private int getRandom() {
         Random rand = new Random();
@@ -111,15 +115,15 @@ public class Boss extends Enemy {
 
         do {
             if (Math.abs(getPosYBottom() - player.getPosY()) <= howClose &&  // góra - dół
-                Math.abs(getPosXBottom() - player.getPosX()) <= howClose  // prawo - lewo
+                    Math.abs(getPosXBottom() - player.getPosX()) <= howClose  // prawo - lewo
 
             ) {
                 int currentX = getPosXBottom();
                 int currentY = getPosYBottom();
                 nextPosition = getNextPosition();
-                while (((Math.abs(player.getPosX() - nextPosition.get(1)) > Math.abs(currentX - player.getPosX())) ||
-                        (Math.abs(player.getPosY() - nextPosition.get(0)) > Math.abs(currentY - player.getPosY()))
-                        )) {
+                while (((Math.abs(player.getPosX() - nextPosition.get(1)) < Math.abs(currentX - player.getPosX())) ||
+                        (Math.abs(player.getPosY() - nextPosition.get(0)) < Math.abs(currentY - player.getPosY()))
+                )) {
                     nextPosition = getNextPosition();
                     if(checkIfWall(nextPosition.get(1),nextPosition.get(0)))
                     {
@@ -137,10 +141,5 @@ public class Boss extends Enemy {
         setPosYBottom(nextPosition.get(0));
 
 
-    }
-
-    @Override
-    public String getFXMLfile() {
-        return "boss_popup.fxml";
     }
 }

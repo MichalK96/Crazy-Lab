@@ -308,6 +308,8 @@ public class GameControler {
         addCoworkersToMap();
         putBossOnMap();
     }
+
+
     public void bossMove(){
         removeBossFromMap( );
         boss.move(player);

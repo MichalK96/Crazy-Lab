@@ -9,8 +9,9 @@ import java.util.ArrayList;
 public class Coworker extends Enemy{
     int posX;
     int posY;
-    ImageView imageBottom = new ImageView(Tiles.getParticularImage(783));
-    ImageView imageTop = new ImageView(Tiles.getParticularImage(768));
+
+    ImageView imageBottom = new ImageView(Tiles.getParticularImage(483));
+    ImageView imageTop = new ImageView(Tiles.getParticularImage(468));
 
 
     Boolean neutralized = false;

@@ -7,10 +7,14 @@ import java.util.ArrayList;
 
 public abstract class Character {
 
+
+
     private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
 
     protected Character() throws IOException { }
+
+
 
     public boolean checkIfWall(int x, int y) {
         return    disallowedFields.get(y).get(x) != 77 &&
