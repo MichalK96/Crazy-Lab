@@ -405,7 +405,7 @@ public class GameControler {
                         inventory = inventory.substring(0, inventory.length() - 1);
 
                     var s = new Save();
-                    String pos = String.format("%d:%d", player.getPosX(), player.getPosY());
+                    String pos = String.format("%d:%d", player.getPosXTop(), player.getPosYTop());
                     s.saveProgress("1", pos, inventory);
                 }
 
