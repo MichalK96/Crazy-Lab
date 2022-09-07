@@ -9,9 +9,10 @@ import java.util.ArrayList;
 public class Coworker extends Enemy{
     int posX;
     int posY;
+    ImageView imageBottom = new ImageView(Tiles.getParticularImage(783));
+    ImageView imageTop = new ImageView(Tiles.getParticularImage(768));
 
-    ImageView imageTop = new ImageView(Tiles.getParticularImage(468));
-    ImageView imageBottom = new ImageView(Tiles.getParticularImage(483));
+
     Boolean neutralized = false;
 
     public Coworker(int posX, int posY) throws IOException {

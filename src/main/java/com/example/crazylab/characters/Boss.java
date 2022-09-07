@@ -21,8 +21,8 @@ public class Boss extends Enemy {
         return speed;
     }
 
-    ImageView imageBottom = new ImageView(Tiles.getParticularImage(468));
-    ImageView imageTop = new ImageView(Tiles.getParticularImage(483));
+    ImageView imageTop = new ImageView(Tiles.getParticularImage(468));
+    ImageView imageBottom = new ImageView(Tiles.getParticularImage(483));
 
     public int getPosXTop() {
         return posXTop;

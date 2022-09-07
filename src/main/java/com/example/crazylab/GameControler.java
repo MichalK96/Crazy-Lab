@@ -2,6 +2,7 @@ package com.example.crazylab;
 
 
 import com.example.crazylab.characters.Boss;
+import com.example.crazylab.characters.Coworker;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.*;
@@ -42,7 +43,8 @@ public class GameControler {
 
     private Doors doors;
     private final ArrayList<Item> items = new ArrayList<>();
-    private final ArrayList<Infected> characters = new ArrayList<Infected>();
+    private final ArrayList<Infected> infected = new ArrayList<>();
+    private final ArrayList<Coworker> coworkers = new ArrayList<>();
 
     Player user = new Player(SceneController.userName);
     Infected example = new Infected(0,0);
@@ -66,11 +68,15 @@ public class GameControler {
     }
 
     public void addCharactersToList() throws IOException {
-        characters.add(new Infected(7, 6));
-        characters.add(new Infected(7, 14));
-        characters.add(new Infected(23, 24));
-        characters.add(new Infected(15, 24));
-        characters.add(new Infected(4, 25));
+        infected.add(new Infected(7, 6));
+        infected.add(new Infected(7, 14));
+        infected.add(new Infected(23, 24));
+        infected.add(new Infected(15, 24));
+        infected.add(new Infected(4, 25));
+
+        coworkers.add(new Coworker(12,21));
+        coworkers.add(new Coworker(12,5));
+        coworkers.add(new Coworker(4,5));
     }
 
 
@@ -171,6 +177,7 @@ public class GameControler {
     }
 
     private void showPopupWindowItem(ItemType itemType) throws IOException {
+        popup=true;
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(itemType.getFxmlFile())));
         stage.setScene(new Scene(root));
@@ -180,10 +187,11 @@ public class GameControler {
             stage.close();
         });
         stage.showAndWait();
-        popup=true;
+
     }
 
     private void showPopupWindowFabularEvent(FabularEvent event) throws IOException {
+        popup=true;
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(event.getFxmlFile())));
         stage.setScene(new Scene(root));
@@ -193,7 +201,7 @@ public class GameControler {
             stage.close();
         });
         stage.showAndWait();
-        popup=true;
+
     }
 
     private void collectSample() throws IOException {
@@ -259,10 +267,17 @@ public class GameControler {
 
     public void addInfectedToMap() throws IOException {
         addCharactersToList();
-        for (int i = 0; i < characters.size(); i++) {
-            floor.add(characters.get(i).getImageBottom(), characters.get(i).getPosX(), characters.get(i).getPosY());
-            floor.add(characters.get(i).getImageTop(), characters.get(i).getPosX(), characters.get(i).getPosY() - 1);
+        for (int i = 0; i < infected.size(); i++) {
+            floor.add(infected.get(i).getImageBottom(), infected.get(i).getPosX(), infected.get(i).getPosY());
+            floor.add(infected.get(i).getImageTop(), infected.get(i).getPosX(), infected.get(i).getPosY() - 1);
         }
+    }
+    public void addCoworkersToMap(){
+        for (int i = 0; i < coworkers.size(); i++) {
+            floor.add(coworkers.get(i).getImageBottom(), coworkers.get(i).getPosX(), coworkers.get(i).getPosY());
+            floor.add(coworkers.get(i).getImageTop(), coworkers.get(i).getPosX(), coworkers.get(i).getPosY() - 1);
+        }
+
     }
     public void putBossOnMap(){
         if(floor!=null){
@@ -290,6 +305,7 @@ public class GameControler {
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
         generateItemsList();
         addInfectedToMap();
+        addCoworkersToMap();
         putBossOnMap();
     }
     public void bossMove(){
@@ -299,7 +315,7 @@ public class GameControler {
     }
 
     public void enemyMoves() {
-        for (Infected character : characters) {
+        for (Infected character : infected) {
             floor.getChildren().remove(character.getImageBottom());
             floor.getChildren().remove(character.getImageTop());
             character.move();
@@ -323,7 +339,10 @@ public class GameControler {
 
                     }
                     Platform.runLater(() -> {
-                       bossMove();
+                        if(!popup){
+                            bossMove();
+                        }
+
 //                            refresh();
                     });
                 }
@@ -344,7 +363,9 @@ public class GameControler {
 
                     }
                     Platform.runLater(() -> {
+                        if(!popup){
                             enemyMoves();
+                        }
 //                            refresh();
                     });
                 }
@@ -371,7 +392,7 @@ public class GameControler {
                     addItemIfExistToInventory();
                     collectSample();
                     takeMicroscopePicture();
-                    if (player.isContactWithInfected(characters)) player.fightWithInfected();
+                    if (player.isContactWithInfected(infected)) player.fightWithInfected();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -382,6 +403,7 @@ public class GameControler {
 
 
     public void moveHorizontally(int moveBy) {
+        popup=false;
         floor.getChildren().remove(player.getImage1());
         floor.getChildren().remove(player.getImage2());
         floor.add(player.getImage2(), player.getPosX() + moveBy, player.getPosTopY());
@@ -392,6 +414,7 @@ public class GameControler {
 
 
     public void moveVertically(int moveBy) {
+        popup=false;
         floor.getChildren().remove(player.getImage1());
         floor.getChildren().remove(player.getImage2());
         floor.add(player.getImage2(), player.getPosX(), player.getPosTopY() + moveBy);
