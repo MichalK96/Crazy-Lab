@@ -53,8 +53,8 @@ public class Tiles {
         while (sc.hasNextLine()) {
             ArrayList<Integer> nextLine = new ArrayList<>();
             String[] line = sc.nextLine().split(",");
-            for (int i = 0; i < line.length; i++) {
-                nextLine.add(Integer.parseInt(line[i]));
+            for (String s : line) {
+                nextLine.add(Integer.parseInt(s));
             }
             tab.add(nextLine);
         }

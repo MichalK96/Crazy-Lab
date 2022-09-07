@@ -28,10 +28,7 @@ public class IntroController {
         controller.addCharactersToList();
         controller.paintMap();
         controller.move(scene);
-
         stage.setScene(scene);
-
-
         stage.setWidth(32*20);
         stage.setHeight(32*20);
         stage.setMaxWidth(32*20);

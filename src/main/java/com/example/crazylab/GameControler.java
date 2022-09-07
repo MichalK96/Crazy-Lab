@@ -37,8 +37,10 @@ import java.util.Random;
 public class GameControler {
     Player player = new Player("name");
     Boss boss = new Boss();
-    private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
+    private final ArrayList<ArrayList<Integer>> disallowedFieldsFloor = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
+    private final ArrayList<ArrayList<Integer>> disallowedFieldsFurniture = Tiles.csvAsArray(
+            "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
 
 
     private Doors doors;
@@ -91,7 +93,7 @@ public class GameControler {
         while (true) {
             int x = random.nextInt(3, 29);     // range: 3 - 29
             int y = random.nextInt(4, 35);     // range: 4 - 35
-            if (checkIfWall(x, y)) {
+            if (player.checkIfWall(x, y)) {
                 coordinates.add(x);
                 coordinates.add(y);
                 return coordinates;
@@ -100,7 +102,6 @@ public class GameControler {
     }
 
     private void generateItemsList() {
-        //List<Integer> randomCords = generateRandomCoordinates();
         addItemToMap(new Tool(ItemType.SYRINGE, 28, 25));
         addItemToMap(new Tool(ItemType.STANING_KIT, 19, 9));
         addItemToMap(new Tool(ItemType.ENZYME_KIT, 21, 19));
@@ -111,16 +112,6 @@ public class GameControler {
         addItemToMap(new Weapon(ItemType.SPRAY, 29, 32));
         addItemToMap(new Weapon(ItemType.SANDWICH, 5, 21));
         addItemToMap(new Weapon(ItemType.SANDWICH, 22, 11));
-
-//        for(ItemType item: ItemType.values()){
-//            randomCords = generateRandomCoordinates();
-//            if(item.getType().equals("TOOL")) {
-//                addItemToMap(new Tool(item, randomCords.get(0), randomCords.get(1)));}
-//            if(item.getType().equals("ARMOR")) {
-//                addItemToMap(new Armour(item, randomCords.get(0), randomCords.get(1)));}
-//            if(item.getType().equals("WEAPON")) {
-//                addItemToMap(new Weapon(item, randomCords.get(0), randomCords.get(1)));}
-//        }
     }
 
     private void addItemToMap(Item item) {
@@ -184,25 +175,6 @@ public class GameControler {
         equipment.setText(player.prepareItemsToDisplay());
     }
 
-    private boolean checkIfWall(int x, int y) {
-        return disallowedFields.get(y).get(x) != 77 &&
-                disallowedFields.get(y).get(x) != 28 &&
-                disallowedFields.get(y).get(x) != 76 &&
-                disallowedFields.get(y).get(x) != 84 &&
-                disallowedFields.get(y).get(x) != 75 &&
-                disallowedFields.get(y).get(x) != 78 &&
-                disallowedFields.get(y).get(x) != 63 &&
-                disallowedFields.get(y).get(x) != 14 &&
-                disallowedFields.get(y).get(x) != 69 &&
-                disallowedFields.get(y).get(x) != 83 &&
-                disallowedFields.get(y).get(x) != 64 &&
-                disallowedFields.get(y).get(x) != 67 &&
-                disallowedFields.get(y).get(x) != 82 &&
-                (x !=22 || y!=34) &&
-                (x !=23 || y!=34) &&
-                (x !=24 || y!=34) ;
-    }
-
     private void showPopupWindowItem(ItemType itemType) throws IOException {
         popup=true;
         Stage stage = new Stage();
@@ -262,6 +234,7 @@ public class GameControler {
                 player.getPosY() - 1
         )) {
             moveVertically(-1);
+//            System.out.println(player.getPosX()+"        "+ player.getPosY());
         }
     }
 
@@ -271,6 +244,7 @@ public class GameControler {
                 player.getPosY() + 1
         )) {
             moveVertically(1);
+//            System.out.println(player.getPosX()+"        "+ player.getPosY());
         }
     }
 
@@ -280,6 +254,7 @@ public class GameControler {
                 player.getPosY()
         )) {
             moveHorizontally(1);
+//            System.out.println(player.getPosX()+"        "+ player.getPosY());
         }
     }
 
@@ -289,6 +264,7 @@ public class GameControler {
                 player.getPosY()
         )) {
             moveHorizontally(-1);
+//            System.out.println(player.getPosX()+"        "+ player.getPosY());
         }
     }
 
@@ -333,7 +309,8 @@ public class GameControler {
         generateItemsList();
         addInfectedToMap();
         addCoworkersToMap();
-        putBossOnMap();
+        floor.add(boss.getImageTop(), boss.getPosXTop(), boss.getPosYTop());
+        floor.add(boss.getImageBottom(), boss.getPosXBottom(), boss.getPosYBottom());
     }
 
 
@@ -482,7 +459,6 @@ public class GameControler {
         Scene scene = new Scene(root);
         controller.paintMap();
         controller.initialize1();
-
         controller.move(scene);
         stage.setScene(scene);
         stage.setWidth(32 * 20);
@@ -493,7 +469,6 @@ public class GameControler {
         stage.setMinHeight(32 * 20);
         stage.show();
     }
-
 
 }
 

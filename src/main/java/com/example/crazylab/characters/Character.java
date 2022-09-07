@@ -9,31 +9,83 @@ public abstract class Character {
 
 
 
-    private final ArrayList<ArrayList<Integer>> disallowedFields = Tiles.csvAsArray(
+    private final ArrayList<ArrayList<Integer>> disallowedFieldsFloor = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
+    private final ArrayList<ArrayList<Integer>> disallowedFieldsFurniture = Tiles.csvAsArray(
+            "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
 
     protected Character() throws IOException { }
 
 
 
     public boolean checkIfWall(int x, int y) {
-        return    disallowedFields.get(y).get(x) != 77 &&
-                disallowedFields.get(y).get(x) != 28 &&
-                disallowedFields.get(y).get(x) != 76 &&
-                disallowedFields.get(y).get(x) != 84 &&
-                disallowedFields.get(y).get(x) != 75 &&
-                disallowedFields.get(y).get(x) != 78 &&
-                disallowedFields.get(y).get(x) != 63 &&
-                disallowedFields.get(y).get(x) != 14 &&
-                disallowedFields.get(y).get(x) != 69 &&
-                disallowedFields.get(y).get(x) != 83 &&
-                disallowedFields.get(y).get(x) != 64 &&
-                disallowedFields.get(y).get(x) != 67 &&
-                disallowedFields.get(y).get(x) != 82 &&
-                (x !=22 || y!=34) &&
-                (x !=23 || y!=34) &&
-                (x !=24 || y!=34) ;
-
+        return disallowedFieldsFloor.get(y).get(x) != 77 &&
+                disallowedFieldsFloor.get(y).get(x) != 28 &&
+                disallowedFieldsFloor.get(y).get(x) != 76 &&
+                disallowedFieldsFloor.get(y).get(x) != 84 &&
+                disallowedFieldsFloor.get(y).get(x) != 75 &&
+                disallowedFieldsFloor.get(y).get(x) != 78 &&
+                disallowedFieldsFloor.get(y).get(x) != 63 &&
+                disallowedFieldsFloor.get(y).get(x) != 14 &&
+                disallowedFieldsFloor.get(y).get(x) != 69 &&
+                disallowedFieldsFloor.get(y).get(x) != 83 &&
+                disallowedFieldsFloor.get(y).get(x) != 64 &&
+                disallowedFieldsFloor.get(y).get(x) != 67 &&
+                disallowedFieldsFloor.get(y).get(x) != 82 &&
+                (x !=6 || y!=8) &&
+                (x !=11 || y!=4) &&
+                (x !=12 || y!=4) &&
+                (x !=7 || y!=8) &&
+                (x !=8 || y!=8) &&
+                (x !=9 || y!=8) &&
+                (x !=4 || y!=4) &&
+                (x !=6 || y!=17) &&
+                (x !=6 || y!=16) &&
+                (x !=3 || y!=16) &&
+                (x !=3 || y!=15) &&
+                (x !=3 || y!=14) &&
+                (x !=4 || y!=14) &&
+                (x !=4 || y!=13) &&
+                (x !=3 || y!=13) &&
+                (x !=3 || y!=17) &&
+                (x !=5 || y!=17) &&
+                (x !=4 || y!=17) &&
+                (x !=29 || y!=22) &&
+                (x !=28 || y!=22) &&
+                (x !=28 || y!=25) &&
+                (x !=29 || y!=25) &&
+                (x !=21 || y!=27) &&
+                (x !=22 || y!=27) &&
+                (x !=19 || y!=24) &&
+                (x !=19 || y!=25) &&
+                (x !=19 || y!=28) &&
+                (x !=15 || y!=29) &&
+                (x !=15 || y!=30) &&
+                (x !=16 || y!=30) &&
+                (x !=16 || y!=29) &&
+                (x !=17 || y!=31) &&
+                (x !=18 || y!=31) &&
+                (x !=24 || y!=30) &&
+                (x !=25 || y!=30) &&
+                (x !=26 || y!=30) &&
+                (x !=27 || y!=30) &&
+                (x !=28 || y!=30) &&
+                (x !=29 || y!=30) &&
+                (x !=12 || y!=20)&&
+                (x != 22 || y != 34) &&
+                (x != 23 || y != 34) &&
+                (x != 24 || y != 34)&&
+                (x != 6 || y != 20)&&
+                (x != 6 || y != 21)&&
+                (x != 3 || y != 20)&&
+                (x != 4 || y != 20)&&
+                (x != 3 || y != 24)&&
+                (x != 3 || y != 23)&&
+                (x != 11 || y != 20)&&
+                (x != 12 || y != 24)&&
+                (x != 11 || y != 24)&&
+                (x != 10 || y != 24)&&
+                (x != 9 || y != 24);
     }
 
 
