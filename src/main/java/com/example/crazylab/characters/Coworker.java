@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Coworker extends Enemy{
-    int posX;
-    int posY;
+
 
     ImageView imageBottom = new ImageView(Tiles.getParticularImage(483));
     ImageView imageTop = new ImageView(Tiles.getParticularImage(468));
@@ -16,27 +15,9 @@ public class Coworker extends Enemy{
 
     Boolean neutralized = false;
 
-    public Coworker(int posX, int posY) throws IOException {
-        super();
-        this.posX = posX;
-        this.posY = posY;
-    }
+    public Coworker(int posXBottom, int posYBottom) throws IOException {
+        super(posXBottom,posYBottom);
 
-    public int getPosX() {
-        return posX;
-    }
-
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
     }
 
     public ImageView getImageTop() {

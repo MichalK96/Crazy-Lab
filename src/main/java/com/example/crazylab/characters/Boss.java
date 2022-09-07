@@ -64,8 +64,8 @@ public class Boss extends Enemy {
     }
 
 
-    public Boss() throws IOException {
-        super();
+    public Boss(int posXBottom,int posYBottom) throws IOException {
+        super(posXBottom,posYBottom);
     }
 
     @Override
@@ -110,16 +110,16 @@ public class Boss extends Enemy {
         List<Integer> nextPosition = getNextPosition();
 
         do {
-            if (Math.abs(getPosYBottom() - player.getPosY()) <= howClose &&  // góra - dół
-                Math.abs(getPosXBottom() - player.getPosX()) <= howClose  // prawo - lewo
+            if (Math.abs(getPosYBottom() - player.getPosYBottom()) <= howClose &&  // góra - dół
+                    Math.abs(getPosXBottom() - player.getPosXBottom()) <= howClose  // prawo - lewo
 
             ) {
                 int currentX = getPosXBottom();
                 int currentY = getPosYBottom();
                 nextPosition = getNextPosition();
-                while (((Math.abs(player.getPosX() - nextPosition.get(1)) > Math.abs(currentX - player.getPosX())) ||
-                        (Math.abs(player.getPosY() - nextPosition.get(0)) > Math.abs(currentY - player.getPosY()))
-                        )) {
+                while (((Math.abs(player.getPosXBottom() - nextPosition.get(1)) > Math.abs(currentX - player.getPosXBottom())) ||
+                        (Math.abs(player.getPosYBottom() - nextPosition.get(0)) > Math.abs(currentY - player.getPosYBottom()))
+                )) {
                     nextPosition = getNextPosition();
                     if(checkIfWall(nextPosition.get(1),nextPosition.get(0)))
                     {

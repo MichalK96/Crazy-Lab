@@ -27,16 +27,7 @@ public class IntroController {
         Scene scene = new Scene(root);
         controller.addCharactersToList();
         controller.paintMap();
-        controller.move(scene);
-        stage.setScene(scene);
-        stage.setWidth(32*20);
-        stage.setHeight(32*20);
-        stage.setMaxWidth(32*20);
-        stage.setMaxHeight(32*20);
-        stage.setMinWidth(32*20);
-        stage.setMinHeight(32*20);
-
-        stage.show();
+        GameControler.duplicatte(controller, stage, scene);
     }
 
     // test commit
