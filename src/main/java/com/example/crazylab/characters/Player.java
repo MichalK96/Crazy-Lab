@@ -1,5 +1,6 @@
 package com.example.crazylab.characters;
 
+import com.example.crazylab.FightController;
 import com.example.crazylab.items.*;
 import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
@@ -9,62 +10,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Character {
-    private int posX1 = 6;
-    private int posY1 = 6;
-    private int posX2 = 6;
-    private int posY2 = 5;
 
-    public void setPosX2(int posX2) {
-        this.posX2 = posX2;
+    private int health = 32;
+    public int getHealth() {
+        return health;
     }
 
-    public void setPosY2(int posY2) {
-        this.posY2 = posY2;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
-    public int getPosTopX() {
-        return posX2;
+    private final ImageView imageBottom = new ImageView(Tiles.getParticularImage(333));
+    private final ImageView imageTop = new ImageView(Tiles.getParticularImage(318));
+
+    public ImageView getImageTop() {
+        return imageTop;
     }
 
-    public int getPosTopY() {
-        return posY2;
-    }
-
-
-    private final ImageView image1 = new ImageView(Tiles.getParticularImage(333));
-    private final ImageView image2 = new ImageView(Tiles.getParticularImage(318));
-
-    public ImageView getImage2() {
-        return image2;
-    }
-
-    public ImageView getImage1() {
-        return image1;
-    }
-
-    public int getPosX() {
-        return posX1;
-    }
-
-    public void setPosX(int posX) {
-        this.posX1 = posX;
-        this.posX2 = posX;
-    }
-
-    public int getPosY() {
-        return posY1;
-    }
-
-    public void setPosY(int posY) {
-        this.posY1 = posY;
-        this.posY2 = posY - 1;
+    public ImageView getImageBottom() {
+        return imageBottom;
     }
 
     private final List<Item> inventory = new ArrayList<>();
     private String name;
 
-    public Player(String name) throws IOException {
-        super();
+    public Player(String name,int posXBottom, int posYBottom) throws IOException {
+        super(posXBottom,posXBottom,posYBottom,posYBottom-1);
         this.name = name;
     }
 
@@ -102,20 +73,30 @@ public class Player extends Character {
         System.out.println("Fighting with coworker");
     }
 
-    public void fightWithInfected() {
+    public void fightWithInfected(Player player, Infected character) {
         System.out.println("Fighting with infected");
+        System.out.println(character);
+        try {
+            FightController fightController = new FightController();
+            //fightController.setPlayer(player);
+            //fightController.setInfected(character);
+            fightController.showPopupWindowFightWithInfected(player, character);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean checkIfItemInInventory(ItemType itemType){
         return inventory.stream().map(item -> item.getItemType()).anyMatch(type -> type.equals(itemType));
     }
 
-    public boolean isContactWithInfected(ArrayList<Infected> infecteds) {
+    public Infected findInfected(ArrayList<Infected> infecteds) {
         for (Infected infected : infecteds) {
-            if (infected.posX == posX1 && infected.posY == posY1) return true;
+            if (infected.getPosXBottom() == getPosXBottom() && infected.getPosYBottom() == getPosYBottom()) return infected;
         }
-        return false;
+        return null;
     }
+
 
 
 }

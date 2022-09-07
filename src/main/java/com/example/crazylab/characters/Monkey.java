@@ -24,35 +24,7 @@ public class Monkey extends Enemy {
     ImageView imageTop = new ImageView(Tiles.getParticularImage(468));
     ImageView imageBottom = new ImageView(Tiles.getParticularImage(483));
 
-    public int getPosXTop() {
-        return posXTop;
-    }
 
-
-    public int getPosYTop() {
-        return posYTop;
-    }
-
-
-    public int getPosXBottom() {
-        return posXBottom;
-    }
-
-
-    public int getPosYBottom() {
-        return posYBottom;
-    }
-
-    public void setPosXBottom(int posXBottom) {
-        this.posXBottom = posXBottom;
-        this.posXTop = posXBottom;
-
-    }
-
-    public void setPosYBottom(int posYBottom) {
-        this.posYBottom = posYBottom;
-        this.posYTop = posYBottom - 1;
-    }
 
     public ImageView getImageTop() {
         return imageTop;
@@ -64,7 +36,8 @@ public class Monkey extends Enemy {
     }
 
 
-    protected Monkey() throws IOException {
+    protected Monkey(int posXBottom,int posYBottom) throws IOException {
+        super(posXBottom,posYBottom);
     }
 
     @Override
@@ -114,15 +87,15 @@ public class Monkey extends Enemy {
         List<Integer> nextPosition = getNextPosition();
 
         do {
-            if (Math.abs(getPosYBottom() - player.getPosY()) <= howClose &&  // góra - dół
-                    Math.abs(getPosXBottom() - player.getPosX()) <= howClose  // prawo - lewo
+            if (Math.abs(getPosYBottom() - player.getPosYBottom()) <= howClose &&  // góra - dół
+                    Math.abs(getPosXBottom() - player.getPosXBottom()) <= howClose  // prawo - lewo
 
             ) {
                 int currentX = getPosXBottom();
                 int currentY = getPosYBottom();
                 nextPosition = getNextPosition();
-                while (((Math.abs(player.getPosX() - nextPosition.get(1)) < Math.abs(currentX - player.getPosX())) ||
-                        (Math.abs(player.getPosY() - nextPosition.get(0)) < Math.abs(currentY - player.getPosY()))
+                while (((Math.abs(player.getPosXBottom() - nextPosition.get(1)) < Math.abs(currentX - player.getPosXBottom())) ||
+                        (Math.abs(player.getPosYBottom() - nextPosition.get(0)) < Math.abs(currentY - player.getPosYBottom()))
                 )) {
                     nextPosition = getNextPosition();
                     if(checkIfWall(nextPosition.get(1),nextPosition.get(0)))

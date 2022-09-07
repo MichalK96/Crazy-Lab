@@ -6,15 +6,52 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Character {
-
+    private int posXTop;
+    private int posXBottom;
+    private int posYBottom;
+    private int posYTop;
 
 
     private final ArrayList<ArrayList<Integer>> disallowedFieldsFloor = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
-    private final ArrayList<ArrayList<Integer>> disallowedFieldsFurniture = Tiles.csvAsArray(
+    private final ArrayList<ArrayList<Integer>>
+            disallowedFieldsFurniture = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
 
-    protected Character() throws IOException { }
+    public Character(int posXTop, int posXBottom, int posYBottom,int posYTop) throws IOException {
+
+        this.posXTop = posXTop;
+        this.posXBottom= posXBottom;
+        this.posYTop = posYTop;
+        this.posYBottom = posYBottom;
+
+    }
+
+    public int getPosXTop() {
+        return posXTop;
+    }
+
+    public int getPosXBottom() {
+        return posXBottom;
+    }
+
+    public void setPosXBottom(int posXBottom) {
+        this.posXBottom = posXBottom;
+        this.posXTop = posXBottom;
+    }
+
+    public int getPosYBottom() {
+        return posYBottom;
+    }
+
+    public void setPosYBottom(int posYBottom) {
+        this.posYBottom = posYBottom;
+        this.posYTop = posYBottom-1;
+    }
+
+    public int getPosYTop() {
+        return posYTop;
+    }
 
 
 
@@ -85,6 +122,7 @@ public abstract class Character {
                 (x != 12 || y != 24)&&
                 (x != 11 || y != 24)&&
                 (x != 10 || y != 24)&&
+                (x != 30 || y != 34)&&
                 (x != 9 || y != 24);
     }
 

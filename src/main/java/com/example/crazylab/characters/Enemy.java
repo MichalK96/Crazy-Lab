@@ -6,7 +6,8 @@ import java.util.ArrayList;
 public abstract class Enemy extends Character {
 
 
-    protected Enemy() throws IOException {
+    protected Enemy(int posXBottom, int  poxYBottom) throws IOException {
+        super(posXBottom,posXBottom,poxYBottom,poxYBottom-1);
     }
 
     public abstract String getFXMLfile();

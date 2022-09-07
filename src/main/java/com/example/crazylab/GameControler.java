@@ -38,8 +38,12 @@ import java.util.List;
 import java.util.Random;
 
 public class GameControler {
-    Player player = new Player("name");
-    Boss boss = new Boss();
+    private final int playerInitialPosX=6;
+    private final int playerInitialPosY=6;
+    private final  int initialBossPosX=23;
+    private final  int initialBossPosY=32;
+    Player player = new Player("name",playerInitialPosX,playerInitialPosY);
+    Boss boss = new Boss(initialBossPosX,initialBossPosY);
     private final ArrayList<ArrayList<Integer>> disallowedFieldsFloor = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
     private final ArrayList<ArrayList<Integer>> disallowedFieldsFurniture = Tiles.csvAsArray(
@@ -51,7 +55,7 @@ public class GameControler {
     private final ArrayList<Infected> infected = new ArrayList<>();
     private final ArrayList<Coworker> coworkers = new ArrayList<>();
 
-    Player user = new Player(SceneController.userName);
+    Player user = new Player(SceneController.userName,playerInitialPosX,playerInitialPosY);
     Infected example = new Infected(0,0);
 
     @FXML
@@ -144,8 +148,8 @@ public class GameControler {
     private boolean isItemNextToPlayer(Item item) {
         int itemX = item.getPosX();
         int itemY = item.getPosY();
-        int playerX = player.getPosX();
-        int playerY = player.getPosY();
+        int playerX = player.getPosXBottom();
+        int playerY = player.getPosYBottom();
         return itemX == playerX && itemY == playerY ||
                itemX + 1 == playerX && itemY == playerY ||
                itemX - 1 == playerX && itemY == playerY ||
@@ -174,7 +178,6 @@ public class GameControler {
     }
 
     private void refreshInventoryDisplay() {
-        System.out.println("Set text in inventory label");
         equipment.setText(player.prepareItemsToDisplay());
     }
 
@@ -203,11 +206,10 @@ public class GameControler {
             stage.close();
         });
         stage.showAndWait();
-
     }
 
     private void collectSample() throws IOException {
-        if ((player.getPosX()==28 || player.getPosX()==29) && player.getPosY()==22) {
+        if ((player.getPosXBottom()==28 || player.getPosXBottom()==29) && player.getPosYBottom()==22) {
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)){
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
             } else {
@@ -220,7 +222,7 @@ public class GameControler {
     }
 
     private void takeMicroscopePicture() throws IOException {
-        if ((player.getPosX()==11 || player.getPosX()==12) && player.getPosY()==4) {
+        if ((player.getPosXBottom()==11 || player.getPosXBottom()==12) && player.getPosYBottom()==4) {
             if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.STANING_KIT)){
                 Tool microscopeImage = new Tool(ItemType.MICROSCOPE_IMAGE);
                 showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_TAKEN);
@@ -233,8 +235,8 @@ public class GameControler {
 
 
     public void moveUp() {
-        if (player.checkIfWall(player.getPosX(), player.getPosY() - 1) && doors.canMove(player.getPosX(),
-                player.getPosY() - 1
+        if (player.checkIfWall(player.getPosXBottom(), player.getPosYBottom() - 1) && doors.canMove(player.getPosXBottom(),
+                player.getPosYBottom() - 1
         )) {
             moveVertically(-1);
 //            System.out.println(player.getPosX()+"        "+ player.getPosY());
@@ -243,8 +245,8 @@ public class GameControler {
 
 
     public void moveDown() {
-        if (player.checkIfWall(player.getPosX(), player.getPosY() + 1) && doors.canMove(player.getPosX(),
-                player.getPosY() + 1
+        if (player.checkIfWall(player.getPosXBottom(), player.getPosYBottom() + 1) && doors.canMove(player.getPosXBottom(),
+                player.getPosYBottom() + 1
         )) {
             moveVertically(1);
 //            System.out.println(player.getPosX()+"        "+ player.getPosY());
@@ -253,8 +255,8 @@ public class GameControler {
 
 
     public void moveRight() {
-        if (player.checkIfWall(player.getPosX() + 1, player.getPosY()) && doors.canMove(player.getPosX() + 1,
-                player.getPosY()
+        if (player.checkIfWall(player.getPosXBottom() + 1, player.getPosYBottom()) && doors.canMove(player.getPosXBottom() + 1,
+                player.getPosYBottom()
         )) {
             moveHorizontally(1);
 //            System.out.println(player.getPosX()+"        "+ player.getPosY());
@@ -263,8 +265,8 @@ public class GameControler {
 
 
     public void moveLeft() {
-        if (player.checkIfWall(player.getPosX() - 1, player.getPosY()) && doors.canMove(player.getPosX() - 1,
-                player.getPosY()
+        if (player.checkIfWall(player.getPosXBottom() - 1, player.getPosYBottom()) && doors.canMove(player.getPosXBottom() - 1,
+                player.getPosYBottom()
         )) {
             moveHorizontally(-1);
 //            System.out.println(player.getPosX()+"        "+ player.getPosY());
@@ -274,14 +276,14 @@ public class GameControler {
     public void addInfectedToMap() throws IOException {
         addCharactersToList();
         for (int i = 0; i < infected.size(); i++) {
-            floor.add(infected.get(i).getImageBottom(), infected.get(i).getPosX(), infected.get(i).getPosY());
-            floor.add(infected.get(i).getImageTop(), infected.get(i).getPosX(), infected.get(i).getPosY() - 1);
+            floor.add(infected.get(i).getImageBottom(), infected.get(i).getPosXBottom(), infected.get(i).getPosYBottom());
+            floor.add(infected.get(i).getImageTop(), infected.get(i).getPosXTop(), infected.get(i).getPosYTop() - 1);
         }
     }
     public void addCoworkersToMap(){
         for (int i = 0; i < coworkers.size(); i++) {
-            floor.add(coworkers.get(i).getImageBottom(), coworkers.get(i).getPosX(), coworkers.get(i).getPosY());
-            floor.add(coworkers.get(i).getImageTop(), coworkers.get(i).getPosX(), coworkers.get(i).getPosY() - 1);
+            floor.add(coworkers.get(i).getImageBottom(), coworkers.get(i).getPosXBottom(), coworkers.get(i).getPosYBottom());
+            floor.add(coworkers.get(i).getImageTop(), coworkers.get(i).getPosXTop(), coworkers.get(i).getPosYTop() - 1);
         }
 
     }
@@ -307,8 +309,8 @@ public class GameControler {
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_items.csv");
         doors = new Doors(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
 
-        floor.add(player.getImage1(), player.getPosX(), player.getPosY());
-        floor.add(player.getImage2(), player.getPosX(), player.getPosTopY());
+        floor.add(player.getImageBottom(), player.getPosXBottom(), player.getPosYBottom());
+        floor.add(player.getImageTop(), player.getPosXTop(), player.getPosYTop());
         generateItemsList();
         addInfectedToMap();
         addCoworkersToMap();
@@ -328,9 +330,13 @@ public class GameControler {
             floor.getChildren().remove(character.getImageBottom());
             floor.getChildren().remove(character.getImageTop());
             character.move();
-            if (character.checkContactWithPlayer(player.getPosX(), player.getPosY())) player.fightWithInfected();
-            floor.add(character.getImageBottom(), character.getPosX(), character.getPosY());
-            floor.add(character.getImageTop(), character.getPosX2(), character.getPosY2());
+            if (character.checkContactWithPlayer(player.getPosXBottom(), player.getPosYBottom())) {
+                System.out.println(character);
+                player.fightWithInfected(player, character);
+                popup = true;
+            }
+            floor.add(character.getImageBottom(), character.getPosXBottom(), character.getPosYBottom());
+            floor.add(character.getImageTop(), character.getPosXTop(), character.getPosYTop());
         }
 
 
@@ -414,7 +420,12 @@ public class GameControler {
                 try {
                     collectSample();
                     takeMicroscopePicture();
-                    if (player.isContactWithInfected(infected)) player.fightWithInfected();
+                    Infected opponent = player.findInfected(infected);
+                    if (opponent != null) {
+                        player.fightWithInfected(player, opponent);
+                        System.out.println(opponent);
+                        popup = true;
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -426,28 +437,28 @@ public class GameControler {
 
     public void moveHorizontally(int moveBy) {
         popup=false;
-        floor.getChildren().remove(player.getImage1());
-        floor.getChildren().remove(player.getImage2());
-        floor.add(player.getImage2(), player.getPosX() + moveBy, player.getPosTopY());
-        floor.add(player.getImage1(), player.getPosX() + moveBy, player.getPosY());
-        player.setPosX(player.getPosX() + moveBy);
+        floor.getChildren().remove(player.getImageBottom());
+        floor.getChildren().remove(player.getImageTop());
+        floor.add(player.getImageTop(), player.getPosXTop() + moveBy, player.getPosYTop());
+        floor.add(player.getImageBottom(), player.getPosXBottom() + moveBy, player.getPosYBottom());
+        player.setPosXBottom(player.getPosXBottom() + moveBy);
         this.onPlayerMove();
     }
 
 
     public void moveVertically(int moveBy) {
         popup=false;
-        floor.getChildren().remove(player.getImage1());
-        floor.getChildren().remove(player.getImage2());
-        floor.add(player.getImage2(), player.getPosX(), player.getPosTopY() + moveBy);
-        floor.add(player.getImage1(), player.getPosX(), player.getPosY() + moveBy);
-        player.setPosY(player.getPosY() + moveBy);
+        floor.getChildren().remove(player.getImageBottom());
+        floor.getChildren().remove(player.getImageTop());
+        floor.add(player.getImageTop(), player.getPosXTop(), player.getPosYTop() + moveBy);
+        floor.add(player.getImageBottom(), player.getPosXBottom(), player.getPosYBottom() + moveBy);
+        player.setPosYBottom(player.getPosYBottom() + moveBy);
         this.onPlayerMove();
     }
 
     private void onPlayerMove() {
-        var x = (double) player.getPosX();
-        var y = (double) player.getPosY();
+        var x = (double) player.getPosXBottom();
+        var y = (double) player.getPosYBottom();
 
         x = -10 + ((20 / 2) - (x / 2)) * 2;
         y = -10 + ((20 / 2) - (y / 2)) * 2;
@@ -459,7 +470,7 @@ public class GameControler {
 
         floor.setLayoutX(x * 32);
         floor.setLayoutY(y * 32);
-        doors.onMove(player.getPosX(), player.getPosY());
+        doors.onMove(player.getPosXBottom(), player.getPosYBottom());
     }
 
     @FXML
@@ -476,6 +487,10 @@ public class GameControler {
         Scene scene = new Scene(root);
         controller.paintMap();
         controller.initialize1();
+        sceneSettings(controller, stage, scene);
+    }
+
+    static void sceneSettings(GameControler controller, Stage stage, Scene scene) throws IOException {
         controller.move(scene);
         stage.setScene(scene);
         stage.setWidth(32 * 20);

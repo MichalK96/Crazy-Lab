@@ -9,56 +9,32 @@ import java.util.List;
 import java.util.Random;
 
 public class Infected extends Enemy {
-    int posX2;
-    int posY2;
 
-    public int getPosX2() {
-        return posX2;
-    }
+    int speed = 2;
+    int health = 20;
 
-    public void setPosX2(int posX2) {
-        this.posX2 = posX2;
-    }
 
-    public int getPosY2() {
-        return posY2;
-    }
-
-    public void setPosY2() {
-        this.posY2 = this.posY - 1;
-    }
-
-    int posX;
-    int posY;
 
     ImageView imageTop = new ImageView(Tiles.getParticularImage(618));
     ImageView imageBottom = new ImageView(Tiles.getParticularImage(633));
     Boolean neutralized = false;
-    int speed = 2;
 
-    public Infected(int posX, int posY) throws IOException {
-        super();
-        this.posX = posX;
-        this.posY = posY;
+    public int getHealth() {
+        return health;
     }
 
-    public int getPosX() {
-        return posX;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
-        this.posX2=posX;
+
+
+    public Infected(int poxXBottom, int poxYBottom) throws IOException {
+        super(poxXBottom,poxYBottom);
+
     }
 
-    public int getPosY() {
-        return posY;
-    }
 
-    public void setPosY(int posY) {
-        this.posY = posY;
-        this.posY2= posY -1;
-    }
 
     public ImageView getImageTop() {
         return imageTop;
@@ -103,20 +79,20 @@ public class Infected extends Enemy {
         List<Integer> nextPosition = new ArrayList<>();
         switch (direction) {
             case 0:
-                nextPosition.add(getPosY());
-                nextPosition.add(getPosX() - 1);
+                nextPosition.add(getPosYBottom());
+                nextPosition.add(getPosXBottom() - 1);
                 return nextPosition;
             case 1:
-                nextPosition.add(getPosY());
-                nextPosition.add(getPosX() + 1);
+                nextPosition.add(getPosYBottom());
+                nextPosition.add(getPosXBottom() + 1);
                 return nextPosition;
             case 2:
-                nextPosition.add(getPosY() + 1);
-                nextPosition.add(getPosX());
+                nextPosition.add(getPosYBottom() + 1);
+                nextPosition.add(getPosXBottom());
                 return nextPosition;
             case 3:
-                nextPosition.add(getPosY() - 1);
-                nextPosition.add(getPosX());
+                nextPosition.add(getPosYBottom() - 1);
+                nextPosition.add(getPosXBottom());
                 return nextPosition;
             default:
                 return nextPosition;
@@ -131,8 +107,8 @@ public class Infected extends Enemy {
             nextPosition = getNextPosition();
         }
         while (!checkIfWall(nextPosition.get(1),nextPosition.get(0))) ;
-        setPosX(nextPosition.get(1));
-        setPosY(nextPosition.get(0));
+        setPosXBottom(nextPosition.get(1));
+        setPosYBottom(nextPosition.get(0));
     }
 
     @Override
@@ -145,6 +121,6 @@ public class Infected extends Enemy {
 
 
     public boolean checkContactWithPlayer(int playerPosX, int playerPosY) {
-        return posX == playerPosX && posY == playerPosY;
+        return getPosXBottom() == playerPosX && getPosYBottom() == playerPosY;
     }
 }
