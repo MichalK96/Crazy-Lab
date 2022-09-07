@@ -6,6 +6,7 @@ import com.example.crazylab.characters.Coworker;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.items.*;
+import com.example.crazylab.save.Save;
 import com.example.crazylab.tiles.Tiles;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
@@ -18,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
@@ -25,6 +27,7 @@ import com.example.crazylab.tiles.Doors;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.w3c.dom.ls.LSOutput;
 
 
 import java.io.IOException;
@@ -385,6 +388,20 @@ public class GameControler {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
+
+                if (keyEvent.getCode() == KeyCode.S && keyEvent.isControlDown())
+                {
+                    String inventory = "";
+                    for (Item item : player.getInventory()) {
+                        inventory += String.format("%d,", item.getItemType().ordinal());
+                    }
+                    if (inventory.length() > 0)
+                        inventory = inventory.substring(0, inventory.length() - 1);
+
+                    var s = new Save();
+                    String pos = String.format("%d:%d", player.getPosX(), player.getPosY());
+                    s.saveProgress("1", pos, inventory);
+                }
 
                 switch (keyEvent.getCode()) {
                     case UP -> moveUp();

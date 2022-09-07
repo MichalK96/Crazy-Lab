@@ -90,6 +90,10 @@ public class Player extends Character {
         inventory.add(item);
     }
 
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
     public void fightWithBoss() {
         System.out.println("Fighting with boss");
     }
