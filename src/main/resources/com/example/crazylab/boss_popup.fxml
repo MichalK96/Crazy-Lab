@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="251.0" prefWidth="600.0" style="-fx-background-color: #abdbe3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.GameControler">
+<AnchorPane prefHeight="251.0" prefWidth="600.0" style="-fx-background-color: #abdbe3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.GameController">
    <children>
       <ImageView fitHeight="267.0" fitWidth="309.0" layoutX="-70.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
          <image>

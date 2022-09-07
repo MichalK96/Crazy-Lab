@@ -21,12 +21,12 @@ public class IntroController {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
-        GameControler controller = loader.getController();
+        GameController controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         controller.addCharactersToList();
-        controller.paintMap();
-        GameControler.sceneSettings(controller, stage, scene);
+        controller.setGame();
+        GameController.sceneSettings(controller, stage, scene);
     }
 
     // test commit
