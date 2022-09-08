@@ -2,8 +2,10 @@ package com.example.crazylab.characters;
 
 import com.example.crazylab.FightController;
 import com.example.crazylab.items.*;
+import com.example.crazylab.tiles.Doors;
 import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class Player extends Character {
     }
 
     private final List<Item> inventory = new ArrayList<>();
-    private String name;
+    private final String name;
 
     public Player(String name,int posXBottom, int posYBottom) throws IOException {
         super(posXBottom,posXBottom,posYBottom,posYBottom-1);
@@ -61,6 +63,10 @@ public class Player extends Character {
         inventory.add(item);
     }
 
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
     public void fightWithBoss() {
         System.out.println("Fighting with boss");
     }
@@ -81,9 +87,12 @@ public class Player extends Character {
             throw new RuntimeException(e);
         }
     }
-
+    public void addPlayerToMap(GridPane floor) {
+        floor.add(getImageBottom(), getPosXBottom(), getPosYBottom());
+        floor.add(getImageTop(), getPosXTop(), getPosYTop());
+    }
     public boolean checkIfItemInInventory(ItemType itemType){
-        return inventory.stream().map(item -> item.getItemType()).anyMatch(type -> type.equals(itemType));
+        return inventory.stream().map(Item::getItemType).anyMatch(type -> type.equals(itemType));
     }
 
     public Infected findInfected(ArrayList<Infected> infecteds) {
@@ -93,6 +102,63 @@ public class Player extends Character {
         return null;
     }
 
+    public void moveHorizontally(int moveBy, GridPane floor) {
 
+        floor.getChildren().remove(getImageBottom());
+        floor.getChildren().remove(getImageTop());
+        floor.add(getImageTop(), getPosXTop() + moveBy, getPosYTop());
+        floor.add(getImageBottom(), getPosXBottom() + moveBy, getPosYBottom());
+        setPosXBottom(getPosXBottom() + moveBy);
+
+    }
+
+
+    public void moveVertically(int moveBy, GridPane floor) {
+
+        floor.getChildren().remove(getImageBottom());
+        floor.getChildren().remove(getImageTop());
+        floor.add(getImageTop(), getPosXTop(), getPosYTop() + moveBy);
+        floor.add(getImageBottom(),getPosXBottom(), getPosYBottom() + moveBy);
+        setPosYBottom(getPosYBottom() + moveBy);
+
+    }
+    public void moveUp(Doors doors,GridPane floor ) {
+        if (checkIfWall(getPosXBottom(), getPosYBottom() - 1) && doors.canMove(getPosXBottom(),
+                getPosYBottom() - 1
+        )) {
+            moveVertically(-1,floor);
+//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+        }
+    }
+
+
+    public void moveDown(Doors doors,GridPane floor) {
+        if (checkIfWall(getPosXBottom(), getPosYBottom() + 1) && doors.canMove(getPosXBottom(),
+                getPosYBottom() + 1
+        )) {
+            moveVertically(1,floor);
+//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+        }
+    }
+
+
+    public void moveRight(Doors doors,GridPane floor) {
+        if (checkIfWall(getPosXBottom() + 1, getPosYBottom()) && doors.canMove(getPosXBottom() + 1,
+                getPosYBottom()
+        )) {
+            moveHorizontally(1,floor);
+//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+        }
+    }
+
+
+    public void moveLeft(Doors doors,GridPane floor) {
+        if (checkIfWall(getPosXBottom() - 1, getPosYBottom()) && doors.canMove(getPosXBottom() - 1,
+               getPosYBottom()
+        )) {
+            moveHorizontally(-1,floor);
+//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+        }
+    }
 
 }

@@ -8,12 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.stage.StageStyle;
 
 
 import java.io.IOException;

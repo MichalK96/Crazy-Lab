@@ -50,6 +50,8 @@ public class Monkey extends Enemy {
 
     }
 
+
+
     private int getRandom() {
         Random rand = new Random();
         return rand.nextInt(0, 4);

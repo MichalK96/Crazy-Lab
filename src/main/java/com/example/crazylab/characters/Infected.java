@@ -2,6 +2,7 @@ package com.example.crazylab.characters;
 
 import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -122,5 +123,10 @@ public class Infected extends Enemy {
 
     public boolean checkContactWithPlayer(int playerPosX, int playerPosY) {
         return getPosXBottom() == playerPosX && getPosYBottom() == playerPosY;
+    }
+    public void addInfectedToMap(GridPane floor){
+            floor.add(getImageBottom(),getPosXBottom(),getPosYBottom());
+            floor.add(getImageTop(), getPosXTop(), getPosYTop() );
+
     }
 }
