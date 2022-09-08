@@ -152,7 +152,7 @@ public class GameControler {
     }
 
     private void collectSample() throws IOException {
-        if ((player.getPosXBottom() == 28 || player.getPosXBottom() == 29) && player.getPosYBottom() == 22) {
+        if (FabularObject.DONOR .isPlayerNextToMachine(player)) {
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)) {
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
             } else {
@@ -165,11 +165,12 @@ public class GameControler {
     }
 
     private void takeMicroscopePicture() throws IOException {
-        if ((player.getPosXBottom() == 11 || player.getPosXBottom() == 12) && player.getPosYBottom() == 4) {
+        if (FabularObject.MICROSCOPE.isPlayerNextToMachine(player)) {
             if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.STANING_KIT)) {
                 Tool microscopeImage = new Tool(ItemType.MICROSCOPE_IMAGE);
                 showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_TAKEN);
                 player.addItemToInventory(microscopeImage);
+                refreshInventoryDisplay();
             } else {
                 showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_NOT_TAKEN);
             }
@@ -228,11 +229,22 @@ public class GameControler {
                                 try {
                                     showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS_FIRST_TIME);
                                     boss.setQuestGiven(true);
-                                    boss.setPosYBottom(7);
-                                    boss.setPosXBottom(7);
+                                    boss.setPosYBottom(4);
+                                    boss.setPosXBottom(17);
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
+
+                            } else if ( player.getPosXBottom()==boss.getPosXBottom()&&
+                                    player.getPosYBottom()==boss.getPosYBottom()) {
+                                try {
+                                    showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS);
+                                    boss.setPosYBottom(4);
+                                    boss.setPosXBottom(17);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+
 
                             }
                         }
@@ -301,20 +313,22 @@ public class GameControler {
                         popup = false;
                         onPlayerMove();
                     }
-                    case X -> addItemIfExistToInventory();
+                    case X -> {
+                        addItemIfExistToInventory();
+                        try {
+                            collectSample();
+                            takeMicroscopePicture();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     default -> System.out.println(keyEvent.getCode());
                 }
-                try {
-                    collectSample();
-                    takeMicroscopePicture();
-                    Infected opponent = player.findInfected(infected);
-                    if (opponent != null) {
-                        player.fightWithInfected(player, opponent);
-                        System.out.println(opponent);
-                        popup = true;
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                Infected opponent = player.findInfected(infected);
+                if (opponent != null) {
+                    player.fightWithInfected(player, opponent);
+                    System.out.println(opponent);
+                    popup = true;
                 }
             }
         });
@@ -344,6 +358,7 @@ public class GameControler {
 
         //showPopupWindowEnemy(boss);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
+        MusicPlayer.playSound(MusicPlayer.opening, (float) 0.6);
         Parent root = loader.load();
         GameControler controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
