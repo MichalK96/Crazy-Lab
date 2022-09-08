@@ -6,7 +6,8 @@ public enum FabularObject {
     MICROSCOPE (11, 12, 4),
     SEQUENCER (11, 12, 20),
     SUPERCOMPUTER (4, 5, 5),
-    DONOR (28, 29, 22);
+    DONOR (28, 29, 22),
+    ELEVATOR (16, 17, 3);
 
     private int x1;
     private int x2;
