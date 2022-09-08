@@ -1,5 +1,7 @@
 package com.example.crazylab;
 
+import com.example.crazylab.characters.Player;
+
 public enum FabularObject {
     MICROSCOPE (11, 12, 4),
     SEQUENCER (11, 12, 20),
@@ -14,5 +16,29 @@ public enum FabularObject {
         this.x1 = x1;
         this.x2 = x2;
         this.y = y;
+    }
+
+    public int getX1(){
+        return x1;
+    }
+
+    public int getX2(){
+        return x2;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public boolean isPlayerNextToMachine(Player player) {
+        int playerX = player.getPosXBottom();
+        int playerY = player.getPosYBottom();
+        System.out.println();
+        return y == playerY && x1 == playerX+1 ||
+                y == playerY && x1 == playerX-1||
+                x1 == playerX && y == playerY+1 ||
+                x1 == playerX && y == playerY-1 ||
+                x2 == playerX && y == playerY+1 ||
+                x2 == playerX && y == playerY-1;
     }
 }

@@ -144,7 +144,8 @@ public class GameControler {
     }
 
     private void collectSample() throws IOException {
-        if ((player.getPosXBottom() == 28 || player.getPosXBottom() == 29) && player.getPosYBottom() == 22) {
+        if (FabularObject.DONOR.isPlayerNextToMachine(player)) {
+            System.out.println("player next to donor");
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)) {
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
             } else {
@@ -292,7 +293,15 @@ public class GameControler {
                         popup = false;
                         onPlayerMove();
                     }
-                    case X -> addItemIfExistToInventory();
+                    case X -> {
+                        addItemIfExistToInventory();
+                        try {
+                            System.out.println("trying to collect sample");
+                            collectSample();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     default -> System.out.println(keyEvent.getCode());
                 }
                 try {
