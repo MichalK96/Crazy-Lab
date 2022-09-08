@@ -99,7 +99,7 @@ public class GameControler {
         new Tool(ItemType.SYRINGE, 28, 25).addItemToMapAndList(floor, items);
         new Tool(ItemType.STANING_KIT, 19, 9).addItemToMapAndList(floor, items);
         new Tool(ItemType.ENZYME_KIT, 21, 19).addItemToMapAndList(floor, items);
-        new Tool(ItemType.USB_KEY, 10, 13).addItemToMapAndList(floor, items);
+        new Tool(ItemType.USB_KEY, 8, 13).addItemToMapAndList(floor, items);
         new Tool(ItemType.KEY, 27, 30).addItemToMapAndList(floor, items);
         new Armour(ItemType.DIY_MASK, 18, 31).addItemToMapAndList(floor, items);
         new Armour(ItemType.ATEST_MASK, 5, 16).addItemToMapAndList(floor, items);
@@ -212,7 +212,8 @@ public class GameControler {
     private void analyzeData() throws IOException {
         String analyzeDataSound = "src/main/resources/com/example/crazylab/sounds/ES_Computer Beep 3 - SFX Producer.wav";
         if (FabularObject.SUPERCOMPUTER.isPlayerNextToMachine(player)) {
-            if (player.checkIfItemInInventory(ItemType.MICROSCOPE_IMAGE) && player.checkIfItemInInventory(ItemType.DNA_SEQUENCE) && player.checkIfItemInInventory(ItemType.USB_KEY)) {
+            if (player.checkIfItemInInventory(ItemType.MICROSCOPE_IMAGE) && player.checkIfItemInInventory(ItemType.DNA_SEQUENCE) &&
+                    player.checkIfItemInInventory(ItemType.USB_KEY)) {
                 soundsPlayer.playSound(analyzeDataSound, 0.6F);
                 Tool report = new Tool(ItemType.REPORT);
                 showPopupWindowFabularEvent(FabularEvent.DATA_ANALYSIS_DONE);
@@ -413,13 +414,9 @@ public class GameControler {
                         }
                     }
                     case Z ->{
-                        soundsPlayer.playSound(eatingSound, 1.0F);
-                        System.out.println(player.getHealth());
+                        soundsPlayer.playSound(eatingSound, 0.3F);
                         player.heal();
-                        System.out.println(player.getHealth());
                         refreshInventoryDisplay();
-
-
                     }
                     default -> System.out.println(keyEvent.getCode());
                 }
@@ -470,7 +467,7 @@ public class GameControler {
         sceneSettings(controller, stage, scene);
         String lvl1BackgroundSound = "src/main/resources/com/example/crazylab/sounds/HoliznaCC0%20-%20Final%20Level.wav";
         MusicPlayer backgroundPlayer = new MusicPlayer();
-        backgroundPlayer.playSound(lvl1BackgroundSound, 0.1F);
+        backgroundPlayer.playSound(lvl1BackgroundSound, 0.07F);
 
 
     }

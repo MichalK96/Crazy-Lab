@@ -132,7 +132,7 @@ public class Player extends Character {
                 getPosYBottom() - 1
         )) {
             moveVertically(-1, floor);
-//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+            System.out.println(getPosXBottom()+"        "+ getPosYBottom());
         }
     }
 
@@ -142,7 +142,7 @@ public class Player extends Character {
                 getPosYBottom() + 1
         )) {
             moveVertically(1, floor);
-//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+            System.out.println(getPosXBottom()+"        "+ getPosYBottom());
         }
     }
 
@@ -152,7 +152,7 @@ public class Player extends Character {
                 getPosYBottom()
         )) {
             moveHorizontally(1, floor);
-//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+            System.out.println(getPosXBottom()+"        "+ getPosYBottom());
         }
     }
 
@@ -162,7 +162,7 @@ public class Player extends Character {
                 getPosYBottom()
         )) {
             moveHorizontally(-1, floor);
-//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+            System.out.println(getPosXBottom()+"        "+ getPosYBottom());
         }
     }
 
