@@ -177,6 +177,19 @@ public class GameControler {
         }
     }
 
+    private void sequenceDNA() throws IOException {
+        if (FabularObject.SEQUENCER.isPlayerNextToMachine(player)) {
+            if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.ENZYME_KIT)) {
+                Tool DNASequence = new Tool(ItemType.DNA_SEQUENCE);
+                showPopupWindowFabularEvent(FabularEvent.SEQUENCING_DONE);
+                player.addItemToInventory(DNASequence);
+                refreshInventoryDisplay();
+            } else {
+                showPopupWindowFabularEvent(FabularEvent.SEQUENCING_NOT_DONE);
+            }
+        }
+    }
+
     public void setGame() throws IOException {
         addCharactersToList();
         generateItemsList();
@@ -307,6 +320,7 @@ public class GameControler {
                         try {
                             collectSample();
                             takeMicroscopePicture();
+                            sequenceDNA();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

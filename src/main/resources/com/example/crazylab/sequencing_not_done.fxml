@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="147.0" prefWidth="497.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.GameControler">
+   <children>
+      <ImageView fx:id="img_foundItem" fitHeight="109.0" fitWidth="111.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/sadScientist.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="text_foundItem" layoutX="122.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorry, you must have a fresh virus sample AND an enzyme kit in order to sequence the viral genome !!" textAlignment="CENTER" wrappingWidth="344.79998779296875">
+         <font>
+            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
