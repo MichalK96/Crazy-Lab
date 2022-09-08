@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,10 +16,13 @@ import javafx.scene.control.Label;
 public class FightController {
 
     private Scene scene;
-    private Stage stage;
+    private Stage fightingStage;
     private Player player;
     private Infected infected;
 
+    private FightController controller;
+
+    private static boolean FightOver = false;
 
     @FXML
     private Label enemyHealth;
@@ -43,17 +47,23 @@ public class FightController {
     }
 
     public void showPopupWindowFightWithInfected(Player player, Infected infected) throws IOException {
-        stage = new Stage();
+        fightingStage = new Stage();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fight_with_infected.fxml"));
         scene = new Scene(loader.load());
-        FightController controller = loader.getController();
+        controller = loader.getController();
         controller.setInfected(infected);
         controller.setPlayer(player);
-        stage.setTitle("Fight with infected");
-        stage.setScene(scene);
+        fightingStage.setTitle("Fight with infected");
+        fightingStage.setScene(scene);
+        fightingStage.initModality(Modality.APPLICATION_MODAL);
+        fightingStage.initOwner(GameControler.gameBoard);
+        fightingStage.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
+            if(FightOver) {
+                System.out.println("closing the stage");
+                fightingStage.close();}
+        });
         controller.fightHandler(scene);
-        stage.show();
-
+        fightingStage.show();
     }
 
     private void fightHandler(Scene scene) throws IOException {
@@ -62,8 +72,9 @@ public class FightController {
             public void handle(KeyEvent keyEvent) {
 
                 switch (keyEvent.getCode()) {
-//                    case DOWN -> moveDown();
-                    case ENTER -> playerAttack();
+                    case ENTER -> {
+                        if(!FightOver) {attackEnemy();}
+                    }
                     default -> System.out.println(keyEvent.getCode());
                 }
             }
@@ -87,32 +98,35 @@ public class FightController {
         else playerHealth.setText("0");
     }
 
-    private void showPlayerWinner() {
+    private void handlePlayerWinner() {
         showEnemyAttack.setText("YOU WIN!\n\nPres Enter\nto continue");
+        FightOver = true;
     }
 
-    private void showEnemyWinner() {
+    private void handleEnemyWinner() {
         showPlayerAttack.setText("YOU LOST\n\nPres Enter\nto continue");
+        FightOver = true;
     }
 
-    private void enemyAttack() {
+    private void attackPlayer() {
         int playerHealth = player.getHealth();
         int randomAttack = (int) (Math.random() * (8 - 2));  // TODO dobrać losowanie siły ataku
         playerHealth -= randomAttack;
         player.setHealth(playerHealth);
         updatePlayerStatsDisplay(randomAttack);
-        if (playerHealth <= 0) showEnemyWinner();
+        if (playerHealth <= 0) handleEnemyWinner();
     }
 
-    private void playerAttack() {
+    private void attackEnemy() {
         int infectedHealth = this.infected.getHealth();
         if (infectedHealth <= 0 || player.getHealth() <= 0) this.stage.close();
         int randomAttack = (int) (Math.random() * (10 - 4));  // TODO dobrać losowanie siły ataku
         infectedHealth -= randomAttack;
         infected.setHealth(infectedHealth);
         updateEnemyStatsDisplay(randomAttack);
-        if (infectedHealth <= 0) showPlayerWinner();
-        else enemyAttack();
+        if (infectedHealth <= 0) handlePlayerWinner();
+        attackPlayer();
+
     }
 
 }
