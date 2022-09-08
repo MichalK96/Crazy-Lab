@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
 public class FightController {
 
     private Scene scene;
-    private Stage stage;
+    private Stage fightingStage;
     private Player player;
     private Infected infected;
 
@@ -44,16 +44,16 @@ public class FightController {
     }
 
     public void showPopupWindowFightWithInfected(Player player, Infected infected) throws IOException {
-        stage = new Stage();
+        fightingStage = new Stage();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fight_with_infected.fxml"));
         scene = new Scene(loader.load());
         FightController controller = loader.getController();
         controller.setInfected(infected);
         controller.setPlayer(player);
-        stage.setTitle("Fight with infected");
-        stage.setScene(scene);
+        fightingStage.setTitle("Fight with infected");
+        fightingStage.setScene(scene);
         controller.fightHandler(scene);
-        stage.show();
+        fightingStage.show();
 
     }
 
@@ -93,12 +93,12 @@ public class FightController {
 
     private void handlePlayerWinner() {
         showEnemyAttack.setText("YOU WIN!\n\nPres Enter\nto continue");
-        this.stage.close();     // TODO not working
+        fightingStage.close();     // TODO not working
     }
 
     private void handleEnemyWinner() {
         showPlayerAttack.setText("YOU LOST\n\nPres Enter\nto continue");
-        this.stage.close();     // TODO not working
+        fightingStage.close();     // TODO not working
     }
 
     private void attackPlayer() {
