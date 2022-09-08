@@ -418,7 +418,7 @@ public class GameControler {
         sceneSettings(controller, stage, scene);
         String lvl1BackgroundSound = "src/main/resources/com/example/crazylab/sounds/HoliznaCC0%20-%20Final%20Level.wav";
         MusicPlayer backgroundPlayer = new MusicPlayer();
-        backgroundPlayer.playSound(lvl1BackgroundSound);
+        backgroundPlayer.playSound(lvl1BackgroundSound, 0.1F);
 
 
     }
