@@ -342,10 +342,24 @@ public class GameControler {
     private void removeInfected() {
         for (Infected character : infected) {
             if (character.getHealth() <= 0) {
-                example.removeInfectedFromMap(character);
+                character.removeInfectedFromMap();
                 infected.remove(character);
                 randomSandwich();
             }
+        }
+    }
+
+    public void saveGame(KeyEvent keyEvent){
+        if (keyEvent.getCode() == KeyCode.S && keyEvent.isControlDown()) {
+            String inventory = "";
+            for (Item item : player.getInventory()) {
+                inventory += String.format("%d,", item.getItemType().ordinal());
+            }
+            if (inventory.length() > 0)
+                inventory = inventory.substring(0, inventory.length() - 1);
+            var s = new Save();
+            String pos = String.format("%d:%d", player.getPosXTop(), player.getPosYTop());
+            s.saveProgress("1", pos, inventory);
         }
     }
 
@@ -356,50 +370,25 @@ public class GameControler {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-
-                if (keyEvent.getCode() == KeyCode.S && keyEvent.isControlDown()) {
-                    String inventory = "";
-                    for (Item item : player.getInventory()) {
-                        inventory += String.format("%d,", item.getItemType().ordinal());
-                    }
-                    if (inventory.length() > 0)
-                        inventory = inventory.substring(0, inventory.length() - 1);
-
-                    var s = new Save();
-                    String pos = String.format("%d:%d", player.getPosXTop(), player.getPosYTop());
-                    s.saveProgress("1", pos, inventory);
-                }
-                String stepsSound = "src/main/resources/com/example/crazylab/sounds/ES_Boots Run 2 - SFX Producer.wav";
+                saveGame(keyEvent);
                 String eatingSound = "src/main/resources/com/example/crazylab/sounds/ES_Sandwich Bite 2 - SFX Producer.wav";
 
                 switch (keyEvent.getCode()) {
                     case UP -> {
                         player.moveUp(doors, floor,allCharacters);
-                        popup = false;
-                        onPlayerMove();
-                        soundsPlayer.playSound(stepsSound, 0.4F);
-                        removeInfected();
+                        cameraOnPlayer();
                     }
                     case RIGHT -> {
                         player.moveRight(doors, floor,allCharacters);
-                        popup = false;
-                        onPlayerMove();
-                        soundsPlayer.playSound(stepsSound, 0.4F);
-                        removeInfected();
+                        cameraOnPlayer();
                     }
                     case LEFT -> {
                         player.moveLeft(doors, floor,allCharacters);
-                        popup = false;
-                        onPlayerMove();
-                        soundsPlayer.playSound(stepsSound, 0.4F);
-                        removeInfected();
+                        cameraOnPlayer();
                     }
                     case DOWN -> {
                         player.moveDown(doors, floor,allCharacters);
-                        popup = false;
-                        onPlayerMove();
-                        soundsPlayer.playSound(stepsSound, 0.4F);
-                        removeInfected();
+                        cameraOnPlayer();
                     }
                     case X -> {
                         addItemIfExistToInventory();
@@ -430,6 +419,16 @@ public class GameControler {
         });
     }
 
+    public void cameraOnPlayer(){
+        String stepsSound = "src/main/resources/com/example/crazylab/sounds/ES_Boots Run 2 - SFX Producer.wav";
+        String eatingSound = "src/main/resources/com/example/crazylab/sounds/ES_Sandwich Bite 2 - SFX Producer.wav";
+        popup = false;
+        onPlayerMove();
+        soundsPlayer.playSound(stepsSound, 0.4F);
+        removeInfected();
+
+    }
+
     private void onPlayerMove() {
         var x = (double) player.getPosXBottom();
         var y = (double) player.getPosYBottom();
@@ -450,11 +449,6 @@ public class GameControler {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
-
-        //showPopupWindoItem(ItemType.SANDWICH);
-
-        //showPopupWindowEnemy(boss);
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
@@ -468,8 +462,6 @@ public class GameControler {
         String lvl1BackgroundSound = "src/main/resources/com/example/crazylab/sounds/HoliznaCC0%20-%20Final%20Level.wav";
         MusicPlayer backgroundPlayer = new MusicPlayer();
         backgroundPlayer.playSound(lvl1BackgroundSound, 0.07F);
-
-
     }
 
 

@@ -122,9 +122,9 @@ public class Infected extends Enemy {
         return "infected_popup.fxml";
     }
 
-    public void removeInfectedFromMap(Infected character) {
-        character.getImageBottom().setVisible(false);
-        character.getImageTop().setVisible(false);
+    public void removeInfectedFromMap() {
+        this.getImageBottom().setVisible(false);
+        this.getImageTop().setVisible(false);
     }
 
 

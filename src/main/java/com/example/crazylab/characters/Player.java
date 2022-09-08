@@ -64,7 +64,7 @@ public class Player extends Character {
     public void addItemToInventory(Item item) {
         inventory.add(item);
     }
-
+//
     public List<Item> getInventory() {
         return inventory;
     }
