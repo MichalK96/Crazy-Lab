@@ -6,36 +6,41 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="251.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.GameControler">
+<AnchorPane prefHeight="251.0" prefWidth="600.0" style="-fx-background-color: light gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.GameControler">
    <children>
-      <ImageView fitHeight="267.0" fitWidth="309.0" layoutX="-70.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="206.0" fitWidth="265.0" layoutX="-44.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/boss.png" />
          </image>
       </ImageView>
-      <Text layoutX="32.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good, you are finally here! We have a lot of work to do !!!" textAlignment="CENTER" wrappingWidth="532.7998733520508">
+      <Text layoutX="256.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good, you are finally here!" wrappingWidth="343.7998733520508">
          <font>
-            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+            <Font name="American Typewriter Bold" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="167.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Collect a virus sample from an infected patient." textAlignment="CENTER" wrappingWidth="400.0">
+      <Text layoutX="239.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Collect a virus sample from an infected patient." wrappingWidth="400.0">
          <font>
-            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+            <Font name="American Typewriter" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="165.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Take a microscope picture of the virus." textAlignment="CENTER" wrappingWidth="400.0">
+      <Text layoutX="239.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Take a microscope picture of the virus." wrappingWidth="400.0">
          <font>
-            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+            <Font name="American Typewriter" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="172.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Amplify and sequence the DNA from the virus." textAlignment="CENTER" wrappingWidth="400.0">
+      <Text layoutX="239.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Amplify and sequence the DNA from the virus." wrappingWidth="400.0">
          <font>
-            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+            <Font name="American Typewriter" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="169.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4. Analyze the data and design a prototype of a vaccine." textAlignment="CENTER" wrappingWidth="413.5999755859375">
+      <Text layoutX="239.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4. Analyze the data and design a prototype of a vaccine." wrappingWidth="400.0">
          <font>
-            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+            <Font name="American Typewriter" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="256.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We have a lot of work to do !!!" wrappingWidth="234.79987335205078">
+         <font>
+            <Font name="American Typewriter" size="15.0" />
          </font>
       </Text>
    </children>
