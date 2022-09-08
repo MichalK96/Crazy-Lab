@@ -157,6 +157,7 @@ public class GameControler {
         if (FabularObject.DONOR .isPlayerNextToMachine(player)) {
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)) {
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
+
             } else {
                 Tool virusSample = new Tool(ItemType.VIRUS_SAMPLE);
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_COLLECTED);
@@ -350,6 +351,7 @@ public class GameControler {
                     s.saveProgress("1", pos, inventory);
                 }
                 String stepsSound = "src/main/resources/com/example/crazylab/sounds/ES_Boots Run 2 - SFX Producer.wav";
+                String eatingSound = "src/main/resources/com/example/crazylab/sounds/ES_Sandwich Bite 2 - SFX Producer.wav";
                 MusicPlayer stepsSoundPlayer = new MusicPlayer();
 
                 switch (keyEvent.getCode()) {
@@ -394,6 +396,7 @@ public class GameControler {
                         }
                     }
                     case Z ->{
+                        stepsSoundPlayer.playSound(eatingSound, 1.0F);
                         System.out.println(player.getHealth());
                         player.heal();
                         System.out.println(player.getHealth());

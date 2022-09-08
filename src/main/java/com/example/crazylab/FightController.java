@@ -62,7 +62,7 @@ public class FightController {
         fightingStage.initOwner(GameControler.gameBoard);
         fightingStage.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
             System.out.println(FightOver);
-            String blahBlahSound = "com/example/crazylab/sounds/ES_Voiceblahblah.wav";
+            String blahBlahSound = "src/main/resources/com/example/crazylab/sounds/ES_Voice Clip Male 461 - SFX Producer.wav";
             MusicPlayer fightSound1 = new MusicPlayer();
             fightSound1.playSound(blahBlahSound, 1F);
             if(FightOver) {
