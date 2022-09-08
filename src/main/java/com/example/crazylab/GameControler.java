@@ -2,6 +2,7 @@ package com.example.crazylab;
 
 
 import com.example.crazylab.characters.Boss;
+import com.example.crazylab.characters.Character;
 import com.example.crazylab.characters.Coworker;
 import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
@@ -44,6 +45,7 @@ public class GameControler {
     private final ArrayList<Item> items = new ArrayList<>();
     private final ArrayList<Infected> infected = new ArrayList<>();
     private final ArrayList<Coworker> coworkers = new ArrayList<>();
+    private final ArrayList<Character> allCharacters = new ArrayList<>();
 
     Player user = new Player(SceneController.userName, playerInitialPosX, playerInitialPosY);
     Infected example = new Infected(0, 0);
@@ -76,6 +78,12 @@ public class GameControler {
         coworkers.add(new Coworker(12, 21));
         coworkers.add(new Coworker(12, 5));
         coworkers.add(new Coworker(4, 5));
+        allCharacters.addAll(coworkers);
+//        allCharacters.addAll(infected);
+//        allCharacters.add(player);
+//        allCharacters.add(boss);
+
+
     }
 
 
@@ -183,11 +191,11 @@ public class GameControler {
     }
 
 
-    public void enemyMoves() {
+    public void enemyMoves(ArrayList<Character> characters) {
         for (Infected character : infected) {
             floor.getChildren().remove(character.getImageBottom());
             floor.getChildren().remove(character.getImageTop());
-            character.move();
+            character.move(characters);
             if (character.checkContactWithPlayer(player.getPosXBottom(), player.getPosYBottom())) {
                 System.out.println(character);
                 player.fightWithInfected(player, character);
@@ -211,8 +219,9 @@ public class GameControler {
                         e.printStackTrace();
                     }
                     Platform.runLater(() -> {
+
                         if (!popup) {
-                            boss.bossMove(floor, player);
+                            boss.bossMove(floor, player,allCharacters);
                             if(!boss.getQuestGiven()&&
                                 player.getPosXBottom()==boss.getPosXBottom()&&
                                 player.getPosYBottom()==boss.getPosYBottom()){
@@ -244,7 +253,7 @@ public class GameControler {
                 }
                 Platform.runLater(() -> {
                     if (!popup) {
-                        enemyMoves();
+                        enemyMoves(allCharacters);
                     }
                 });
             }
@@ -273,22 +282,22 @@ public class GameControler {
 
                 switch (keyEvent.getCode()) {
                     case UP -> {
-                        player.moveUp(doors, floor);
+                        player.moveUp(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
                     }
                     case RIGHT -> {
-                        player.moveRight(doors, floor);
+                        player.moveRight(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
                     }
                     case LEFT -> {
-                        player.moveLeft(doors, floor);
+                        player.moveLeft(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
                     }
                     case DOWN -> {
-                        player.moveDown(doors, floor);
+                        player.moveDown(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
                     }

@@ -48,6 +48,7 @@ public class FightController {
 
     public void showPopupWindowFightWithInfected(Player player, Infected infected) throws IOException {
         fightingStage = new Stage();
+        FightOver = false;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fight_with_infected.fxml"));
         scene = new Scene(loader.load());
         controller = loader.getController();

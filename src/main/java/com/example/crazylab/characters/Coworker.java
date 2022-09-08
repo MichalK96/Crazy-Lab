@@ -45,15 +45,19 @@ public class Coworker extends Enemy{
         this.neutralized = hungry;
     }
 
+
+
+
+
+
+
     @Override
-    public void move() {
+    public void move(ArrayList<Character> characters) {
 
     }
 
-
-
     @Override
-    public void move(Player player) {
+    public void move(Player player, ArrayList<Character> characters) {
 
     }
 
