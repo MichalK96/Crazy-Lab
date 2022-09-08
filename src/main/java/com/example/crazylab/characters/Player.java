@@ -127,8 +127,8 @@ public class Player extends Character {
 
     }
 
-    public void moveUp(Doors doors, GridPane floor) {
-        if (checkIfWall(getPosXBottom(), getPosYBottom() - 1) && doors.canMove(getPosXBottom(),
+    public void moveUp(Doors doors, GridPane floor,ArrayList<Character> characters) {
+        if (checkIfWall(getPosXBottom(), getPosYBottom() - 1,characters) && doors.canMove(getPosXBottom(),
                 getPosYBottom() - 1
         )) {
             moveVertically(-1, floor);
@@ -137,8 +137,8 @@ public class Player extends Character {
     }
 
 
-    public void moveDown(Doors doors, GridPane floor) {
-        if (checkIfWall(getPosXBottom(), getPosYBottom() + 1) && doors.canMove(getPosXBottom(),
+    public void moveDown(Doors doors, GridPane floor,ArrayList<Character> characters) {
+        if (checkIfWall(getPosXBottom(), getPosYBottom() + 1,characters) && doors.canMove(getPosXBottom(),
                 getPosYBottom() + 1
         )) {
             moveVertically(1, floor);
@@ -147,8 +147,8 @@ public class Player extends Character {
     }
 
 
-    public void moveRight(Doors doors, GridPane floor) {
-        if (checkIfWall(getPosXBottom() + 1, getPosYBottom()) && doors.canMove(getPosXBottom() + 1,
+    public void moveRight(Doors doors, GridPane floor,ArrayList<Character> characters) {
+        if (checkIfWall(getPosXBottom() + 1, getPosYBottom(), characters) && doors.canMove(getPosXBottom() + 1,
                 getPosYBottom()
         )) {
             moveHorizontally(1, floor);
@@ -157,8 +157,8 @@ public class Player extends Character {
     }
 
 
-    public void moveLeft(Doors doors, GridPane floor) {
-        if (checkIfWall(getPosXBottom() - 1, getPosYBottom()) && doors.canMove(getPosXBottom() - 1,
+    public void moveLeft(Doors doors, GridPane floor, ArrayList<Character> characters) {
+        if (checkIfWall(getPosXBottom() - 1, getPosYBottom(), characters) && doors.canMove(getPosXBottom() - 1,
                 getPosYBottom()
         )) {
             moveHorizontally(-1, floor);
