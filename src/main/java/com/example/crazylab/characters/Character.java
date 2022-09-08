@@ -54,7 +54,13 @@ public abstract class Character {
     }
 
 
-
+// to dodac do dissallowed fields
+//ArrayList<Infected> infected
+//ArrayList<Coworker> coworkers
+// player.getPosXBottom
+// player.getPosyBottom
+// boss.getPosyBottom
+// boss.getPosyBottom
     public boolean checkIfWall(int x, int y) {
         return disallowedFieldsFloor.get(y).get(x) != 77 &&
                 disallowedFieldsFloor.get(y).get(x) != 28 &&
