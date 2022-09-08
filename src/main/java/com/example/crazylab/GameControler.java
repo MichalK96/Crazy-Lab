@@ -153,7 +153,6 @@ public class GameControler {
 
     private void collectSample() throws IOException {
         if (FabularObject.DONOR.isPlayerNextToMachine(player)) {
-            System.out.println("player next to donor");
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)) {
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
             } else {
@@ -305,7 +304,6 @@ public class GameControler {
                     case X -> {
                         addItemIfExistToInventory();
                         try {
-                            System.out.println("trying to collect sample");
                             collectSample();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -313,17 +311,11 @@ public class GameControler {
                     }
                     default -> System.out.println(keyEvent.getCode());
                 }
-                try {
-                    collectSample();
-                    takeMicroscopePicture();
-                    Infected opponent = player.findInfected(infected);
-                    if (opponent != null) {
-                        player.fightWithInfected(player, opponent);
-                        System.out.println(opponent);
-                        popup = true;
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                Infected opponent = player.findInfected(infected);
+                if (opponent != null) {
+                    player.fightWithInfected(player, opponent);
+                    System.out.println(opponent);
+                    popup = true;
                 }
             }
         });
