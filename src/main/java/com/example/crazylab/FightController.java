@@ -4,6 +4,7 @@ import com.example.crazylab.characters.Infected;
 import com.example.crazylab.characters.Player;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 public class FightController {
 
     private Scene scene;
+    private Stage stage;
     private Player player;
     private Infected infected;
 
@@ -42,9 +44,9 @@ public class FightController {
     }
 
     public void showPopupWindowFightWithInfected(Player player, Infected infected) throws IOException {
-        Stage stage = new Stage();
+        stage = new Stage();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fight_with_infected.fxml"));
-        Scene scene = new Scene(loader.load());
+        scene = new Scene(loader.load());
         FightController controller = loader.getController();
         controller.setInfected(infected);
         controller.setPlayer(player);
@@ -76,7 +78,8 @@ public class FightController {
         String toDisplay = showPlayerAttack.getText();
         toDisplay += "\n" + "Attack:  -" + randomAttack;
         showPlayerAttack.setText(toDisplay);
-        enemyHealth.setText(String.valueOf(infected.getHealth()));
+        if (infected.getHealth() > 0) enemyHealth.setText(String.valueOf(infected.getHealth()));
+        else enemyHealth.setText("0");
 
     }
 
@@ -84,15 +87,18 @@ public class FightController {
         String toDisplay = showEnemyAttack.getText();
         toDisplay += "\n" + "Attack:  -" + randomAttack;
         showEnemyAttack.setText(toDisplay);
-        playerHealth.setText(String.valueOf(player.getHealth()));
+        if (player.getHealth() > 0) playerHealth.setText(String.valueOf(player.getHealth()));
+        else playerHealth.setText("0");
     }
 
     private void handlePlayerWinner() {
         showEnemyAttack.setText("YOU WIN!\n\nPres Enter\nto continue");
+        this.stage.close();     // TODO not working
     }
 
     private void handleEnemyWinner() {
         showPlayerAttack.setText("YOU LOST\n\nPres Enter\nto continue");
+        this.stage.close();     // TODO not working
     }
 
     private void attackPlayer() {
@@ -101,6 +107,7 @@ public class FightController {
         playerHealth -= randomAttack;
         player.setHealth(playerHealth);
         updatePlayerStatsDisplay(randomAttack);
+        if (playerHealth <= 0) handleEnemyWinner();
     }
 
     private void attackEnemy() {
