@@ -62,7 +62,7 @@ public class GameControler {
     private ImageView img_foundItem;
     @FXML
     private Text text_foundItem;
-    private Stage gameBoard;
+    public static Stage gameBoard;
     boolean popup = false;
 
     public GameControler() throws IOException {
