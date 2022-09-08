@@ -93,12 +93,12 @@ public class FightController {
 
     private void handlePlayerWinner() {
         showEnemyAttack.setText("YOU WIN!\n\nPres Enter\nto continue");
-        this.stage.close();     // TODO nie działa
+        this.stage.close();     // TODO not working
     }
 
     private void handleEnemyWinner() {
         showPlayerAttack.setText("YOU LOST\n\nPres Enter\nto continue");
-        this.stage.close();     // TODO nie działa
+        this.stage.close();     // TODO not working
     }
 
     private void attackPlayer() {
