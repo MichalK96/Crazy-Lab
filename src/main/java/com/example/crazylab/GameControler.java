@@ -184,6 +184,7 @@ public class GameControler {
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_items.csv");
         doors = new Doors(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
+        System.out.println(Tiles.PARTICULAR_IMAGES.keySet());
         player.addPlayerToMap(floor);
         boss.addBossToMap(floor);
         infected.forEach(e -> e.addInfectedToMap(floor));
@@ -228,8 +229,18 @@ public class GameControler {
                                 try {
                                     showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS_FIRST_TIME);
                                     boss.setQuestGiven(true);
-                                    boss.setPosYBottom(7);
-                                    boss.setPosXBottom(7);
+                                    boss.setPosYBottom(4);
+                                    boss.setPosXBottom(17);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                            } else if (player.getPosXBottom()==boss.getPosXBottom()&&
+                                    player.getPosYBottom()==boss.getPosYBottom()) {
+                                try {
+                                    showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS);
+                                    boss.setPosYBottom(4);
+                                    boss.setPosXBottom(17);
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }

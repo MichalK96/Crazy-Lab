@@ -21,18 +21,18 @@ public class Tiles {
             = "src/main/resources/com/example/crazylab/designElements/hospitalDesign.png";
 
     public static int MAX_ID = 1214;
-    public static HashMap<String, BufferedImage> PARTICULAR_IMAGES;
+    public static HashMap<String, BufferedImage> PARTICULAR_IMAGES= new HashMap<>();
 
     static {
         try {
-            PARTICULAR_IMAGES = getFieldPictures();
+            getFieldPictures();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-    public static HashMap<String, BufferedImage> getFieldPictures() throws IOException {
+    public static void getFieldPictures() throws IOException {
         HashMap<String, BufferedImage> images = new HashMap<>();
         BufferedImage wholeImage = ImageIO.read(new File((PATH_TO_HOSPITAL_TILES)));
         BufferedImage image;
@@ -40,11 +40,43 @@ public class Tiles {
             int x = (i / 15) * TILE_WIDTH;
             int y = (i % 15) * TILE_WIDTH;
             image = wholeImage.getSubimage(y, x, TILE_WIDTH, TILE_WIDTH);
-            images.put(String.valueOf(i), image);
+            PARTICULAR_IMAGES.put(String.valueOf(i), image);
+        }
+        hpPictures();
+        phPictures();
+
+    }
+
+    public static void hpPictures() throws IOException {
+        HashMap<String, BufferedImage> images = new HashMap<>();
+        BufferedImage wholeImage = ImageIO.read(new File((PATH_TO_HOSPITAL_TILES)));
+        BufferedImage image;
+
+        for (int i = 1; i <17; i++) {
+            int x = (323 / 15) * TILE_WIDTH;
+            int y = (323 % 15) * TILE_WIDTH;
+            image = wholeImage.getSubimage(y, x,2*i, TILE_WIDTH);
+            String name = "HP"+i;
+            PARTICULAR_IMAGES.put(name, image);
+
         }
 
-        return images;
     }
+    public static void phPictures() throws IOException {
+        HashMap<String, BufferedImage> images = new HashMap<>();
+        BufferedImage wholeImage = ImageIO.read(new File((PATH_TO_HOSPITAL_TILES)));
+        BufferedImage image;
+
+        for (int i = 1; i <17; i++) {
+            int x = (324 / 15) * TILE_WIDTH;
+            int y = (324 % 15) * TILE_WIDTH;
+            image = wholeImage.getSubimage(y, x,2*i, TILE_WIDTH);
+            String name = "PH"+i;
+            PARTICULAR_IMAGES.put(name, image);
+        }
+
+    }
+
 
 
     public static ArrayList<ArrayList<Integer>> csvAsArray(String path) throws IOException {
@@ -94,6 +126,10 @@ public class Tiles {
 
     public static Image getParticularImage(int ID) {
         BufferedImage image = PARTICULAR_IMAGES.get(String.valueOf(ID));
+        return convertToFxImage(image);
+    }
+    public static Image getHpImage(String id) {
+        BufferedImage image = PARTICULAR_IMAGES.get(id);
         return convertToFxImage(image);
     }
 }

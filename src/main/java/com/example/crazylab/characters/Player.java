@@ -21,10 +21,28 @@ public class Player extends Character {
 
     public void setHealth(int health) {
         this.health = health;
+//        setHpImage(health/2);
+//
     }
 
     private final ImageView imageBottom = new ImageView(Tiles.getParticularImage(333));
     private final ImageView imageTop = new ImageView(Tiles.getParticularImage(318));
+//    private ImageView hpImage = new ImageView(Tiles.getHpImage("HP16"));
+
+//    public void setHpImage(int HP) {
+//        String key = "HP"+HP;
+//        if(HP>0){
+//            this.hpImage = new ImageView(Tiles.getHpImage(key));
+//        }
+//        else{
+//            this.hpImage = null;
+//        }
+//
+//    }
+
+//    public ImageView getHpImage() {
+//        return hpImage;
+//    }
 
     public ImageView getImageTop() {
         return imageTop;
@@ -90,8 +108,11 @@ public class Player extends Character {
     }
 
     public void addPlayerToMap(GridPane floor) {
+//        System.out.println(getHpImage());
         floor.add(getImageBottom(), getPosXBottom(), getPosYBottom());
         floor.add(getImageTop(), getPosXTop(), getPosYTop());
+//        floor.add(getHpImage(), getPosXTop(), getPosYTop());
+
     }
 
     public boolean checkIfItemInInventory(ItemType itemType) {
@@ -110,7 +131,9 @@ public class Player extends Character {
 
         floor.getChildren().remove(getImageBottom());
         floor.getChildren().remove(getImageTop());
+//        floor.getChildren().remove(getHpImage());
         floor.add(getImageTop(), getPosXTop() + moveBy, getPosYTop());
+//        floor.add(getHpImage(), getPosXTop() + moveBy, getPosYTop());
         floor.add(getImageBottom(), getPosXBottom() + moveBy, getPosYBottom());
         setPosXBottom(getPosXBottom() + moveBy);
 
@@ -121,7 +144,9 @@ public class Player extends Character {
 
         floor.getChildren().remove(getImageBottom());
         floor.getChildren().remove(getImageTop());
+//        floor.getChildren().remove(getHpImage());
         floor.add(getImageTop(), getPosXTop(), getPosYTop() + moveBy);
+//        floor.add(getHpImage(), getPosXTop(), getPosYTop() + moveBy);
         floor.add(getImageBottom(), getPosXBottom(), getPosYBottom() + moveBy);
         setPosYBottom(getPosYBottom() + moveBy);
 
@@ -132,7 +157,7 @@ public class Player extends Character {
                 getPosYBottom() - 1
         )) {
             moveVertically(-1, floor);
-//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+            System.out.println(getPosXBottom()+"        "+ getPosYBottom());
         }
     }
 
@@ -142,7 +167,7 @@ public class Player extends Character {
                 getPosYBottom() + 1
         )) {
             moveVertically(1, floor);
-//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+            System.out.println(getPosXBottom()+"        "+ getPosYBottom());
         }
     }
 
@@ -152,7 +177,7 @@ public class Player extends Character {
                 getPosYBottom()
         )) {
             moveHorizontally(1, floor);
-//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+            System.out.println(getPosXBottom()+"        "+ getPosYBottom());
         }
     }
 
@@ -162,7 +187,7 @@ public class Player extends Character {
                 getPosYBottom()
         )) {
             moveHorizontally(-1, floor);
-//            System.out.println(player.getPosX()+"        "+ player.getPosY());
+            System.out.println(getPosXBottom()+"        "+ getPosYBottom());
         }
     }
 
