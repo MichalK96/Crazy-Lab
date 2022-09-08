@@ -1,30 +1,30 @@
 package com.example.crazylab;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.URL;
+
+
+import javax.sound.sampled.*;
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 
 public class MusicPlayer {
-    public static String opening = "/HoliznaCC0%20-%20Final%20Level.mp3";
-    public static void playSound(String fileName,float volume) {
-        try {
-            Clip clip = AudioSystem.getClip();
-            URL url = Main.class.getResource(fileName);
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(url);
-            clip.open(inputStream);
-            setVolume(volume,clip);
-            clip.start();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
+
+    void playSound(String soundLocation){
+
+        try
+        {
+            File soundPath= new File(soundLocation);
+            if(soundPath.exists()){
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(soundPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+
+            }
+            else{
+                System.out.println("Can't find sound file");
+            }
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
         }
-    }
-    public static void setVolume(float volume, Clip clip) {
-        if (volume < 0f || volume > 1f)
-            throw new IllegalArgumentException("Volume not valid: " + volume);
-        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(20f * (float) Math.log10(volume));
     }
 }

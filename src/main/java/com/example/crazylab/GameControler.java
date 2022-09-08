@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameControler {
+
     private final int playerInitialPosX = 22;
     private final int playerInitialPosY = 31;
     private final int initialBossPosX = 23;
@@ -221,6 +222,7 @@ public class GameControler {
                     Platform.runLater(() -> {
 
                         if (!popup) {
+
                             boss.bossMove(floor, player,allCharacters);
                             if(!boss.getQuestGiven()&&
                                 player.getPosXBottom()==boss.getPosXBottom()&&
@@ -260,6 +262,8 @@ public class GameControler {
         });
         movement.start();
     }
+
+
 
 
     public void move(Scene scene)  {
@@ -340,11 +344,12 @@ public class GameControler {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
+
         //showPopupWindoItem(ItemType.SANDWICH);
 
         //showPopupWindowEnemy(boss);
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
-        MusicPlayer.playSound(MusicPlayer.opening, (float) 0.6);
         Parent root = loader.load();
         GameControler controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -354,6 +359,11 @@ public class GameControler {
         controller.initializeBoss();
         controller.initializeEnemy();
         sceneSettings(controller, stage, scene);
+        String lvl1BackgroundSound = "src/main/resources/com/example/crazylab/sounds/HoliznaCC0%20-%20Final%20Level.wav";
+        MusicPlayer backgroundPlayer = new MusicPlayer();
+        backgroundPlayer.playSound(lvl1BackgroundSound);
+
+
     }
 
 
@@ -367,6 +377,7 @@ public class GameControler {
         stage.setMinWidth(32 * 20);
         stage.setMinHeight(32 * 20);
         stage.show();
+
     }
 
 }

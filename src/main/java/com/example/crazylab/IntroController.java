@@ -27,6 +27,7 @@ public class IntroController {
         controller.addCharactersToList();
         controller.setGame();
         GameControler.sceneSettings(controller, stage, scene);
+
     }
 
     // test commit
