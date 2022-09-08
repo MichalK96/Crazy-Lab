@@ -52,6 +52,7 @@ public class FightController {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fight_with_infected.fxml"));
         scene = new Scene(loader.load());
         controller = loader.getController();
+        FightOver = false;
         controller.setInfected(infected);
         controller.setPlayer(player);
         fightingStage.setTitle("Fight with infected");
@@ -59,6 +60,7 @@ public class FightController {
         fightingStage.initModality(Modality.APPLICATION_MODAL);
         fightingStage.initOwner(GameControler.gameBoard);
         fightingStage.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
+            System.out.println(FightOver);
             if(FightOver) {
                 System.out.println("closing the stage");
                 fightingStage.close();}

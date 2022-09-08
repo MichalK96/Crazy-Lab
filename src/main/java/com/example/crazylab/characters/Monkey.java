@@ -40,15 +40,19 @@ public class Monkey extends Enemy {
         super(posXBottom,posYBottom);
     }
 
+
+
+    @Override
+    public void move(ArrayList<Character> characters) {
+
+    }
+
     @Override
     public String getFXMLfile() {
         return null;
     }
 
-    @Override
-    public void move() {
 
-    }
 
 
 
@@ -85,7 +89,7 @@ public class Monkey extends Enemy {
     }
 
     @Override
-    public void move(Player player) {
+    public void move(Player player,ArrayList<Character> characters) {
         List<Integer> nextPosition = getNextPosition();
 
         do {
@@ -100,7 +104,7 @@ public class Monkey extends Enemy {
                         (Math.abs(player.getPosYBottom() - nextPosition.get(0)) < Math.abs(currentY - player.getPosYBottom()))
                 )) {
                     nextPosition = getNextPosition();
-                    if(checkIfWall(nextPosition.get(1),nextPosition.get(0)))
+                    if(checkIfWall(nextPosition.get(1),nextPosition.get(0),characters))
                     {
                         break;
                     }
@@ -110,7 +114,7 @@ public class Monkey extends Enemy {
                 nextPosition = getNextPosition();
             }
         }
-        while (!checkIfWall(nextPosition.get(1), nextPosition.get(0)));
+        while (!checkIfWall(nextPosition.get(1), nextPosition.get(0),characters));
 
         setPosXBottom(nextPosition.get(1));
         setPosYBottom(nextPosition.get(0));

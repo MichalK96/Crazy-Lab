@@ -1,6 +1,5 @@
 package com.example.crazylab.characters;
 
-import com.example.crazylab.FabularEvent;
 import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -13,10 +12,7 @@ import java.util.Random;
 public class Boss extends Enemy {
     private Boolean questGiven = false;
     private final int howClose = 6;
-
-
     private final int speed = 5;
-
     public int getSpeed() {
         return speed;
     }
@@ -39,6 +35,13 @@ public class Boss extends Enemy {
         super(posXBottom, posYBottom);
     }
 
+
+
+    @Override
+    public void move(ArrayList<Character> characters) {
+
+    }
+
     public Boolean getQuestGiven() {
         return questGiven;
     }
@@ -47,9 +50,7 @@ public class Boss extends Enemy {
         this.questGiven = questGiven;
     }
 
-    @Override
-    public void move() {
-    }
+
 
 
     private int getRandom() {
@@ -85,7 +86,7 @@ public class Boss extends Enemy {
     }
 
     @Override
-    public void move(Player player) {
+    public void move(Player player,ArrayList<Character> characters) {
         List<Integer> nextPosition;
         do {
             if (Math.abs(getPosYBottom() - player.getPosYBottom()) <= howClose &&  // góra - dół
@@ -98,16 +99,20 @@ public class Boss extends Enemy {
                         (Math.abs(player.getPosYBottom() - nextPosition.get(0)) > Math.abs(currentY - player.getPosYBottom()))
                 )) {
                     nextPosition = getNextPosition();
-                    if (checkIfWall(nextPosition.get(1), nextPosition.get(0))) {
+                    if (checkIfWall(nextPosition.get(1), nextPosition.get(0),characters)) {
+                        nextPosition = getNextPosition();
                         break;
+//                        if(questGiven) {
+//                            setPosYBottom(23);
+//                            setPosXBottom(21);
+//                        }
                     }
                 }
-
             } else {
                 nextPosition = getNextPosition();
             }
         }
-        while (!checkIfWall(nextPosition.get(1), nextPosition.get(0)));
+        while (!checkIfWall(nextPosition.get(1), nextPosition.get(0),characters));
 
         setPosXBottom(nextPosition.get(1));
         setPosYBottom(nextPosition.get(0));
@@ -137,12 +142,11 @@ public class Boss extends Enemy {
     }
 
 
-    public void bossMove(GridPane floor, Player player) {
-
-
+    public void bossMove(GridPane floor, Player player,ArrayList<Character> characters) {
 
         removeBossFromMap(floor);
-        move(player);
+        move(player,characters);
+
         addBossToMap(floor);
     }
 }
