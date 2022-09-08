@@ -10,7 +10,7 @@ public enum FabularEvent {
     DATA_ANALYSIS_NOT_DONE (""),
     DATA_ANALYSIS_DONE (""),
     MEETING_BOSS_FIRST_TIME ("boss_popup.fxml"),
-    MEETING_BOSS ("boss_popup.fxml"),
+    MEETING_BOSS ("unhappy_boss.fxml"),
     MEETING_COWORKER ("coworker_popup.fxml"),
     MEETING_INFECTED ("infected_popup.fxml"),
     SYRINGE_FOUND ("found_syringe.fxml"),
