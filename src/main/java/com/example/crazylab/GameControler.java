@@ -192,6 +192,30 @@ public class GameControler {
         }
     }
 
+    private void analyzeData() throws IOException {
+        if (FabularObject.SUPERCOMPUTER.isPlayerNextToMachine(player)) {
+            if (player.checkIfItemInInventory(ItemType.MICROSCOPE_IMAGE) && player.checkIfItemInInventory(ItemType.DNA_SEQUENCE) && player.checkIfItemInInventory(ItemType.USB_KEY)) {
+                Tool report = new Tool(ItemType.REPORT);
+                showPopupWindowFabularEvent(FabularEvent.DATA_ANALYSIS_DONE);
+                player.addItemToInventory(report);
+                refreshInventoryDisplay();
+            } else {
+                showPopupWindowFabularEvent(FabularEvent.DATA_ANALYSIS_NOT_DONE);
+            }
+        }
+    }
+
+    private void goIntoElevator() throws IOException {
+        if (FabularObject.ELEVATOR.isPlayerNextToMachine(player)) {
+            if (player.checkIfItemInInventory(ItemType.REPORT)) {
+                showPopupWindowFabularEvent(FabularEvent.ALL_TASKS_FINISHED);
+                //start level 2
+            } else {
+                showPopupWindowFabularEvent(FabularEvent.ALL_TASKS_NOT_FINISHED);
+            }
+        }
+    }
+
     public void setGame() throws IOException {
         addCharactersToList();
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
@@ -363,6 +387,8 @@ public class GameControler {
                             collectSample();
                             takeMicroscopePicture();
                             sequenceDNA();
+                            analyzeData();
+                            goIntoElevator();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

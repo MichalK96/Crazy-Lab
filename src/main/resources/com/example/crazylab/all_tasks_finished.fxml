@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="233.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.GameControler">
+   <children>
+      <ImageView fx:id="img_foundItem" fitHeight="134.0" fitWidth="211.0" layoutX="6.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/vaccine.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="text_foundItem1" layoutX="222.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In one day you have accomplished a task which normally takes months!" textAlignment="CENTER" wrappingWidth="344.79998779296875">
+         <font>
+            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="text_foundItem11" layoutX="221.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You now have all the necessary data to create a vaccine." textAlignment="CENTER" wrappingWidth="344.79998779296875">
+         <font>
+            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="text_foundItem111" layoutX="220.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Take the elevator down to the high security lab where you will be able to synthetize and test your vaccine." textAlignment="CENTER" wrappingWidth="344.79998779296875">
+         <font>
+            <Font name="Lucida Sans Demibold Italic" size="18.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
