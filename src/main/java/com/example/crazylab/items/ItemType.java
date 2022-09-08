@@ -12,6 +12,7 @@ public enum ItemType {
     USB_KEY (99, 0, "TOOL", "found_USBkey.fxml"),   //random
     REPORT (0, 0, "TOOL", "found_syringe.fxml"),    //do zdobycia
     MICROSCOPE_IMAGE (0, 0, "TOOL", "found_syringe.fxml"),  //do zdobycia
+    DNA_SEQUENCE (0, 0, "TOOL", "found_syringe.fxml"),  //do zdobycia
     KEY (104, 0, "TOOL", "found_key.fxml"),     //ustawić
     DIY_MASK (124, 0, "ARMOR", "found_mask.fxml"), //random
     ATEST_MASK(114, 0, "ARMOR", "found_mask.fxml"), //random
