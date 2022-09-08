@@ -344,6 +344,7 @@ public class GameControler {
 
         //showPopupWindowEnemy(boss);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
+        MusicPlayer.playSound(MusicPlayer.opening, (float) 0.6);
         Parent root = loader.load();
         GameControler controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
