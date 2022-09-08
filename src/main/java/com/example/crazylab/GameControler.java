@@ -93,16 +93,16 @@ public class GameControler {
     }
 
     private void generateItemsList() {
-        new Tool(ItemType.SYRINGE, 28, 25).addItemToMap(floor, items);
-        new Tool(ItemType.STANING_KIT, 19, 9).addItemToMap(floor, items);
-        new Tool(ItemType.ENZYME_KIT, 21, 19).addItemToMap(floor, items);
-        new Tool(ItemType.USB_KEY, 10, 13).addItemToMap(floor, items);
-        new Tool(ItemType.KEY, 27, 30).addItemToMap(floor, items);
-        new Armour(ItemType.DIY_MASK, 18, 31).addItemToMap(floor, items);
-        new Armour(ItemType.ATEST_MASK, 5, 16).addItemToMap(floor, items);
-        new Weapon(ItemType.SPRAY, 29, 32).addItemToMap(floor, items);
-        new Weapon(ItemType.SANDWICH, 5, 21).addItemToMap(floor, items);
-        new Weapon(ItemType.SANDWICH, 22, 11).addItemToMap(floor, items);
+        new Tool(ItemType.SYRINGE, 28, 25).addItemToMapAndList(floor, items);
+        new Tool(ItemType.STANING_KIT, 19, 9).addItemToMapAndList(floor, items);
+        new Tool(ItemType.ENZYME_KIT, 21, 19).addItemToMapAndList(floor, items);
+        new Tool(ItemType.USB_KEY, 10, 13).addItemToMapAndList(floor, items);
+        new Tool(ItemType.KEY, 27, 30).addItemToMapAndList(floor, items);
+        new Armour(ItemType.DIY_MASK, 18, 31).addItemToMapAndList(floor, items);
+        new Armour(ItemType.ATEST_MASK, 5, 16).addItemToMapAndList(floor, items);
+        new Weapon(ItemType.SPRAY, 29, 32).addItemToMapAndList(floor, items);
+        new Weapon(ItemType.SANDWICH, 5, 21).addItemToMapAndList(floor, items);
+        new Weapon(ItemType.SANDWICH, 22, 11).addItemToMapAndList(floor, items);
     }
 
     private void addItemIfExistToInventory() {
@@ -193,7 +193,6 @@ public class GameControler {
 
     public void setGame() throws IOException {
         addCharactersToList();
-        generateItemsList();
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
@@ -201,6 +200,7 @@ public class GameControler {
         doors = new Doors(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
         player.addPlayerToMap(floor);
         boss.addBossToMap(floor);
+        generateItemsList();
         infected.forEach(e -> e.addInfectedToMap(floor));
         coworkers.forEach(coworker -> coworker.addCoworkersToMap(floor));
     }
