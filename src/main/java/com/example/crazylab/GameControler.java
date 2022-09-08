@@ -165,11 +165,12 @@ public class GameControler {
     }
 
     private void takeMicroscopePicture() throws IOException {
-        if ((player.getPosXBottom() == 11 || player.getPosXBottom() == 12) && player.getPosYBottom() == 4) {
+        if (FabularObject.MICROSCOPE.isPlayerNextToMachine(player)) {
             if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.STANING_KIT)) {
                 Tool microscopeImage = new Tool(ItemType.MICROSCOPE_IMAGE);
                 showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_TAKEN);
                 player.addItemToInventory(microscopeImage);
+                refreshInventoryDisplay();
             } else {
                 showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_NOT_TAKEN);
             }
@@ -305,6 +306,7 @@ public class GameControler {
                         addItemIfExistToInventory();
                         try {
                             collectSample();
+                            takeMicroscopePicture();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
