@@ -37,6 +37,8 @@ import java.util.Random;
 
 public class GameControler {
 
+    MusicPlayer soundsPlayer = new MusicPlayer();
+
     private final int playerInitialPosX = 22;
     private final int playerInitialPosY = 31;
     private final int initialBossPosX = 23;
@@ -110,6 +112,10 @@ public class GameControler {
         for (Item item : items) {
             if (item.isItemNextToPlayer(player)) {
                 player.addItemToInventory(item);
+                if (item.getItemType() == ItemType.SYRINGE){
+                    String collectSampleSound = "src/main/resources/com/example/crazylab/sounds/ES_Test Tube Drop 1 - SFX Producer.wav";
+                    soundsPlayer.playSound(collectSampleSound, 0.6F);
+                }
                 try {
                     showPopupWindowItem(item.getItemType());
                 } catch (IOException e) {
@@ -154,9 +160,12 @@ public class GameControler {
     }
 
     private void collectSample() throws IOException {
+        String collectSampleSound = "src/main/resources/com/example/crazylab/sounds/ES_Syringe Gun Injection - SFX Producer.wav";
+
         if (FabularObject.DONOR .isPlayerNextToMachine(player)) {
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)) {
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
+                soundsPlayer.playSound(collectSampleSound, 1.0F);
 
             } else {
                 Tool virusSample = new Tool(ItemType.VIRUS_SAMPLE);
@@ -168,10 +177,13 @@ public class GameControler {
     }
 
     private void takeMicroscopePicture() throws IOException {
+        String microscopeSound = "src/main/resources/com/example/crazylab/sounds/ES_Light Photo - SFX Producer.wav";
+
         if (FabularObject.MICROSCOPE.isPlayerNextToMachine(player)) {
             if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.STANING_KIT)) {
                 Tool microscopeImage = new Tool(ItemType.MICROSCOPE_IMAGE);
                 showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_TAKEN);
+                soundsPlayer.playSound(microscopeSound, 0.6F);
                 player.addItemToInventory(microscopeImage);
                 refreshInventoryDisplay();
             } else {
@@ -181,10 +193,14 @@ public class GameControler {
     }
 
     private void sequenceDNA() throws IOException {
+        String sequenceDNASound = "src/main/resources/com/example/crazylab/sounds/ES_Beaker Boil Lab 1 - SFX Producer.wav";
+
         if (FabularObject.SEQUENCER.isPlayerNextToMachine(player)) {
             if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.ENZYME_KIT)) {
+                soundsPlayer.playSound(sequenceDNASound, 0.6F);
                 Tool DNASequence = new Tool(ItemType.DNA_SEQUENCE);
                 showPopupWindowFabularEvent(FabularEvent.SEQUENCING_DONE);
+
                 player.addItemToInventory(DNASequence);
                 refreshInventoryDisplay();
             } else {
@@ -194,8 +210,10 @@ public class GameControler {
     }
 
     private void analyzeData() throws IOException {
+        String analyzeDataSound = "src/main/resources/com/example/crazylab/sounds/ES_Computer Beep 3 - SFX Producer.wav";
         if (FabularObject.SUPERCOMPUTER.isPlayerNextToMachine(player)) {
             if (player.checkIfItemInInventory(ItemType.MICROSCOPE_IMAGE) && player.checkIfItemInInventory(ItemType.DNA_SEQUENCE) && player.checkIfItemInInventory(ItemType.USB_KEY)) {
+                soundsPlayer.playSound(analyzeDataSound, 0.6F);
                 Tool report = new Tool(ItemType.REPORT);
                 showPopupWindowFabularEvent(FabularEvent.DATA_ANALYSIS_DONE);
                 player.addItemToInventory(report);
@@ -352,35 +370,34 @@ public class GameControler {
                 }
                 String stepsSound = "src/main/resources/com/example/crazylab/sounds/ES_Boots Run 2 - SFX Producer.wav";
                 String eatingSound = "src/main/resources/com/example/crazylab/sounds/ES_Sandwich Bite 2 - SFX Producer.wav";
-                MusicPlayer stepsSoundPlayer = new MusicPlayer();
 
                 switch (keyEvent.getCode()) {
                     case UP -> {
                         player.moveUp(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
-                        stepsSoundPlayer.playSound(stepsSound, 0.4F);
+                        soundsPlayer.playSound(stepsSound, 0.4F);
                         removeInfected();
                     }
                     case RIGHT -> {
                         player.moveRight(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
-                        stepsSoundPlayer.playSound(stepsSound, 0.4F);
+                        soundsPlayer.playSound(stepsSound, 0.4F);
                         removeInfected();
                     }
                     case LEFT -> {
                         player.moveLeft(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
-                        stepsSoundPlayer.playSound(stepsSound, 0.4F);
+                        soundsPlayer.playSound(stepsSound, 0.4F);
                         removeInfected();
                     }
                     case DOWN -> {
                         player.moveDown(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
-                        stepsSoundPlayer.playSound(stepsSound, 0.4F);
+                        soundsPlayer.playSound(stepsSound, 0.4F);
                         removeInfected();
                     }
                     case X -> {
@@ -396,7 +413,7 @@ public class GameControler {
                         }
                     }
                     case Z ->{
-                        stepsSoundPlayer.playSound(eatingSound, 1.0F);
+                        soundsPlayer.playSound(eatingSound, 1.0F);
                         System.out.println(player.getHealth());
                         player.heal();
                         System.out.println(player.getHealth());
