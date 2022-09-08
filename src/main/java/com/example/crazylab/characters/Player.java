@@ -14,6 +14,7 @@ import java.util.List;
 public class Player extends Character {
 
     private int health = 32;
+
     public int getHealth() {
         return health;
     }
@@ -36,8 +37,8 @@ public class Player extends Character {
     private final List<Item> inventory = new ArrayList<>();
     private final String name;
 
-    public Player(String name,int posXBottom, int posYBottom) throws IOException {
-        super(posXBottom,posXBottom,posYBottom,posYBottom-1);
+    public Player(String name, int posXBottom, int posYBottom) throws IOException {
+        super(posXBottom, posXBottom, posYBottom, posYBottom - 1);
         this.name = name;
     }
 
@@ -87,17 +88,20 @@ public class Player extends Character {
             throw new RuntimeException(e);
         }
     }
+
     public void addPlayerToMap(GridPane floor) {
         floor.add(getImageBottom(), getPosXBottom(), getPosYBottom());
         floor.add(getImageTop(), getPosXTop(), getPosYTop());
     }
-    public boolean checkIfItemInInventory(ItemType itemType){
+
+    public boolean checkIfItemInInventory(ItemType itemType) {
         return inventory.stream().map(Item::getItemType).anyMatch(type -> type.equals(itemType));
     }
 
     public Infected findInfected(ArrayList<Infected> infecteds) {
         for (Infected infected : infecteds) {
-            if (infected.getPosXBottom() == getPosXBottom() && infected.getPosYBottom() == getPosYBottom()) return infected;
+            if (infected.getPosXBottom() == getPosXBottom() && infected.getPosYBottom() == getPosYBottom())
+                return infected;
         }
         return null;
     }
@@ -118,45 +122,46 @@ public class Player extends Character {
         floor.getChildren().remove(getImageBottom());
         floor.getChildren().remove(getImageTop());
         floor.add(getImageTop(), getPosXTop(), getPosYTop() + moveBy);
-        floor.add(getImageBottom(),getPosXBottom(), getPosYBottom() + moveBy);
+        floor.add(getImageBottom(), getPosXBottom(), getPosYBottom() + moveBy);
         setPosYBottom(getPosYBottom() + moveBy);
 
     }
-    public void moveUp(Doors doors,GridPane floor ) {
+
+    public void moveUp(Doors doors, GridPane floor) {
         if (checkIfWall(getPosXBottom(), getPosYBottom() - 1) && doors.canMove(getPosXBottom(),
                 getPosYBottom() - 1
         )) {
-            moveVertically(-1,floor);
+            moveVertically(-1, floor);
 //            System.out.println(player.getPosX()+"        "+ player.getPosY());
         }
     }
 
 
-    public void moveDown(Doors doors,GridPane floor) {
+    public void moveDown(Doors doors, GridPane floor) {
         if (checkIfWall(getPosXBottom(), getPosYBottom() + 1) && doors.canMove(getPosXBottom(),
                 getPosYBottom() + 1
         )) {
-            moveVertically(1,floor);
+            moveVertically(1, floor);
 //            System.out.println(player.getPosX()+"        "+ player.getPosY());
         }
     }
 
 
-    public void moveRight(Doors doors,GridPane floor) {
+    public void moveRight(Doors doors, GridPane floor) {
         if (checkIfWall(getPosXBottom() + 1, getPosYBottom()) && doors.canMove(getPosXBottom() + 1,
                 getPosYBottom()
         )) {
-            moveHorizontally(1,floor);
+            moveHorizontally(1, floor);
 //            System.out.println(player.getPosX()+"        "+ player.getPosY());
         }
     }
 
 
-    public void moveLeft(Doors doors,GridPane floor) {
+    public void moveLeft(Doors doors, GridPane floor) {
         if (checkIfWall(getPosXBottom() - 1, getPosYBottom()) && doors.canMove(getPosXBottom() - 1,
-               getPosYBottom()
+                getPosYBottom()
         )) {
-            moveHorizontally(-1,floor);
+            moveHorizontally(-1, floor);
 //            System.out.println(player.getPosX()+"        "+ player.getPosY());
         }
     }

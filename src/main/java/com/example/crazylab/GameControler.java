@@ -27,7 +27,6 @@ import com.example.crazylab.tiles.Doors;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.ls.LSOutput;
 
 
 import java.io.IOException;
@@ -35,8 +34,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameControler {
-    private final int playerInitialPosX = 6;
-    private final int playerInitialPosY = 6;
+    private final int playerInitialPosX = 22;
+    private final int playerInitialPosY = 31;
     private final int initialBossPosX = 23;
     private final int initialBossPosY = 32;
     Player player = new Player("name", playerInitialPosX, playerInitialPosY);
@@ -130,7 +129,7 @@ public class GameControler {
         stage.showAndWait();
 
     }
-
+//meeting boss fiorst time
     private void showPopupWindowFabularEvent(FabularEvent event) throws IOException {
         popup = true;
         Stage stage = new Stage();
@@ -171,16 +170,16 @@ public class GameControler {
 
     public void setGame() throws IOException {
         addCharactersToList();
+        generateItemsList();
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_items.csv");
         doors = new Doors(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
         player.addPlayerToMap(floor);
-        generateItemsList();
+        boss.addBossToMap(floor);
         infected.forEach(e -> e.addInfectedToMap(floor));
         coworkers.forEach(coworker -> coworker.addCoworkersToMap(floor));
-        boss.addBossToMap(floor);
     }
 
 
@@ -201,7 +200,7 @@ public class GameControler {
 
     }
 
-    public void initialize1() {
+    public void initializeBoss() {
         Thread movement = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -214,6 +213,19 @@ public class GameControler {
                     Platform.runLater(() -> {
                         if (!popup) {
                             boss.bossMove(floor, player);
+                            if(!boss.getQuestGiven()&&
+                                player.getPosXBottom()==boss.getPosXBottom()&&
+                                player.getPosYBottom()==boss.getPosYBottom()){
+                                try {
+                                    showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS_FIRST_TIME);
+                                    boss.setQuestGiven(true);
+                                    boss.setPosYBottom(7);
+                                    boss.setPosXBottom(7);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                            }
                         }
                     });
                 }
@@ -222,7 +234,7 @@ public class GameControler {
         movement.start();
     }
 
-    public void initialize() {
+    public void initializeEnemy() {
         Thread movement = new Thread(() -> {
             while (true) {
                 try {
@@ -295,7 +307,6 @@ public class GameControler {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
             }
         });
     }
@@ -317,12 +328,12 @@ public class GameControler {
         doors.onMove(player.getPosXBottom(), player.getPosYBottom());
     }
 
+
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
         //showPopupWindoItem(ItemType.SANDWICH);
-        //Boss boss = new Boss();
-        //showPopupWindowEnemy(boss);
 
+        //showPopupWindowEnemy(boss);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = loader.load();
         GameControler controller = loader.getController();
@@ -330,9 +341,11 @@ public class GameControler {
         gameBoard = stage;
         Scene scene = new Scene(root);
         controller.setGame();
-        controller.initialize1();
+        controller.initializeBoss();
+        controller.initializeEnemy();
         sceneSettings(controller, stage, scene);
     }
+
 
     static void sceneSettings(GameControler controller, Stage stage, Scene scene) throws IOException {
         controller.move(scene);
