@@ -325,30 +325,36 @@ public class GameControler {
                     String pos = String.format("%d:%d", player.getPosXTop(), player.getPosYTop());
                     s.saveProgress("1", pos, inventory);
                 }
+                String stepsSound = "src/main/resources/com/example/crazylab/sounds/ES_Boots Run 2 - SFX Producer.wav";
+                MusicPlayer stepsSoundPlayer = new MusicPlayer();
 
                 switch (keyEvent.getCode()) {
                     case UP -> {
                         player.moveUp(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        stepsSoundPlayer.playSound(stepsSound, 0.4F);
                         removeInfected();
                     }
                     case RIGHT -> {
                         player.moveRight(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        stepsSoundPlayer.playSound(stepsSound, 0.4F);
                         removeInfected();
                     }
                     case LEFT -> {
                         player.moveLeft(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        stepsSoundPlayer.playSound(stepsSound, 0.4F);
                         removeInfected();
                     }
                     case DOWN -> {
                         player.moveDown(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        stepsSoundPlayer.playSound(stepsSound, 0.4F);
                         removeInfected();
                     }
                     case X -> {
