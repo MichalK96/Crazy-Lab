@@ -20,7 +20,9 @@ public enum FabularEvent {
     FOUND_KEY ("found_key.fxml"),
     FOUND_MASK ("found_mask.fxml"),
     FOUND_SPRAY ("found_spray.fxml"),
-    FOUND_SANDWICH ("found_sandwich.fxml");
+    FOUND_SANDWICH ("found_sandwich.fxml"),
+    ALL_TASKS_FINISHED("all_tasks_finished.fxml"),
+    ALL_TASKS_NOT_FINISHED ("all_taskas_not_finished.fxml");
 
 
     private final String fxmlFile;
