@@ -1,6 +1,5 @@
 package com.example.crazylab.items;
 
-import com.example.crazylab.FabularObject;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
@@ -56,7 +55,7 @@ public abstract class Item {
         items.remove(this);
 
     }
-    public void addItemToMap(GridPane floor, ArrayList<Item> items)  {
+    public void addItemToMapAndList(GridPane floor, ArrayList<Item> items)  {
         items.add(this);
         int imageId;
         if (this instanceof Tool) {

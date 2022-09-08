@@ -36,6 +36,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class GameControler {
+
     private final int playerInitialPosX = 22;
     private final int playerInitialPosY = 31;
     private final int initialBossPosX = 23;
@@ -93,16 +94,16 @@ public class GameControler {
     }
 
     private void generateItemsList() {
-        new Tool(ItemType.SYRINGE, 28, 25).addItemToMap(floor, items);
-        new Tool(ItemType.STANING_KIT, 19, 9).addItemToMap(floor, items);
-        new Tool(ItemType.ENZYME_KIT, 21, 19).addItemToMap(floor, items);
-        new Tool(ItemType.USB_KEY, 10, 13).addItemToMap(floor, items);
-        new Tool(ItemType.KEY, 27, 30).addItemToMap(floor, items);
-        new Armour(ItemType.DIY_MASK, 18, 31).addItemToMap(floor, items);
-        new Armour(ItemType.ATEST_MASK, 5, 16).addItemToMap(floor, items);
-        new Weapon(ItemType.SPRAY, 29, 32).addItemToMap(floor, items);
-        new Weapon(ItemType.SANDWICH, 5, 21).addItemToMap(floor, items);
-        new Weapon(ItemType.SANDWICH, 22, 11).addItemToMap(floor, items);
+        new Tool(ItemType.SYRINGE, 28, 25).addItemToMapAndList(floor, items);
+        new Tool(ItemType.STANING_KIT, 19, 9).addItemToMapAndList(floor, items);
+        new Tool(ItemType.ENZYME_KIT, 21, 19).addItemToMapAndList(floor, items);
+        new Tool(ItemType.USB_KEY, 10, 13).addItemToMapAndList(floor, items);
+        new Tool(ItemType.KEY, 27, 30).addItemToMapAndList(floor, items);
+        new Armour(ItemType.DIY_MASK, 18, 31).addItemToMapAndList(floor, items);
+        new Armour(ItemType.ATEST_MASK, 5, 16).addItemToMapAndList(floor, items);
+        new Weapon(ItemType.SPRAY, 29, 32).addItemToMapAndList(floor, items);
+        new Weapon(ItemType.SANDWICH, 5, 21).addItemToMapAndList(floor, items);
+        new Weapon(ItemType.SANDWICH, 22, 11).addItemToMapAndList(floor, items);
     }
 
     private void addItemIfExistToInventory() {
@@ -178,9 +179,21 @@ public class GameControler {
         }
     }
 
+    private void sequenceDNA() throws IOException {
+        if (FabularObject.SEQUENCER.isPlayerNextToMachine(player)) {
+            if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.ENZYME_KIT)) {
+                Tool DNASequence = new Tool(ItemType.DNA_SEQUENCE);
+                showPopupWindowFabularEvent(FabularEvent.SEQUENCING_DONE);
+                player.addItemToInventory(DNASequence);
+                refreshInventoryDisplay();
+            } else {
+                showPopupWindowFabularEvent(FabularEvent.SEQUENCING_NOT_DONE);
+            }
+        }
+    }
+
     public void setGame() throws IOException {
         addCharactersToList();
-        generateItemsList();
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_floor.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
         Tiles.drawMap(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
@@ -188,6 +201,7 @@ public class GameControler {
         doors = new Doors(floor, "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_doors.csv");
         player.addPlayerToMap(floor);
         boss.addBossToMap(floor);
+        generateItemsList();
         infected.forEach(e -> e.addInfectedToMap(floor));
         coworkers.forEach(coworker -> coworker.addCoworkersToMap(floor));
     }
@@ -223,6 +237,7 @@ public class GameControler {
                     Platform.runLater(() -> {
 
                         if (!popup) {
+
                             boss.bossMove(floor, player,allCharacters);
                             if(!boss.getQuestGiven()&&
                                 player.getPosXBottom()==boss.getPosXBottom()&&
@@ -291,6 +306,8 @@ public class GameControler {
     }
 
 
+
+
     public void move(Scene scene)  {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -339,6 +356,7 @@ public class GameControler {
                         try {
                             collectSample();
                             takeMicroscopePicture();
+                            sequenceDNA();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -383,11 +401,12 @@ public class GameControler {
 
     @FXML
     private void startNewGame(ActionEvent event) throws IOException {
+
         //showPopupWindoItem(ItemType.SANDWICH);
 
         //showPopupWindowEnemy(boss);
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
-        MusicPlayer.playSound(MusicPlayer.opening, (float) 0.6);
         Parent root = loader.load();
         GameControler controller = loader.getController();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -397,6 +416,11 @@ public class GameControler {
         controller.initializeBoss();
         controller.initializeEnemy();
         sceneSettings(controller, stage, scene);
+        String lvl1BackgroundSound = "src/main/resources/com/example/crazylab/sounds/HoliznaCC0%20-%20Final%20Level.wav";
+        MusicPlayer backgroundPlayer = new MusicPlayer();
+        backgroundPlayer.playSound(lvl1BackgroundSound);
+
+
     }
 
 
@@ -410,6 +434,7 @@ public class GameControler {
         stage.setMinWidth(32 * 20);
         stage.setMinHeight(32 * 20);
         stage.show();
+
     }
 
 }
