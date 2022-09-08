@@ -24,7 +24,7 @@ public enum FabularEvent {
     ALL_TASKS_FINISHED("all_tasks_finished.fxml"),
     ALL_TASKS_NOT_FINISHED ("all_taskas_not_finished.fxml");
 
-
+//
     private final String fxmlFile;
 
     FabularEvent(String fxmlFile) {
