@@ -35,6 +35,7 @@ public class Player extends Character {
     }
 
     private final List<Item> inventory = new ArrayList<>();
+    private final List<Item> taskList = new ArrayList<>();
     private final String name;
 
     public Player(String name, int posXBottom, int posYBottom) throws IOException {

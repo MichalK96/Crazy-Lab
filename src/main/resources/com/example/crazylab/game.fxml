@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -124,7 +126,7 @@
             <Font name="American Typewriter" size="10.0" />
          </font>
       </Label>
-      <ImageView fitHeight="198.0" fitWidth="123.0" layoutX="515.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="196.0" fitWidth="119.0" layoutX="516.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@designElements/tasksbackground.png" />
          </image>
@@ -134,5 +136,37 @@
             <Font name="American Typewriter" size="10.0" />
          </font>
       </Label>
+      <CheckBox accessibleRole="IMAGE_VIEW" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="526.0" layoutY="74.0" mnemonicParsing="false" scaleShape="false" text="Collect a virus sample" textFill="#0a5c80">
+         <font>
+            <Font name="American Typewriter" size="8.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
+      </CheckBox>
+      <CheckBox accessibleRole="IMAGE_VIEW" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="526.0" layoutY="94.0" mnemonicParsing="false" scaleShape="false" text="Take MC picture" textFill="#0a5c80">
+         <font>
+            <Font name="American Typewriter" size="8.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
+      </CheckBox>
+      <CheckBox accessibleRole="IMAGE_VIEW" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="526.0" layoutY="114.0" mnemonicParsing="false" scaleShape="false" text="Amplify the DNA" textFill="#0a5c80">
+         <font>
+            <Font name="American Typewriter" size="8.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
+      </CheckBox>
+      <CheckBox accessibleRole="IMAGE_VIEW" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="526.0" layoutY="134.0" mnemonicParsing="false" scaleShape="false" text=" Prototype a vaccine" textFill="#0a5c80">
+         <font>
+            <Font name="American Typewriter" size="8.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
+      </CheckBox>
    </children>
 </AnchorPane>
