@@ -343,6 +343,14 @@ public class GameControler {
                             throw new RuntimeException(e);
                         }
                     }
+                    case Z ->{
+                        System.out.println(player.getHealth());
+                        player.heal();
+                        System.out.println(player.getHealth());
+                        refreshInventoryDisplay();
+
+
+                    }
                     default -> System.out.println(keyEvent.getCode());
                 }
                 Infected opponent = player.findInfected(infected);

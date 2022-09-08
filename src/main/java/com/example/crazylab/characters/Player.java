@@ -162,4 +162,16 @@ public class Player extends Character {
         }
     }
 
+    public void heal(){
+        for(Item item: inventory){
+            if(item.getItemType()== ItemType.SANDWICH){
+                System.out.println("leczonq");
+                setHealth(getHealth() +4);
+                inventory.remove(item);
+                break;
+            }
+        }
+
+    }
+
 }
