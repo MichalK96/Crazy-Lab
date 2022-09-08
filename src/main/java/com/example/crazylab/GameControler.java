@@ -237,7 +237,7 @@ public class GameControler {
                                 }
 
                             } else if ( player.getPosXBottom()==boss.getPosXBottom()&&
-                                    player.getPosYBottom()==boss.getPosYBottom()) {
+                                        player.getPosYBottom()==boss.getPosYBottom()) {
                                 try {
                                     showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS);
                                     boss.setPosYBottom(4);
