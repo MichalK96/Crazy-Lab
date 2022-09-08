@@ -152,7 +152,7 @@ public class GameControler {
     }
 
     private void collectSample() throws IOException {
-        if (FabularObject.DONOR.isPlayerNextToMachine(player)) {
+        if (FabularObject.DONOR .isPlayerNextToMachine(player)) {
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)) {
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
             } else {
@@ -229,11 +229,22 @@ public class GameControler {
                                 try {
                                     showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS_FIRST_TIME);
                                     boss.setQuestGiven(true);
-                                    boss.setPosYBottom(7);
-                                    boss.setPosXBottom(7);
+                                    boss.setPosYBottom(4);
+                                    boss.setPosXBottom(17);
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
+
+                            } else if ( player.getPosXBottom()==boss.getPosXBottom()&&
+                                    player.getPosYBottom()==boss.getPosYBottom()) {
+                                try {
+                                    showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS);
+                                    boss.setPosYBottom(4);
+                                    boss.setPosXBottom(17);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+
 
                             }
                         }
