@@ -13,7 +13,7 @@
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <ImageView fitHeight="165.0" fitWidth="150.0" layoutX="363.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ImageView fitHeight="165.0" fitWidth="150.0" layoutX="450.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <image>
             <Image url="@pictures/infected.jpg" />
          </image>
@@ -38,12 +38,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fitHeight="127.0" fitWidth="117.0" layoutX="168.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="150.0">
+      <ImageView fitHeight="127.0" fitWidth="117.0" layoutX="356.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="138.21318817138672">
          <image>
-            <Image url="@pictures/SQ.png" />
+            <Image url="@pictures/sadScientist.png" />
          </image>
       </ImageView>
-      <Label fx:id="playerHealth" alignment="CENTER" layoutX="153.0" layoutY="135.0" prefHeight="50.0" prefWidth="50.0" text="32" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="135.0">
+      <Label fx:id="playerHealth" alignment="CENTER" layoutX="153.0" layoutY="135.0" prefHeight="50.0" prefWidth="50.0" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="135.0">
          <font>
             <Font size="18.0" />
          </font>

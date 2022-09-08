@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class GameControler {
     private final int playerInitialPosX = 22;
@@ -273,6 +274,22 @@ public class GameControler {
         movement.start();
     }
 
+    private void randomSandwich() {
+        Random random = new Random();
+        if (random.nextBoolean()) player.addItemToInventory(new Weapon(ItemType.SANDWICH, 0, 0));
+        refreshInventoryDisplay();
+    }
+
+    private void removeInfected() {
+        for (Infected character : infected) {
+            if (character.getHealth() <= 0) {
+                example.removeInfectedFromMap(character);
+                infected.remove(character);
+                randomSandwich();
+            }
+        }
+    }
+
 
     public void move(Scene scene)  {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -297,21 +314,25 @@ public class GameControler {
                         player.moveUp(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        removeInfected();
                     }
                     case RIGHT -> {
                         player.moveRight(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        removeInfected();
                     }
                     case LEFT -> {
                         player.moveLeft(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        removeInfected();
                     }
                     case DOWN -> {
                         player.moveDown(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        removeInfected();
                     }
                     case X -> {
                         addItemIfExistToInventory();

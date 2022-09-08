@@ -10,11 +10,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 public class FightController {
 
+    Random random = new Random();
     private Scene scene;
     private Stage fightingStage;
     private Player player;
@@ -69,6 +71,7 @@ public class FightController {
     }
 
     private void fightHandler(Scene scene) throws IOException {
+        playerHealth.setText(String.valueOf(player.getHealth()));
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -102,17 +105,15 @@ public class FightController {
 
     private void handlePlayerWinner() {
         showEnemyAttack.setText("YOU WIN!\n\nPres Enter\nto continue");
-        FightOver = true;
     }
 
     private void handleEnemyWinner() {
         showPlayerAttack.setText("YOU LOST\n\nPres Enter\nto continue");
-        FightOver = true;
     }
 
     private void attackPlayer() {
         int playerHealth = player.getHealth();
-        int randomAttack = (int) (Math.random() * (8 - 2));  // TODO dobrać losowanie siły ataku
+        int randomAttack = random.nextInt(6);
         playerHealth -= randomAttack;
         player.setHealth(playerHealth);
         updatePlayerStatsDisplay(randomAttack);
@@ -121,13 +122,13 @@ public class FightController {
 
     private void attackEnemy() {
         int infectedHealth = this.infected.getHealth();
-        if (infectedHealth <= 0 || player.getHealth() <= 0) this.stage.close();
-        int randomAttack = (int) (Math.random() * (10 - 4));  // TODO dobrać losowanie siły ataku
+        if (infectedHealth <= 0 || player.getHealth() <= 0) FightOver = true;
+        int randomAttack = random.nextInt(11);
         infectedHealth -= randomAttack;
         infected.setHealth(infectedHealth);
         updateEnemyStatsDisplay(randomAttack);
         if (infectedHealth <= 0) handlePlayerWinner();
-        attackPlayer();
+        else attackPlayer();
 
     }
 
