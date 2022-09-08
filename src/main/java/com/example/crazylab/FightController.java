@@ -62,6 +62,9 @@ public class FightController {
         fightingStage.initOwner(GameControler.gameBoard);
         fightingStage.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
             System.out.println(FightOver);
+            String blahBlahSound = "com/example/crazylab/sounds/ES_Voiceblahblah.wav";
+            MusicPlayer fightSound1 = new MusicPlayer();
+            fightSound1.playSound(blahBlahSound, 1F);
             if(FightOver) {
                 System.out.println("closing the stage");
                 fightingStage.close();}
