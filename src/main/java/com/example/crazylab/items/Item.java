@@ -1,5 +1,6 @@
 package com.example.crazylab.items;
 
+import com.example.crazylab.FabularObject;
 import com.example.crazylab.characters.Player;
 import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
@@ -48,6 +49,7 @@ public abstract class Item {
                 itemX + 1 == playerX && itemY - 1 == playerY ||
                 itemX - 1 == playerX && itemY + 1 == playerY;
     }
+
     public void removeItemFromMap(ArrayList<Item> items ){
         System.out.println("Remove item from map");
         getImage().setVisible(false);

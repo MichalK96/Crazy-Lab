@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class GameControler {
 
@@ -153,7 +154,7 @@ public class GameControler {
     }
 
     private void collectSample() throws IOException {
-        if ((player.getPosXBottom() == 28 || player.getPosXBottom() == 29) && player.getPosYBottom() == 22) {
+        if (FabularObject.DONOR .isPlayerNextToMachine(player)) {
             if (!player.checkIfItemInInventory(ItemType.SYRINGE)) {
                 showPopupWindowFabularEvent(FabularEvent.SAMPLE_NOT_COLLECTED);
             } else {
@@ -166,13 +167,27 @@ public class GameControler {
     }
 
     private void takeMicroscopePicture() throws IOException {
-        if ((player.getPosXBottom() == 11 || player.getPosXBottom() == 12) && player.getPosYBottom() == 4) {
+        if (FabularObject.MICROSCOPE.isPlayerNextToMachine(player)) {
             if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.STANING_KIT)) {
                 Tool microscopeImage = new Tool(ItemType.MICROSCOPE_IMAGE);
                 showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_TAKEN);
                 player.addItemToInventory(microscopeImage);
+                refreshInventoryDisplay();
             } else {
                 showPopupWindowFabularEvent(FabularEvent.MICROSCOPE_PICTURE_NOT_TAKEN);
+            }
+        }
+    }
+
+    private void sequenceDNA() throws IOException {
+        if (FabularObject.SEQUENCER.isPlayerNextToMachine(player)) {
+            if (player.checkIfItemInInventory(ItemType.VIRUS_SAMPLE) && player.checkIfItemInInventory(ItemType.ENZYME_KIT)) {
+                Tool DNASequence = new Tool(ItemType.DNA_SEQUENCE);
+                showPopupWindowFabularEvent(FabularEvent.SEQUENCING_DONE);
+                player.addItemToInventory(DNASequence);
+                refreshInventoryDisplay();
+            } else {
+                showPopupWindowFabularEvent(FabularEvent.SEQUENCING_NOT_DONE);
             }
         }
     }
@@ -230,11 +245,22 @@ public class GameControler {
                                 try {
                                     showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS_FIRST_TIME);
                                     boss.setQuestGiven(true);
-                                    boss.setPosYBottom(7);
-                                    boss.setPosXBottom(7);
+                                    boss.setPosYBottom(4);
+                                    boss.setPosXBottom(17);
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
+
+                            } else if ( player.getPosXBottom()==boss.getPosXBottom()&&
+                                    player.getPosYBottom()==boss.getPosYBottom()) {
+                                try {
+                                    showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS);
+                                    boss.setPosYBottom(4);
+                                    boss.setPosXBottom(17);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+
 
                             }
                         }
@@ -263,6 +289,22 @@ public class GameControler {
         movement.start();
     }
 
+    private void randomSandwich() {
+        Random random = new Random();
+        if (random.nextBoolean()) player.addItemToInventory(new Weapon(ItemType.SANDWICH, 0, 0));
+        refreshInventoryDisplay();
+    }
+
+    private void removeInfected() {
+        for (Infected character : infected) {
+            if (character.getHealth() <= 0) {
+                example.removeInfectedFromMap(character);
+                infected.remove(character);
+                randomSandwich();
+            }
+        }
+    }
+
 
 
 
@@ -289,36 +331,43 @@ public class GameControler {
                         player.moveUp(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        removeInfected();
                     }
                     case RIGHT -> {
                         player.moveRight(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        removeInfected();
                     }
                     case LEFT -> {
                         player.moveLeft(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        removeInfected();
                     }
                     case DOWN -> {
                         player.moveDown(doors, floor,allCharacters);
                         popup = false;
                         onPlayerMove();
+                        removeInfected();
                     }
-                    case X -> addItemIfExistToInventory();
+                    case X -> {
+                        addItemIfExistToInventory();
+                        try {
+                            collectSample();
+                            takeMicroscopePicture();
+                            sequenceDNA();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     default -> System.out.println(keyEvent.getCode());
                 }
-                try {
-                    collectSample();
-                    takeMicroscopePicture();
-                    Infected opponent = player.findInfected(infected);
-                    if (opponent != null) {
-                        player.fightWithInfected(player, opponent);
-                        System.out.println(opponent);
-                        popup = true;
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                Infected opponent = player.findInfected(infected);
+                if (opponent != null) {
+                    player.fightWithInfected(player, opponent);
+                    System.out.println(opponent);
+                    popup = true;
                 }
             }
         });

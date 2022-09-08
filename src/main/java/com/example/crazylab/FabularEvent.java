@@ -5,12 +5,12 @@ public enum FabularEvent {
     SAMPLE_COLLECTED ("sample_collected.fxml"),
     MICROSCOPE_PICTURE_NOT_TAKEN ("image_not_taken.fxml"),
     MICROSCOPE_PICTURE_TAKEN ("image_taken.fxml"),
-    SEQUENCING_NOT_DONE (""),
-    SEQUENCING_DONE (""),
+    SEQUENCING_NOT_DONE ("sequencing_not_done.fxml"),
+    SEQUENCING_DONE ("sequencing_done.fxml"),
     DATA_ANALYSIS_NOT_DONE (""),
     DATA_ANALYSIS_DONE (""),
     MEETING_BOSS_FIRST_TIME ("boss_popup.fxml"),
-    MEETING_BOSS ("boss_popup.fxml"),
+    MEETING_BOSS ("unhappy_boss.fxml"),
     MEETING_COWORKER ("coworker_popup.fxml"),
     MEETING_INFECTED ("infected_popup.fxml"),
     SYRINGE_FOUND ("found_syringe.fxml"),
@@ -21,8 +21,6 @@ public enum FabularEvent {
     FOUND_MASK ("found_mask.fxml"),
     FOUND_SPRAY ("found_spray.fxml"),
     FOUND_SANDWICH ("found_sandwich.fxml");
-
-
 
 
     private final String fxmlFile;

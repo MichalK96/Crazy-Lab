@@ -77,12 +77,8 @@ public class Player extends Character {
     }
 
     public void fightWithInfected(Player player, Infected character) {
-        System.out.println("Fighting with infected");
-        System.out.println(character);
         try {
             FightController fightController = new FightController();
-            //fightController.setPlayer(player);
-            //fightController.setInfected(character);
             fightController.showPopupWindowFightWithInfected(player, character);
         } catch (IOException e) {
             throw new RuntimeException(e);
