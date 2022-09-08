@@ -8,9 +8,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.crazylab.FightController">
    <children>
-      <Label alignment="CENTER" layoutX="59.0" layoutY="29.0" prefHeight="85.0" prefWidth="600.0" text="Fight with infected" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label alignment="CENTER" layoutX="59.0" layoutY="29.0" prefHeight="85.0" prefWidth="600.0" text="Convince the infected to wear a mask" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
-            <Font name="System Bold" size="36.0" />
+            <Font name="System Bold" size="28.0" />
          </font>
       </Label>
       <ImageView fitHeight="165.0" fitWidth="150.0" layoutX="363.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -18,22 +18,22 @@
             <Image url="@pictures/infected.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="231.0" layoutY="111.0" prefHeight="50.0" prefWidth="200.0" text="Pres Enter to attack" textFill="#c92929" AnchorPane.bottomAnchor="330.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="85.0">
+      <Label alignment="CENTER_RIGHT" layoutX="231.0" layoutY="111.0" prefHeight="50.0" prefWidth="230.0" text="Pres Enter to attemp" textFill="#c92929" AnchorPane.bottomAnchor="330.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="85.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="46.0" layoutY="135.0" prefHeight="50.0" prefWidth="120.0" text="Your health: " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="135.0">
+      <Label alignment="CENTER_RIGHT" layoutX="46.0" layoutY="135.0" prefHeight="50.0" prefWidth="230.0" text="Your mental health: " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="135.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="200.0" prefHeight="50.0" prefWidth="120.0" text="Enemy healyh:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="185.0">
+      <Label alignment="CENTER_RIGHT" layoutX="25.0" layoutY="200.0" prefHeight="50.0" prefWidth="230.0" text="Opponent mental health:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="185.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="showPlayerAttack" alignment="TOP_CENTER" layoutX="192.0" layoutY="85.0" prefHeight="265.0" prefWidth="150.0" text="Your attack" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="85.0">
+      <Label fx:id="showPlayerAttack" alignment="TOP_CENTER" layoutX="192.0" layoutY="85.0" prefHeight="265.0" prefWidth="150.0" text="Your cogency" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="85.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -43,17 +43,17 @@
             <Image url="@pictures/SQ.png" />
          </image>
       </ImageView>
-      <Label fx:id="playerHealth" layoutX="153.0" layoutY="135.0" prefHeight="50.0" prefWidth="50.0" text="100" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="135.0">
+      <Label fx:id="playerHealth" alignment="CENTER" layoutX="153.0" layoutY="135.0" prefHeight="50.0" prefWidth="50.0" text="32" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="135.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="enemyHealth" layoutX="120.0" layoutY="185.0" prefHeight="50.0" prefWidth="50.0" text="100" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="185.0">
+      <Label fx:id="enemyHealth" alignment="CENTER" layoutX="120.0" layoutY="185.0" prefHeight="50.0" prefWidth="50.0" text="20" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="185.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="showEnemyAttack" alignment="TOP_LEFT" layoutX="365.0" layoutY="107.0" prefHeight="256.0" prefWidth="150.0" text="Enemy attack" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="85.0">
+      <Label fx:id="showEnemyAttack" alignment="TOP_LEFT" layoutX="365.0" layoutY="107.0" prefHeight="256.0" prefWidth="150.0" text="Enemy anger" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="85.0">
          <font>
             <Font size="18.0" />
          </font>
