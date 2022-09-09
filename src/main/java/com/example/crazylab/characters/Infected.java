@@ -102,22 +102,29 @@ public class Infected extends Enemy {
     }
 
     @Override
-    public void move() {
+    public void move(ArrayList<Character> characters) {
         List<Integer> nextPosition;
         do {
             nextPosition = getNextPosition();
         }
-        while (!checkIfWall(nextPosition.get(1),nextPosition.get(0))) ;
+        while (!checkIfWall(nextPosition.get(1),nextPosition.get(0),characters)) ;
         setPosXBottom(nextPosition.get(1));
         setPosYBottom(nextPosition.get(0));
+    }
+
+    @Override
+    public void move(Player player, ArrayList<Character> characters) {
+
     }
 
     @Override
     public String getFXMLfile() {
         return "infected_popup.fxml";
     }
-    @Override
-    public void move(Player player) {
+
+    public void removeInfectedFromMap() {
+        this.getImageBottom().setVisible(false);
+        this.getImageTop().setVisible(false);
     }
 
 

@@ -48,13 +48,14 @@ public abstract class Item {
                 itemX + 1 == playerX && itemY - 1 == playerY ||
                 itemX - 1 == playerX && itemY + 1 == playerY;
     }
+
     public void removeItemFromMap(ArrayList<Item> items ){
         System.out.println("Remove item from map");
         getImage().setVisible(false);
         items.remove(this);
 
     }
-    public void addItemToMap(GridPane floor, ArrayList<Item> items)  {
+    public void addItemToMapAndList(GridPane floor, ArrayList<Item> items)  {
         items.add(this);
         int imageId;
         if (this instanceof Tool) {

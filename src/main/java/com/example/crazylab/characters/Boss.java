@@ -10,14 +10,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Boss extends Enemy {
-    int howClose =6;
-
-    int posXTop = 23;
-    int posYTop = 32;
-    int posYBottom = posYTop - 1;
-    int posXBottom = posXTop;
-    int speed = 5;
-
+    private Boolean questGiven = false;
+    private final int howClose = 6;
+    private final int speed = 5;
     public int getSpeed() {
         return speed;
     }
@@ -25,35 +20,6 @@ public class Boss extends Enemy {
     ImageView imageTop = new ImageView(Tiles.getParticularImage(783));
     ImageView imageBottom = new ImageView(Tiles.getParticularImage(768));
 
-    public int getPosXTop() {
-        return posXTop;
-    }
-
-
-    public int getPosYTop() {
-        return posYTop;
-    }
-
-
-    public int getPosXBottom() {
-        return posXBottom;
-    }
-
-
-    public int getPosYBottom() {
-        return posYBottom;
-    }
-
-    public void setPosXBottom(int posXBottom) {
-        this.posXBottom = posXBottom;
-        this.posXTop = posXBottom;
-
-    }
-
-    public void setPosYBottom(int posYBottom) {
-        this.posYBottom = posYBottom;
-        this.posYTop = posYBottom - 1;
-    }
 
     public ImageView getImageTop() {
         return imageTop;
@@ -65,13 +31,25 @@ public class Boss extends Enemy {
     }
 
 
-    public Boss(int posXBottom,int posYBottom) throws IOException {
-        super(posXBottom,posYBottom);
+    public Boss(int posXBottom, int posYBottom) throws IOException {
+        super(posXBottom, posYBottom);
     }
 
+
+
     @Override
-    public void move() {
+    public void move(ArrayList<Character> characters) {
+
     }
+
+    public Boolean getQuestGiven() {
+        return questGiven;
+    }
+
+    public void setQuestGiven(Boolean questGiven) {
+        this.questGiven = questGiven;
+    }
+
 
 
 
@@ -108,13 +86,11 @@ public class Boss extends Enemy {
     }
 
     @Override
-    public void move(Player player) {
-        List<Integer> nextPosition = getNextPosition();
-
+    public void move(Player player,ArrayList<Character> characters) {
+        List<Integer> nextPosition;
         do {
             if (Math.abs(getPosYBottom() - player.getPosYBottom()) <= howClose &&  // góra - dół
                     Math.abs(getPosXBottom() - player.getPosXBottom()) <= howClose  // prawo - lewo
-
             ) {
                 int currentX = getPosXBottom();
                 int currentY = getPosYBottom();
@@ -123,17 +99,20 @@ public class Boss extends Enemy {
                         (Math.abs(player.getPosYBottom() - nextPosition.get(0)) > Math.abs(currentY - player.getPosYBottom()))
                 )) {
                     nextPosition = getNextPosition();
-                    if(checkIfWall(nextPosition.get(1),nextPosition.get(0)))
-                    {
+                    if (checkIfWall(nextPosition.get(1), nextPosition.get(0),characters)) {
+                        nextPosition = getNextPosition();
                         break;
+//                        if(questGiven) {
+//                            setPosYBottom(23);
+//                            setPosXBottom(21);
+//                        }
                     }
                 }
-
             } else {
                 nextPosition = getNextPosition();
             }
         }
-        while (!checkIfWall(nextPosition.get(1), nextPosition.get(0)));
+        while (!checkIfWall(nextPosition.get(1), nextPosition.get(0),characters));
 
         setPosXBottom(nextPosition.get(1));
         setPosYBottom(nextPosition.get(0));
@@ -163,9 +142,11 @@ public class Boss extends Enemy {
     }
 
 
-    public void bossMove(GridPane floor,Player player) {
+    public void bossMove(GridPane floor, Player player,ArrayList<Character> characters) {
+
         removeBossFromMap(floor);
-        move(player);
+        move(player,characters);
+
         addBossToMap(floor);
     }
 }

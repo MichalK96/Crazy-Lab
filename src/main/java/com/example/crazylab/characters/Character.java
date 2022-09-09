@@ -4,12 +4,15 @@ import com.example.crazylab.tiles.Tiles;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Character {
     private int posXTop;
     private int posXBottom;
     private int posYBottom;
     private int posYTop;
+
+
 
 
     private final ArrayList<ArrayList<Integer>> disallowedFieldsFloor = Tiles.csvAsArray(
@@ -25,7 +28,9 @@ public abstract class Character {
         this.posYTop = posYTop;
         this.posYBottom = posYBottom;
 
+
     }
+
 
     public int getPosXTop() {
         return posXTop;
@@ -54,8 +59,28 @@ public abstract class Character {
     }
 
 
+// to dodac do dissallowed fields
+//ArrayList<Infected> infected
+//ArrayList<Coworker> coworkers
+// player.getPosXBottom
+// player.getPosyBottom
+// boss.getPosyBottom
+// boss.getPosyBottom
 
-    public boolean checkIfWall(int x, int y) {
+
+
+
+
+        private Boolean checkIfCharacter(int x, int y, ArrayList<Character> characters){
+            for (Character character : characters) {
+                if(character.getPosYBottom()==y && character.getPosXBottom()==x){
+                    return true;
+                }
+            };
+            return false;
+        }
+
+    public boolean checkIfWall(int x, int y,ArrayList<Character> characters) {
         return disallowedFieldsFloor.get(y).get(x) != 77 &&
                 disallowedFieldsFloor.get(y).get(x) != 28 &&
                 disallowedFieldsFloor.get(y).get(x) != 76 &&
@@ -123,7 +148,8 @@ public abstract class Character {
                 (x != 11 || y != 24)&&
                 (x != 10 || y != 24)&&
                 (x != 30 || y != 34)&&
-                (x != 9 || y != 24);
+                (x != 9 || y != 24)&&
+                !checkIfCharacter(x, y,characters);
     }
 
 
