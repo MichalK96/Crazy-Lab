@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Doors {
 
     ArrayList<ArrayList<Integer>> mapTiles;
-    public int KeyCount = 1;
+    public int KeyCount = 2;
 
     private GridPane gp;
     public Doors(GridPane grid, String path) throws IOException {
