@@ -1,6 +1,5 @@
 package com.example.crazylab.items;
 
-import java.util.function.Predicate;
 
 public enum ItemType {
 
@@ -37,10 +36,6 @@ public enum ItemType {
 
     public int getProperty() {
         return property;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getFxmlFile() {return fxmlFile;}

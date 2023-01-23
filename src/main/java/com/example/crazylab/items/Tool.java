@@ -1,6 +1,5 @@
 package com.example.crazylab.items;
 
-import com.example.crazylab.tiles.Tiles;
 import javafx.scene.image.ImageView;
 
 public class Tool extends Item {

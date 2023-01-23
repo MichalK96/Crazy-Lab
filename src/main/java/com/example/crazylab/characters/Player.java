@@ -35,7 +35,7 @@ public class Player extends Character {
     }
 
     private final List<Item> inventory = new ArrayList<>();
-    private final List<Item> taskList = new ArrayList<>();
+
     private final String name;
 
     public Player(String name, int posXBottom, int posYBottom) throws IOException {
@@ -67,14 +67,6 @@ public class Player extends Character {
 //
     public List<Item> getInventory() {
         return inventory;
-    }
-
-    public void fightWithBoss() {
-        System.out.println("Fighting with boss");
-    }
-
-    public void fightWithCoworker() {
-        System.out.println("Fighting with coworker");
     }
 
     public void fightWithInfected(Player player, Infected character) {

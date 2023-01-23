@@ -38,9 +38,7 @@ public class Boss extends Enemy {
 
 
     @Override
-    public void move(ArrayList<Character> characters) {
-
-    }
+    public void move(ArrayList<Character> characters) {}
 
     public Boolean getQuestGiven() {
         return questGiven;
@@ -102,10 +100,6 @@ public class Boss extends Enemy {
                     if (checkIfWall(nextPosition.get(1), nextPosition.get(0),characters)) {
                         nextPosition = getNextPosition();
                         break;
-//                        if(questGiven) {
-//                            setPosYBottom(23);
-//                            setPosXBottom(21);
-//                        }
                     }
                 }
             } else {

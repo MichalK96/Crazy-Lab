@@ -19,22 +19,9 @@ public enum FabularObject {
         this.y = y;
     }
 
-    public int getX1(){
-        return x1;
-    }
-
-    public int getX2(){
-        return x2;
-    }
-
-    public int getY(){
-        return y;
-    }
-
     public boolean isPlayerNextToMachine(Player player) {
         int playerX = player.getPosXBottom();
         int playerY = player.getPosYBottom();
-        System.out.println("x" + playerX + " y" + playerY);
         return y == playerY && x1 == playerX+1 ||
                 y == playerY && x1 == playerX-1||
                 x1 == playerX && y == playerY+1 ||

@@ -1,10 +1,8 @@
 package com.example.crazylab.save;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.TilePane;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,7 +22,6 @@ public class Save {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -53,7 +50,6 @@ public class Save {
             sql = sql.replace("##1##", currentMap);
             sql = sql.replace("##2##", playerPosition);
             sql = sql.replace("##3##", inventoryContent);
-            System.out.println(sql);
             s.executeUpdate(sql);
 
         } catch (SQLException e) {

@@ -5,6 +5,7 @@ import com.example.crazylab.characters.Player;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,7 +46,6 @@ public class FightController {
 
     public void setInfected(Infected infected) {
         this.infected = infected;
-        System.out.println(this.infected);
     }
 
     public void showPopupWindowFightWithInfected(Player player, Infected infected) throws IOException {
@@ -61,29 +61,26 @@ public class FightController {
         fightingStage.initModality(Modality.APPLICATION_MODAL);
         fightingStage.initOwner(GameControler.gameBoard);
         fightingStage.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
-            System.out.println(FightOver);
             String blahBlahSound = "src/main/resources/com/example/crazylab/sounds/ES_Voice Clip Male 461 - SFX Producer.wav";
             MusicPlayer fightSound1 = new MusicPlayer();
             fightSound1.playSound(blahBlahSound, 0.7F);
             if(FightOver) {
-                System.out.println("closing the stage");
                 fightingStage.close();}
         });
         controller.fightHandler(scene);
         fightingStage.show();
     }
 
-    private void fightHandler(Scene scene) throws IOException {
+    private void fightHandler(Scene scene) {
         playerHealth.setText(String.valueOf(player.getHealth()));
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        scene.setOnKeyPressed(new EventHandler<>() {
             @Override
             public void handle(KeyEvent keyEvent) {
 
-                switch (keyEvent.getCode()) {
-                    case ENTER -> {
-                        if(!FightOver) {attackEnemy();}
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    if (!FightOver) {
+                        attackEnemy();
                     }
-                    default -> System.out.println(keyEvent.getCode());
                 }
             }
         });

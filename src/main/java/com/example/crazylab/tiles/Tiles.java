@@ -19,7 +19,6 @@ public class Tiles {
     public static int TILE_WIDTH = 32;
     public static String PATH_TO_HOSPITAL_TILES
             = "src/main/resources/com/example/crazylab/designElements/hospitalDesign.png";
-
     public static int MAX_ID = 1214;
     public static HashMap<String, BufferedImage> PARTICULAR_IMAGES;
 
@@ -69,15 +68,14 @@ public class Tiles {
             PixelWriter pw = wr.getPixelWriter();
             for (int x = 0; x < image.getWidth(); x++) {
                 for (int y = 0; y < image.getHeight(); y++) {
-                    ((PixelWriter) pw).setArgb(x, y, image.getRGB(x, y));
+                    (pw).setArgb(x, y, image.getRGB(x, y));
                 }
             }
         }
         return new ImageView(wr).getImage();
     }
 
-    // w tej funkcji EWIDENTNIE zmienic nazwenictow bo to jest ochydne
-    public static void addToGrid(GridPane grid, int i, int j, ArrayList<ArrayList<Integer>> mapTiles) throws IOException {
+    public static void addToGrid(GridPane grid, int i, int j, ArrayList<ArrayList<Integer>> mapTiles) {
         BufferedImage image = (BufferedImage) PARTICULAR_IMAGES.get(String.valueOf(mapTiles.get(i).get(j)));
         Image convertedImage = convertToFxImage(image);
         grid.add(new ImageView(convertedImage), j, i);

@@ -25,20 +25,8 @@ public class Coworker extends Enemy{
         return imageTop;
     }
 
-    public void setImageTop(ImageView imageTop) {
-        this.imageTop = imageTop;
-    }
-
     public ImageView getImageBottom() {
         return imageBottom;
-    }
-
-    public void setImageBottom(ImageView imageBottom) {
-        this.imageBottom = imageBottom;
-    }
-
-    public Boolean getHungry() {
-        return neutralized;
     }
 
     public void setHungry(Boolean hungry) {

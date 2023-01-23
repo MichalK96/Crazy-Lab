@@ -55,17 +55,11 @@ public class GameControler {
     Infected example = new Infected(0, 0);
 
     @FXML
-    private Label labelUserName;
-    @FXML
     private Label equipment;
     @FXML
     GridPane floor;
     @FXML
     private Label textWelcome;
-    @FXML
-    private ImageView img_foundItem;
-    @FXML
-    private Text text_foundItem;
     public static Stage gameBoard;
     boolean popup = false;
 
@@ -83,11 +77,6 @@ public class GameControler {
         coworkers.add(new Coworker(12, 5));
         coworkers.add(new Coworker(4, 5));
         allCharacters.addAll(coworkers);
-//        allCharacters.addAll(infected);
-//        allCharacters.add(player);
-//        allCharacters.add(boss);
-
-
     }
 
 
@@ -145,7 +134,7 @@ public class GameControler {
         stage.showAndWait();
 
     }
-//meeting boss fiorst time
+
     private void showPopupWindowFabularEvent(FabularEvent event) throws IOException {
         popup = true;
         Stage stage = new Stage();
@@ -257,7 +246,6 @@ public class GameControler {
             floor.getChildren().remove(character.getImageTop());
             character.move(characters);
             if (character.checkContactWithPlayer(player.getPosXBottom(), player.getPosYBottom())) {
-                System.out.println(character);
                 player.fightWithInfected(player, character);
                 popup = true;
             }
@@ -269,47 +257,44 @@ public class GameControler {
     }
 
     public void initializeBoss() {
-        Thread movement = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(1000 / boss.getSpeed());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Platform.runLater(() -> {
-
-                        if (!popup) {
-
-                            boss.bossMove(floor, player,allCharacters);
-                            if(!boss.getQuestGiven()&&
-                                player.getPosXBottom()==boss.getPosXBottom()&&
-                                player.getPosYBottom()==boss.getPosYBottom()){
-                                try {
-                                    showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS_FIRST_TIME);
-                                    boss.setQuestGiven(true);
-                                    boss.setPosYBottom(4);
-                                    boss.setPosXBottom(17);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-
-                            } else if ( player.getPosXBottom()==boss.getPosXBottom()&&
-                                        player.getPosYBottom()==boss.getPosYBottom()) {
-                                try {
-                                    showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS);
-                                    boss.setPosYBottom(4);
-                                    boss.setPosXBottom(17);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-
-
-                            }
-                        }
-                    });
+        Thread movement = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(1000 / boss.getSpeed());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                Platform.runLater(() -> {
+
+                    if (!popup) {
+
+                        boss.bossMove(floor, player,allCharacters);
+                        if(!boss.getQuestGiven()&&
+                            player.getPosXBottom()==boss.getPosXBottom()&&
+                            player.getPosYBottom()==boss.getPosYBottom()){
+                            try {
+                                showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS_FIRST_TIME);
+                                boss.setQuestGiven(true);
+                                boss.setPosYBottom(4);
+                                boss.setPosXBottom(17);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                        } else if ( player.getPosXBottom()==boss.getPosXBottom()&&
+                                    player.getPosYBottom()==boss.getPosYBottom()) {
+                            try {
+                                showPopupWindowFabularEvent(FabularEvent.MEETING_BOSS);
+                                boss.setPosYBottom(4);
+                                boss.setPosXBottom(17);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+
+
+                        }
+                    }
+                });
             }
         });
         movement.start();
@@ -367,61 +352,55 @@ public class GameControler {
 
 
     public void move(Scene scene)  {
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                saveGame(keyEvent);
-                String eatingSound = "src/main/resources/com/example/crazylab/sounds/ES_Sandwich Bite 2 - SFX Producer.wav";
+        scene.setOnKeyPressed(keyEvent -> {
+            saveGame(keyEvent);
+            String eatingSound = "src/main/resources/com/example/crazylab/sounds/ES_Sandwich Bite 2 - SFX Producer.wav";
 
-                switch (keyEvent.getCode()) {
-                    case UP -> {
-                        player.moveUp(doors, floor,allCharacters);
-                        cameraOnPlayer();
-                    }
-                    case RIGHT -> {
-                        player.moveRight(doors, floor,allCharacters);
-                        cameraOnPlayer();
-                    }
-                    case LEFT -> {
-                        player.moveLeft(doors, floor,allCharacters);
-                        cameraOnPlayer();
-                    }
-                    case DOWN -> {
-                        player.moveDown(doors, floor,allCharacters);
-                        cameraOnPlayer();
-                    }
-                    case X -> {
-                        addItemIfExistToInventory();
-                        try {
-                            collectSample();
-                            takeMicroscopePicture();
-                            sequenceDNA();
-                            analyzeData();
-                            goIntoElevator();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    case Z ->{
-                        soundsPlayer.playSound(eatingSound, 0.3F);
-                        player.heal();
-                        refreshInventoryDisplay();
-                    }
-                    default -> System.out.println(keyEvent.getCode());
+            switch (keyEvent.getCode()) {
+                case UP -> {
+                    player.moveUp(doors, floor, allCharacters);
+                    cameraOnPlayer();
                 }
-                Infected opponent = player.findInfected(infected);
-                if (opponent != null) {
-                    player.fightWithInfected(player, opponent);
-                    System.out.println(opponent);
-                    popup = true;
+                case RIGHT -> {
+                    player.moveRight(doors, floor, allCharacters);
+                    cameraOnPlayer();
                 }
+                case LEFT -> {
+                    player.moveLeft(doors, floor, allCharacters);
+                    cameraOnPlayer();
+                }
+                case DOWN -> {
+                    player.moveDown(doors, floor, allCharacters);
+                    cameraOnPlayer();
+                }
+                case X -> {
+                    addItemIfExistToInventory();
+                    try {
+                        collectSample();
+                        takeMicroscopePicture();
+                        sequenceDNA();
+                        analyzeData();
+                        goIntoElevator();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                case Z -> {
+                    soundsPlayer.playSound(eatingSound, 0.3F);
+                    player.heal();
+                    refreshInventoryDisplay();
+                }
+            }
+            Infected opponent = player.findInfected(infected);
+            if (opponent != null) {
+                player.fightWithInfected(player, opponent);
+                popup = true;
             }
         });
     }
 
     public void cameraOnPlayer(){
         String stepsSound = "src/main/resources/com/example/crazylab/sounds/ES_Boots Run 2 - SFX Producer.wav";
-        String eatingSound = "src/main/resources/com/example/crazylab/sounds/ES_Sandwich Bite 2 - SFX Producer.wav";
         popup = false;
         onPlayerMove();
         soundsPlayer.playSound(stepsSound, 0.4F);
@@ -439,7 +418,7 @@ public class GameControler {
         x = Math.min(0, x);
         y = Math.min(0, y);
         x = Math.max(x, -(floor.getColumnCount() - 20));
-        y = Math.max(y, -(floor.getRowCount() - 20)); // row count is incorrect for current map
+        y = Math.max(y, -(floor.getRowCount() - 20));
 
         floor.setLayoutX(x * 32);
         floor.setLayoutY(y * 32);
@@ -465,7 +444,7 @@ public class GameControler {
     }
 
 
-    static void sceneSettings(GameControler controller, Stage stage, Scene scene) throws IOException {
+    static void sceneSettings(GameControler controller, Stage stage, Scene scene) {
         controller.move(scene);
         stage.setScene(scene);
         stage.setWidth(32 * 20);

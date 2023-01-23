@@ -4,7 +4,6 @@ import com.example.crazylab.tiles.Tiles;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Character {
     private int posXTop;
@@ -17,9 +16,7 @@ public abstract class Character {
 
     private final ArrayList<ArrayList<Integer>> disallowedFieldsFloor = Tiles.csvAsArray(
             "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_walls.csv");
-    private final ArrayList<ArrayList<Integer>>
-            disallowedFieldsFurniture = Tiles.csvAsArray(
-            "src/main/resources/com/example/crazylab/designElements/CrazyLabLvl1_furniture1.csv");
+
 
     public Character(int posXTop, int posXBottom, int posYBottom,int posYTop) throws IOException {
 
@@ -57,19 +54,6 @@ public abstract class Character {
     public int getPosYTop() {
         return posYTop;
     }
-
-
-// to dodac do dissallowed fields
-//ArrayList<Infected> infected
-//ArrayList<Coworker> coworkers
-// player.getPosXBottom
-// player.getPosyBottom
-// boss.getPosyBottom
-// boss.getPosyBottom
-
-
-
-
 
         private Boolean checkIfCharacter(int x, int y, ArrayList<Character> characters){
             for (Character character : characters) {

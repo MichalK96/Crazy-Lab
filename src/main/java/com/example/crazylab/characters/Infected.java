@@ -14,8 +14,6 @@ public class Infected extends Enemy {
     int speed = 2;
     int health = 20;
 
-
-
     ImageView imageTop = new ImageView(Tiles.getParticularImage(618));
     ImageView imageBottom = new ImageView(Tiles.getParticularImage(633));
     Boolean neutralized = false;
@@ -41,20 +39,8 @@ public class Infected extends Enemy {
         return imageTop;
     }
 
-    public void setImageTop(ImageView imageTop) {
-        this.imageTop = imageTop;
-    }
-
     public ImageView getImageBottom() {
         return imageBottom;
-    }
-
-    public void setImageBottom(ImageView imageBottom) {
-        this.imageBottom = imageBottom;
-    }
-
-    public Boolean getNeutralized() {
-        return neutralized;
     }
 
     public void setNeutralized(Boolean neutralized) {
@@ -63,10 +49,6 @@ public class Infected extends Enemy {
 
     public int getSpeed() {
         return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     private int getRandom() {
